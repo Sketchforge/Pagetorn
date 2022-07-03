@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPerspectiveChange : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool thirdPerson = false; //change this to Event later
+    public bool firstPerson = false; //change this to Event later
     [SerializeField] GameObject _thirdPersonCam;
     [SerializeField] GameObject _firstPersonCam;
     [SerializeField] MouseRotation _playerRotator;
@@ -23,9 +23,9 @@ public class PlayerPerspectiveChange : MonoBehaviour
 
     void TogglePerspective()
     {
-        thirdPerson = !thirdPerson;
+        firstPerson = !firstPerson;
 
-        if (!thirdPerson) //if not third person, make it third person.
+        if (!firstPerson) //if not third person, make it third person.
         {
             if (!_thirdPersonCam.activeSelf) //if camera is not active, activate it
                 _thirdPersonCam.SetActive(true);
@@ -39,7 +39,7 @@ public class PlayerPerspectiveChange : MonoBehaviour
             }  
         }
 
-        else if (thirdPerson) //if in third person, make it first person.
+        else if (firstPerson) //if in third person, make it first person.
         {
             if (_thirdPersonCam.activeSelf) //if 3rd-person camera is active, deactivate it
                 _thirdPersonCam.SetActive(false);
