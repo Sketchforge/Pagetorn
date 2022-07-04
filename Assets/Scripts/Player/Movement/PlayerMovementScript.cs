@@ -14,11 +14,11 @@ public class PlayerMovementScript : MonoBehaviour
     public float _defaultMoveSpeed;
     public float _moveSpeed = 12f;
     public float _slowedSpeed = 2f;
-    public float _sprintSpeed = 18f;
+    public float _sprintSpeed = 23f;
     public float _gravity = -9.81f;
     public float _jumpHeight = 3f;
     [SerializeField] AudioSource slowSteps;
-    
+
 
     [Header("Ground Check Settings")]
     public Transform groundCheck;
@@ -61,30 +61,46 @@ public class PlayerMovementScript : MonoBehaviour
 
         ResetVelocity();
 
-        Sprint();
-
         Move();
     }
 
 
 
 
-    void Sprint()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
-        {
-            _moveSpeed = _sprintSpeed;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _moveSpeed = _defaultMoveSpeed;
-        }
-    }
 
     void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
+
+        bool _isCrouching = Input.GetButton("Crouch"); //LCtrl or C
+        bool _isSprinting = Input.GetButton("Sprint"); //Shift/Z
+
+        
+        //If Sprint button is pressed, sprint!
+
+        
+        if (_isSprinting  && !_isCrouching)
+        {
+            _moveSpeed = _sprintSpeed;
+            
+        }
+
+        //If Crouch button is pressed, crouch down
+
+        else if (_isCrouching && !_isSprinting)
+        {
+            _moveSpeed = _slowedSpeed * 3;
+            controller.height = 1;
+        }
+
+        //If neither are pressed, reset.
+        else if (!_isCrouching && !isSprinting)
+        {
+            _moveSpeed = _defaultMoveSpeed;
+            controller.height = 2;
+
+        }
 
         Vector3 _viewDirection = new Vector3(x, 0f, z).normalized;
         if (_viewDirection.magnitude >= 0.1f)
@@ -98,8 +114,11 @@ public class PlayerMovementScript : MonoBehaviour
             controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
         }
 
-        //Vector3 _moveDirection = transform.right * x + transform.forward * z; //find the move direction based on axis buttons pressed times their respective transforms
         
+
+
+        //Vector3 _moveDirection = transform.right * x + transform.forward * z; //find the move direction based on axis buttons pressed times their respective transforms
+
         //Footstep code
         if (controller.isGrounded && controller.velocity.magnitude > 1f)
         {

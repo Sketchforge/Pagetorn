@@ -26,8 +26,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689774457336433058}
-  m_LocalRotation: {x: 0.11046621, y: -0.78272915, z: 0.14532185, w: 0.5949907}
-  m_LocalPosition: {x: 11.116122, y: 4.0910506, z: 3.0868542}
+  m_LocalRotation: {x: 0.110466205, y: -0.78272915, z: 0.1453218, w: 0.5949907}
+  m_LocalPosition: {x: 11.116122, y: 4.0910497, z: 3.0868542}
   m_LocalScale: {x: 1.6364202, y: 1.6364199, z: 1.6364204}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -731,6 +731,8 @@ MonoBehaviour:
   _gravity: -19.81
   _jumpHeight: 4
   slowSteps: {fileID: 0}
+  _crouchTransform: {fileID: 0}
+  _standTransform: {fileID: 0}
   groundCheck: {fileID: 1689774459053791277}
   _groundDistance: -0.4
   groundMask:
