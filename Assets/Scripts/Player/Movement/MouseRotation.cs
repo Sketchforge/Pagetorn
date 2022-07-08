@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseRotation : MonoBehaviour
@@ -18,6 +16,7 @@ public class MouseRotation : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         turn.y = Mathf.Clamp(turn.y, -90, 90);
     }
+
     void Update()
     {
         if (rotateX)
@@ -28,7 +27,5 @@ public class MouseRotation : MonoBehaviour
             turn.y = Mathf.Clamp(turn.y, -90, 90);
         }
         transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-
-       
     }
 }

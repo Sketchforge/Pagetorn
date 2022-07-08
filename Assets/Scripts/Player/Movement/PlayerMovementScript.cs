@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -25,10 +23,6 @@ public class PlayerMovementScript : MonoBehaviour
     public float _groundDistance = -0.4f; //radius of sphere
     public LayerMask groundMask; //checks for collision with the floor specifically, in case it catches player collision first, which it will
 
-    [Header("Respawn Settings")]
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform respawnPoint;
-    public bool isDead;
 
     [Header("Miscelaneous")]
     [SerializeField] AudioClip loseClip;
@@ -37,22 +31,30 @@ public class PlayerMovementScript : MonoBehaviour
     public Vector3 velocity;
     public bool isGrounded;
     bool isSprinting;
-    bool isHurt;
     public bool isOnEnemy;
-    
 
+    private bool gamePaused;
+    private bool isDead;
+
+    private void OnEnable()
+    {
+        GameManger.OnPause += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        GameManger.OnPause -= OnPause;
+    }
 
     private void Start()
     {
         _defaultMoveSpeed = _moveSpeed;
-        //currentHealth = maxHealth;
-        //healthBar.SetMaxHealth(Mathf.FloorToInt(maxHealth));
-        isDead = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (gamePaused || isDead) return;
+
         isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask); //checks for collision with floor using a small invisible sphere; returns true/false
         isOnEnemy = Physics.CheckSphere(groundCheck.position, _groundDistance, enemyMask);
         //isHurt = Physics.CheckSphere(groundCheck.position, _groundDistance, hazardMask);
@@ -64,26 +66,38 @@ public class PlayerMovementScript : MonoBehaviour
         Move();
     }
 
+    private void OnPause(bool paused)
+    {
+        gamePaused = paused;
+    }
 
+    public void OnPlayerDeath()
+    {
+        isDead = true;
+    }
 
-
+    public void OnPlayerRespawn()
+    {
+        // Note: Respawn position is handled by the Player Manager
+        isDead = false;
+        // TODO: Ensure there is no stored velocity from before death
+    }
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        float x = InputManager.GetHorizontalAxis(true);
+        float z = InputManager.GetVerticalAxis(true);
 
-        bool _isCrouching = Input.GetButton("Crouch"); //LCtrl or C
-        bool _isSprinting = Input.GetButton("Sprint"); //Shift/Z
+        bool _isCrouching = InputManager.GetCrouching(); //LCtrl or C
+        bool _isSprinting = InputManager.GetSprinting(); //Shift/Z
 
-        
+
         //If Sprint button is pressed, sprint!
 
-        
-        if (_isSprinting  && !_isCrouching)
+
+        if (_isSprinting && !_isCrouching)
         {
             _moveSpeed = _sprintSpeed;
-            
         }
 
         //If Crouch button is pressed, crouch down
@@ -99,7 +113,6 @@ public class PlayerMovementScript : MonoBehaviour
         {
             _moveSpeed = _defaultMoveSpeed;
             controller.height = 2;
-
         }
 
         Vector3 _viewDirection = new Vector3(x, 0f, z).normalized;
@@ -114,8 +127,6 @@ public class PlayerMovementScript : MonoBehaviour
             controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
         }
 
-        
-
 
         //Vector3 _moveDirection = transform.right * x + transform.forward * z; //find the move direction based on axis buttons pressed times their respective transforms
 
@@ -124,14 +135,11 @@ public class PlayerMovementScript : MonoBehaviour
         {
             if (slowSteps != null)
             {
-
                 slowSteps.volume = Random.Range(0.8f, 1);
                 slowSteps.pitch = Random.Range(0.8f, 1);
                 slowSteps.Play();
             }
         }
-
-
     }
 
     void SimulateGravity()
@@ -156,6 +164,4 @@ public class PlayerMovementScript : MonoBehaviour
             _moveSpeed = _defaultMoveSpeed;
         }
     }
-
 }
-   

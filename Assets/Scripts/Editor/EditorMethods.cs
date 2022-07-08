@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 
-public class EditorMethods : UnityEditor.Editor
+public class EditorMethods : Editor
 {
     private const string Extension = ".cs";
 

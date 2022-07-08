@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
+    [SerializeField, ReadOnly] private bool _active;
+
     [Header("My Stats")]
     [SerializeField] float _health = 100f; //to be replaced with reference to general Health/Damageable script.
     [SerializeField] float _attackDamage = 1f;
@@ -30,26 +30,37 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] AudioClip _attackSound;
 
     [Header("Necessary Data")]
-    private Player _player; //do I need this if player is Singleton?
+    private PlayerManager _playerManager; //do I need this if player is Singleton?
     Transform _target;
     NavMeshAgent _agent;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _target = PlayerManager.instance.player.transform;
-        Debug.Log(_target);
         _agent = GetComponent<NavMeshAgent>();
-
-        _agent.speed = _moveSpeed;
-        
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        GameManger.OnPause += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        GameManger.OnPause -= OnPause;
+    }
+
+    void Start()
+    {
+        _target = PlayerManager.Instance.Player;
+        Debug.Log(_target);
+
+        _agent.speed = _moveSpeed;
+    }
+
     void Update()
     {
+        if (!_active) return;
+
         float distance = Vector3.Distance(_target.position, transform.position);
 
         if (distance <= _rangeOfVision)
@@ -63,6 +74,14 @@ public class EnemyBase : MonoBehaviour
                 FaceTarget();
             }
         }
+    }
+
+    private void OnPause(bool paused)
+    {
+        _active = !paused;
+        _agent.enabled = !paused;
+
+        // BUG: Sometimes this makes the enemy fall through the floor?
     }
 
     void FaceTarget()

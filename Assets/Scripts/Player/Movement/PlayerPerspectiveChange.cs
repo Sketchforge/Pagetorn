@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPerspectiveChange : MonoBehaviour
@@ -36,7 +34,7 @@ public class PlayerPerspectiveChange : MonoBehaviour
             if (_headRotator.rotateX == false)
             {
                 _headRotator.rotateX = true;
-            }  
+            }
         }
 
         else if (firstPerson) //if in third person, make it first person.
@@ -53,7 +51,6 @@ public class PlayerPerspectiveChange : MonoBehaviour
                 _firstPersonCam.transform.position = _headRotator.transform.position;
                 _headRotator.rotateX = false;
             }
-            
         }
     }
 }

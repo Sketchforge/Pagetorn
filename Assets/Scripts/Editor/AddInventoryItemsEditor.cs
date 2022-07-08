@@ -1,14 +1,7 @@
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
-[CreateAssetMenu(menuName = "Pagetorn/Editor/Add Inventory Items")]
-public class AddInventoryItems : ScriptableObject
-{
-    public List<string> InventoryItems;
-}
-
-#if UNITY_EDITOR
 [CustomEditor(typeof(AddInventoryItems))]
 public class AddInventoryItemsEditor : Editor
 {
