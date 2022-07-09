@@ -33,10 +33,12 @@ public class EnemyBase : MonoBehaviour
     private PlayerManager _playerManager; //do I need this if player is Singleton?
     Transform _target;
     NavMeshAgent _agent;
+    private Rigidbody _myRb;
 
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _myRb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -80,6 +82,13 @@ public class EnemyBase : MonoBehaviour
     {
         _active = !paused;
         _agent.enabled = !paused;
+        if (_myRb)
+        {
+            if (paused)
+                _myRb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            else if (!paused)
+                _myRb.constraints = RigidbodyConstraints.None;
+        }
 
         // BUG: Sometimes this makes the enemy fall through the floor?
     }

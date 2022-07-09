@@ -11,6 +11,18 @@ public class MouseRotation : MonoBehaviour
     public bool rotateX = true;
     public bool rotateY = true;
 
+    private bool gamePaused;
+
+    private void OnEnable()
+    {
+        GameManger.OnPause += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        GameManger.OnPause -= OnPause;
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -19,6 +31,8 @@ public class MouseRotation : MonoBehaviour
 
     void Update()
     {
+        if (gamePaused) return;
+
         if (rotateX)
             turn.x += Input.GetAxis("Mouse X") * xSensitivity;
         if (rotateY)
@@ -27,5 +41,10 @@ public class MouseRotation : MonoBehaviour
             turn.y = Mathf.Clamp(turn.y, -90, 90);
         }
         transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+    }
+
+    private void OnPause(bool paused)
+    {
+        gamePaused = paused;
     }
 }
