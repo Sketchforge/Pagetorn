@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4795086908768322801}
   - component: {fileID: 4795086908768322802}
   - component: {fileID: 4795086908768322804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd866203a943f474d8c218ac7b66d21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _active: 0
   _health: 100
   _attackDamage: 1
   _moveSpeed: 5
@@ -109,7 +110,7 @@ GameObject:
   - component: {fileID: 4795086909050498070}
   - component: {fileID: 4795086909050498068}
   - component: {fileID: 4795086909050498069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
