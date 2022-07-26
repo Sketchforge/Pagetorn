@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Inventory")]
 public class Inventory : ScriptableObject
 {
-    [SerializeField] private List<ItemAmount> _heldItems;
+    //[SerializeField] private List<ItemAmount> _heldItems;
 
 
     // Need to determine whether Buildings, Tools, etc. are items in inventory

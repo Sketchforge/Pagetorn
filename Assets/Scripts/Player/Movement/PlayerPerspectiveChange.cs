@@ -9,17 +9,7 @@ public class PlayerPerspectiveChange : MonoBehaviour
     [SerializeField] MouseRotation _playerRotator;
     [SerializeField] MouseRotation _headRotator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //Debug.Log("Changed P");
-            TogglePerspective();
-        }
-    }
-
-    void TogglePerspective()
+    public void TogglePerspective()
     {
         firstPerson = !firstPerson;
 

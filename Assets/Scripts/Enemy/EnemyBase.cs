@@ -43,12 +43,12 @@ public class EnemyBase : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManger.OnPause += OnPause;
+        GameManager.OnPause += OnPause;
     }
 
     private void OnDisable()
     {
-        GameManger.OnPause -= OnPause;
+        GameManager.OnPause -= OnPause;
     }
 
     void Start()
