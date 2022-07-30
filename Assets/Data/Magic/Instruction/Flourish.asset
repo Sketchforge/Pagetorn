@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
+  m_Name: Flourish
+  m_EditorClassIdentifier: 
+  _magicName: 
+  _type: 2
+  _description: A book on botany. Water plants and grow them 1 stage. Affects 3 nearby
+    plants. 3 pages.
+  _sprite: {fileID: 0}
+  _canAttack: 0
+  _canDefend: 0
+  _canDamage: 0
+  _damage: 1
+  _hasKnockback: 0
+  _canHeal: 0
+  _heal: 1
+  _canMitigate: 0
+  _mitigation: 1
+  _pageAmount: 3
+  _isAOE: 1
+  _aoeSize: 5
+  _aoePotency: 1
+  _isTimed: 0
+  _time: 50
