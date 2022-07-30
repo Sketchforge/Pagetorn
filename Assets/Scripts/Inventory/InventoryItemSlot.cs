@@ -16,6 +16,7 @@ public class InventoryItemSlot : MonoBehaviour
     public Action OnItemUpdate = delegate { };
 
     public bool HasItem => _item != null;
+    public Item Item => _item;
     public (Item, int) GetItem() => (_item, _amount);
     public bool AllowsItem(Item item) => !_filterItemType || _filter == item.Type;
 

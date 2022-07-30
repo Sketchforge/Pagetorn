@@ -16,4 +16,5 @@ public enum ItemType
     // Other
     Basic = 20,
     Crafting = 21,
+    Consumables = 22,
 }

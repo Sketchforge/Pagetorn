@@ -11,9 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerMovementScript _movementScript;
     [SerializeField] private PlayerActionManager _playerActionManager;
 
-    [SerializeField, DrawSO] private SurvivalStat _health;
-    [SerializeField, DrawSO] private SurvivalStat _hunger;
-    [SerializeField, DrawSO] private SurvivalStat _hydration;
+    [SerializeField, DrawSO] private Survival _survival;
 
     [SerializeField, DrawSO] private Magic _magic;
 
@@ -33,21 +31,17 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.OnReachZero += KillPlayer;
-        _hunger.OnReachZero += KillPlayer;
-        _hydration.OnReachZero += KillPlayer;
+        _survival.OnStatsChanged += CheckPlayerSurvival;
     }
 
     private void OnDisable()
     {
-        _health.OnReachZero -= KillPlayer;
-        _hunger.OnReachZero -= KillPlayer;
-        _hydration.OnReachZero -= KillPlayer;
+        _survival.OnStatsChanged -= CheckPlayerSurvival;
     }
 
     private void Start()
     {
-        ResetPlayer();
+        _survival.SetAllMax();
     }
 
     private void OnValidate()
@@ -100,13 +94,11 @@ public class PlayerManager : MonoBehaviour
         var rot = _respawnPoint ? _respawnPoint.rotation : Quaternion.identity;
         Player.SetPositionAndRotation(pos, rot);
         _movementScript.OnPlayerRespawn();
-        ResetPlayer();
+        _survival.SetAllMax();
     }
 
-    private void ResetPlayer()
+    private void CheckPlayerSurvival()
     {
-        _health.SetToMax();
-        _hunger.SetToMax();
-        _hydration.SetToMax();
+        if (_survival.AnyStatDead()) KillPlayer();
     }
 }

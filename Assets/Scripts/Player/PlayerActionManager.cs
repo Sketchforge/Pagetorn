@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class PlayerActionManager : MonoBehaviour
     // The hub that translates Player Input to all other scripts in the game
     
     [SerializeField] private bool _logInput;
+    [SerializeField] private bool _logMovement;
     [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] private PlayerState _playerState;
     [SerializeField] private PlayerMovementScript _movement;
@@ -22,6 +24,7 @@ public class PlayerActionManager : MonoBehaviour
 
     public void Move(Vector2 moveDir)
     {
+        if (_logMovement) Debug.Log("Move: " + moveDir, gameObject);
         _movement.SetMoveDir(moveDir);
     }
 
@@ -45,22 +48,50 @@ public class PlayerActionManager : MonoBehaviour
 
     public void Look(Vector2 look)
     {
+        if (_logMovement) Debug.Log("Look: " + look, gameObject);
         _lookBodyRotation.SetLookDir(look);
         _lookRotation.SetLookDir(look);
     }
 
     public void TogglePerspective()
     {
+        LogInput("Toggle Perspective");
     }
 
     public void Attack()
     {
         LogInput("Attack");
+        var itemInHand = CanvasController.ToolbarManager.SelectedItem;
+        switch (itemInHand.Type)
+        {
+            case ItemType.Blade:
+            case ItemType.Hammer:
+            case ItemType.Tool:
+                // Try to attack with weapon
+                break;
+            default:
+                // Basic / weak attack with item in hand?
+                break;
+        }
     }
 
     public void Interact()
     {
         LogInput("Interact");
+        var itemInHand = CanvasController.ToolbarManager.SelectedItem;
+        switch (itemInHand.Type)
+        {
+            case ItemType.Tool:
+                // Try to use tool
+                break;
+            case ItemType.Consumables:
+                // Consume
+                break;
+            default:
+                // Check for interaction with world
+                break;
+        }
+        // Maybe some items can be placed as well?
     }
 
     public void OpenPauseMenu()

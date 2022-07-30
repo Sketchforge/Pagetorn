@@ -7,6 +7,8 @@ public class ToolbarManager : MonoBehaviour
 {
     [SerializeField] private List<InventoryItemSlot> _slots = new List<InventoryItemSlot>();
 
+    public Item SelectedItem => _slots[_selectedItem].Item;
+
     private int _selectedItem;
 
     private void Start()

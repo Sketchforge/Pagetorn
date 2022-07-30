@@ -4580,7 +4580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 1602847523}
   _displayText: {fileID: 379681949}
-  _stat: {fileID: 11400000, guid: 41b5ea61dcef20d49b42768cc58ac00e, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 2
 --- !u!1001 &871304838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4980,7 +4981,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 1861270159}
   _displayText: {fileID: 1533771419}
-  _stat: {fileID: 11400000, guid: ff0de3c0b5605b84facfcf21594228c1, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 0
 --- !u!1 &921004521
 GameObject:
   m_ObjectHideFlags: 0
@@ -6907,7 +6909,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 414766998}
   _displayText: {fileID: 539718897}
-  _stat: {fileID: 11400000, guid: 41b5ea61dcef20d49b42768cc58ac00e, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 2
 --- !u!1 &1190695788
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,7 +7039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 363888260}
   _displayText: {fileID: 30140254}
-  _stat: {fileID: 11400000, guid: ff0de3c0b5605b84facfcf21594228c1, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 0
 --- !u!1 &1245010018
 GameObject:
   m_ObjectHideFlags: 0
@@ -8564,7 +8568,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 646259742}
   _displayText: {fileID: 87987666}
-  _stat: {fileID: 11400000, guid: 1694b2af3672c8641a28db82b2e6c1ef, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 1
 --- !u!1 &1599283975
 GameObject:
   m_ObjectHideFlags: 0
@@ -9194,6 +9199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _logInput: 1
+  _logMovement: 0
   _logState: 0
   _playerState: 0
   _movement: {fileID: 1738091252}
@@ -9214,9 +9220,7 @@ MonoBehaviour:
   _player: {fileID: 1738091256}
   _movementScript: {fileID: 1738091252}
   _playerActionManager: {fileID: 1713219308}
-  _health: {fileID: 11400000, guid: ff0de3c0b5605b84facfcf21594228c1, type: 2}
-  _hunger: {fileID: 11400000, guid: 1694b2af3672c8641a28db82b2e6c1ef, type: 2}
-  _hydration: {fileID: 11400000, guid: 41b5ea61dcef20d49b42768cc58ac00e, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
   _magic: {fileID: 11400000, guid: 3f7edf98b0c09434cb76ab81d064ea89, type: 2}
   _respawnPoint: {fileID: 0}
   _isDead: 0
@@ -9750,7 +9754,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 637770179}
   _displayText: {fileID: 1040808153}
-  _stat: {fileID: 11400000, guid: 1694b2af3672c8641a28db82b2e6c1ef, type: 2}
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _stat: 1
 --- !u!114 &1853553446 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7517947909265720409, guid: 885992797d33093499734415a3d6275d, type: 3}
