@@ -20,7 +20,8 @@ public enum MagicType
     Fix = 21,
     */
 
-    Attack = 0,
-    Defense = 1,
-    Instruction = 2,
+    FireAttack = 0,
+    LightningAttack = 1,
+    Defense = 2,
+    Instruction = 3,
 }

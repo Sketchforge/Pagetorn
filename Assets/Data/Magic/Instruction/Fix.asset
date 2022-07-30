@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
   m_Name: Fix
   m_EditorClassIdentifier: 
-  _magicName: 
+  _magicName: Fix
   _type: 2
-  _description: A book on carpentry. Fixes buildings without using materials. 5 pages.
+  _description: A book on carpentry. Fixes buildings without using materials. 1200kp,
+    5 pages.
   _sprite: {fileID: 0}
+  _knowledgePoints: 1200
+  _pageAmount: 5
   _canAttack: 0
   _canDefend: 0
+  _canInstruct: 1
   _canDamage: 0
   _damage: 1
   _hasKnockback: 0
@@ -25,9 +29,8 @@ MonoBehaviour:
   _heal: 1
   _canMitigate: 0
   _mitigation: 1
-  _pageAmount: 5
   _isAOE: 0
   _aoeSize: 5
   _aoePotency: 1
   _isTimed: 0
-  _time: 50
+  _duration: 50

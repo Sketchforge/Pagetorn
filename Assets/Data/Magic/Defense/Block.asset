@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
   m_Name: Block
   m_EditorClassIdentifier: 
-  _magicName: 
+  _magicName: Block
   _type: 1
   _description: A book on defensive positions in karate that reduces incoming damage,
-    by 20% for 20 minutes. 1 page.
+    by 20% for 20 minutes. 100kp, 1 page.
   _sprite: {fileID: 0}
+  _knowledgePoints: 100
+  _pageAmount: 1
   _canAttack: 0
   _canDefend: 1
+  _canInstruct: 0
   _canDamage: 0
   _damage: 1
   _hasKnockback: 0
@@ -26,9 +29,8 @@ MonoBehaviour:
   _heal: 1
   _canMitigate: 1
   _mitigation: 20
-  _pageAmount: 1
   _isAOE: 0
   _aoeSize: 1
   _aoePotency: 1
   _isTimed: 1
-  _time: 20
+  _duration: 50
