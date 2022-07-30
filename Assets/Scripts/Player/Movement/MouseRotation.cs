@@ -13,33 +13,35 @@ public class MouseRotation : MonoBehaviour
 
     private bool gamePaused;
 
+    private Vector2 _lookDir;
+
     private void OnEnable()
     {
-        GameManger.OnPause += OnPause;
+        GameManager.OnPause += OnPause;
     }
 
     private void OnDisable()
     {
-        GameManger.OnPause -= OnPause;
+        GameManager.OnPause -= OnPause;
     }
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        turn.y = Mathf.Clamp(turn.y, -90, 90);
-    }
+    public void SetLookDir(Vector2 lookDir) => _lookDir = lookDir;
 
-    void Update()
+    private void Update()
     {
         if (gamePaused) return;
 
         if (rotateX)
-            turn.x += Input.GetAxis("Mouse X") * xSensitivity;
+        {
+            turn.x += _lookDir.x * xSensitivity;
+            turn.x %= 360;
+        }
         if (rotateY)
         {
-            turn.y += Input.GetAxis("Mouse Y") * ySensitivity;
+            turn.y += _lookDir.y * ySensitivity;
             turn.y = Mathf.Clamp(turn.y, -90, 90);
         }
+        _lookDir = Vector2.zero;
         transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
     }
 

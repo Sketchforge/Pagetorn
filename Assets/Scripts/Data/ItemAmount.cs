@@ -1,6 +1,12 @@
 [System.Serializable]
-public class ItemAmount
+public struct ItemAmount
 {
-    public InventoryItems Item;
-    public int Amount = 1;
+    public Item Item;
+    public int Amount;
+
+    public ItemAmount(int amount = 1, Item item = null)
+    {
+        Item = item;
+        Amount = amount;
+    }
 }

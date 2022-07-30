@@ -19,6 +19,7 @@ public class SurvivalStat : ScriptableObject
         OnChange?.Invoke(_value);
     }
 
+    [Button]
     public void Increase(float amount)
     {
         _value += amount;
@@ -26,6 +27,7 @@ public class SurvivalStat : ScriptableObject
         OnChange?.Invoke(_value);
     }
 
+    [Button]
     public void Decrease(float amount)
     {
         _value -= amount;

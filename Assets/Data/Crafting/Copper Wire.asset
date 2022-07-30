@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32381166b3f5d9d49b88a4df78e56a6f, type: 3}
+  m_Name: Copper Wire
+  m_EditorClassIdentifier: 
+  _output:
+    Item: {fileID: 11400000, guid: f1a9b0cc0ec3938489d3b5b02aa4a3bc, type: 2}
+    Amount: 1
+  _ingredients:
+  - Item: {fileID: 11400000, guid: 9dfc8ad738f74e9428879fdd61d974e0, type: 2}
+    Amount: 2

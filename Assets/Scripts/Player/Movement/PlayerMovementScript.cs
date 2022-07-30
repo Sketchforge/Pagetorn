@@ -30,20 +30,24 @@ public class PlayerMovementScript : MonoBehaviour
 
     public Vector3 velocity;
     public bool isGrounded;
-    bool isSprinting;
     public bool isOnEnemy;
 
     private bool gamePaused;
     private bool isDead;
 
+    private Vector2 _moveDir;
+    private bool _isSprinting;
+    private bool _isCrouching;
+    private bool _willJumpThisFrame;
+
     private void OnEnable()
     {
-        GameManger.OnPause += OnPause;
+        GameManager.OnPause += OnPause;
     }
 
     private void OnDisable()
     {
-        GameManger.OnPause -= OnPause;
+        GameManager.OnPause -= OnPause;
     }
 
     private void Start()
@@ -51,7 +55,7 @@ public class PlayerMovementScript : MonoBehaviour
         _defaultMoveSpeed = _moveSpeed;
     }
 
-    void Update()
+    private void Update()
     {
         if (gamePaused || isDead) return;
 
@@ -65,6 +69,11 @@ public class PlayerMovementScript : MonoBehaviour
 
         Move();
     }
+
+    public void SetMoveDir(Vector2 moveDir) => _moveDir = moveDir;
+    public void SetToJump() => _willJumpThisFrame = true;
+    public void SetSprinting(bool sprinting) => _isSprinting = sprinting;
+    public void SetCrouching(bool crouching) => _isCrouching = crouching;
 
     private void OnPause(bool paused)
     {
@@ -85,13 +94,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Move()
     {
-        float x = InputManager.GetHorizontalAxis(true);
-        float z = InputManager.GetVerticalAxis(true);
-
-        bool _isCrouching = InputManager.GetCrouching(); //LCtrl or C
-        bool _isSprinting = InputManager.GetSprinting(); //Shift/Z
-
-
+        
         //If Sprint button is pressed, sprint!
 
 
@@ -109,13 +112,13 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         //If neither are pressed, reset.
-        else if (!_isCrouching && !isSprinting)
+        else if (!_isCrouching && !this._isSprinting)
         {
             _moveSpeed = _defaultMoveSpeed;
             controller.height = 2;
         }
 
-        Vector3 _viewDirection = new Vector3(x, 0f, z).normalized;
+        Vector3 _viewDirection = new Vector3(_moveDir.x, 0f, _moveDir.y).normalized;
         if (_viewDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(_viewDirection.x, _viewDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -146,11 +149,12 @@ public class PlayerMovementScript : MonoBehaviour
     {
         velocity.y += _gravity * Time.deltaTime; //need a velocity variable to simulate real gravity
         controller.Move(velocity * Time.deltaTime); //multiply times deltaTime twice, as is shown on velocity equation
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (_willJumpThisFrame && isGrounded)
         {
             velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity); //force required to jump according to physics. (Square root of jump height x (-2) x gravity)
             _moveSpeed = _sprintSpeed;
         }
+        _willJumpThisFrame = false;
     }
 
     void ResetVelocity()

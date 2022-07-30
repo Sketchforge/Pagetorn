@@ -5,16 +5,16 @@ public class PlayerManager : MonoBehaviour
     // Handles Player Death, Survival Stats, Special Events, etc. Serves mainly as a reference point for player-related components
 
     public static PlayerManager Instance;
+    public static PlayerActionManager Actions => Instance._playerActionManager;
 
     [SerializeField] private Transform _player;
     [SerializeField] private PlayerMovementScript _movementScript;
-    [SerializeField] private PlayerActions _playerActions;
+    [SerializeField] private PlayerActionManager _playerActionManager;
 
     [SerializeField, DrawSO] private SurvivalStat _health;
     [SerializeField, DrawSO] private SurvivalStat _hunger;
     [SerializeField, DrawSO] private SurvivalStat _hydration;
 
-    [SerializeField, DrawSO] private Inventory _inventory;
     [SerializeField, DrawSO] private Magic _magic;
 
     [SerializeField] private Transform _respawnPoint;
@@ -45,6 +45,11 @@ public class PlayerManager : MonoBehaviour
         _hydration.OnReachZero -= KillPlayer;
     }
 
+    private void Start()
+    {
+        ResetPlayer();
+    }
+
     private void OnValidate()
     {
         if (_movementScript == null)
@@ -64,15 +69,15 @@ public class PlayerManager : MonoBehaviour
             _player = transform.Find("Player");
             if (_player == null) _player = _movementScript ? _movementScript.transform : transform;
         }
-        if (_playerActions == null)
+        if (_playerActionManager == null)
         {
-            _playerActions = GetComponent<PlayerActions>();
-            if (_playerActions == null)
+            _playerActionManager = GetComponent<PlayerActionManager>();
+            if (_playerActionManager == null)
             {
-                _playerActions = GetComponentInChildren<PlayerActions>();
-                if (_playerActions == null)
+                _playerActionManager = GetComponentInChildren<PlayerActionManager>();
+                if (_playerActionManager == null)
                 {
-                    _playerActions = FindObjectOfType<PlayerActions>();
+                    _playerActionManager = FindObjectOfType<PlayerActionManager>();
                 }
             }
         }
@@ -95,11 +100,6 @@ public class PlayerManager : MonoBehaviour
         var rot = _respawnPoint ? _respawnPoint.rotation : Quaternion.identity;
         Player.SetPositionAndRotation(pos, rot);
         _movementScript.OnPlayerRespawn();
-        ResetPlayer();
-    }
-
-    private void Start()
-    {
         ResetPlayer();
     }
 
