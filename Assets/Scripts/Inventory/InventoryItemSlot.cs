@@ -8,6 +8,8 @@ public class InventoryItemSlot : MonoBehaviour
 {
     [SerializeField] private Image _slot;
     [SerializeField] private GameObject _selected;
+    [SerializeField] private bool _filterItemType;
+    [SerializeField, ShowIf("_filterItemType")] private ItemType _filter;
     [SerializeField] private Item _item;
     [SerializeField] private int _amount;
     
@@ -15,6 +17,7 @@ public class InventoryItemSlot : MonoBehaviour
 
     public bool HasItem => _item != null;
     public (Item, int) GetItem() => (_item, _amount);
+    public bool AllowsItem(Item item) => !_filterItemType && _filter == item.Type;
 
     [Button]
     public void UpdateItemSlot()

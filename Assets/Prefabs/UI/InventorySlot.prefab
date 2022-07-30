@@ -265,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slot: {fileID: 1342625822149158935}
   _selected: {fileID: 6413871621801825249}
+  _filter: -1
   _item: {fileID: 0}
   _amount: 0
 --- !u!1 &1342625822149158933
