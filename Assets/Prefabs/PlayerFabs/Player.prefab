@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1689774457336433057}
   - component: {fileID: 1689774457336433056}
   - component: {fileID: 1689774457336433059}
-  - component: {fileID: 1689774457336433086}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -26,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689774457336433058}
-  m_LocalRotation: {x: 0.110466205, y: -0.78272915, z: 0.1453218, w: 0.5949907}
-  m_LocalPosition: {x: 11.116122, y: 4.0910497, z: 3.0868542}
-  m_LocalScale: {x: 1.6364202, y: 1.6364199, z: 1.6364204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1689774457818522139}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 9.346, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1689774457336433056
 Camera:
   m_ObjectHideFlags: 0
@@ -85,40 +84,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689774457336433058}
   m_Enabled: 1
---- !u!114 &1689774457336433086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689774457336433058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1689774457405239502
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +335,7 @@ MonoBehaviour:
   ySensitivity: 2.21
   deltaMove: {x: 0, y: 0, z: 0}
   speed: 1
-  rotateX: 1
+  rotateX: 0
   rotateY: 1
 --- !u!1 &1689774457819543848
 GameObject:
@@ -676,7 +641,6 @@ GameObject:
   - component: {fileID: 1689774458834026586}
   - component: {fileID: 1689774458834026589}
   - component: {fileID: 1689774458834026583}
-  - component: {fileID: 1689774458834026580}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -725,22 +689,17 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   controller: {fileID: 1689774458834026589}
   _defaultMoveSpeed: 0
-  _moveSpeed: 12
-  _slowedSpeed: 2
-  _sprintSpeed: 18
-  _gravity: -19.81
-  _jumpHeight: 4
+  _moveSpeed: 4
+  _slowedSpeed: 1.5
+  _sprintSpeed: 23
+  _gravity: -9.81
+  _jumpHeight: 1
   slowSteps: {fileID: 0}
-  _crouchTransform: {fileID: 0}
-  _standTransform: {fileID: 0}
   groundCheck: {fileID: 1689774459053791277}
   _groundDistance: -0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  player: {fileID: 0}
-  respawnPoint: {fileID: 0}
-  isDead: 0
   loseClip: {fileID: 0}
   enemyMask:
     serializedVersion: 2
@@ -773,35 +732,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689774458834026588}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f6fb57a6620a8e41b0119691afd5ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   turn: {x: 0, y: 0}
-  xSensitivity: 2.3
+  xSensitivity: 1
   ySensitivity: 0.5
   deltaMove: {x: 0, y: 0, z: 0}
   speed: 1
   rotateX: 1
   rotateY: 0
---- !u!114 &1689774458834026580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689774458834026588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e07f2293824331488911f243282b5bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstPerson: 0
-  _thirdPersonCam: {fileID: 0}
-  _firstPersonCam: {fileID: 1689774457336433058}
-  _playerRotator: {fileID: 1689774458834026583}
-  _headRotator: {fileID: 1689774457818522136}
 --- !u!1 &1689774459053791276
 GameObject:
   m_ObjectHideFlags: 0

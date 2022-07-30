@@ -10,6 +10,7 @@ public class PlayerInputManager : MonoBehaviour
     // See PlayerActionManager for all implementations
     
     [SerializeField] private bool _reverseScrollDirection;
+    [SerializeField] private float _mouseSensitivity = 1;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private PlayerActionManager _actions;
     
@@ -38,7 +39,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnLook(InputValue value)
     {
-        if (InGame) _actions.Look(value.Get<Vector2>());
+        if (InGame) _actions.Look(value.Get<Vector2>() * _mouseSensitivity);
     }
 
     private void OnTogglePerspective()

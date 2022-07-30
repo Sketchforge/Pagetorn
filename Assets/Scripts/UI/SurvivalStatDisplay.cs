@@ -11,6 +11,7 @@ public class SurvivalStatDisplay : MonoBehaviour
     private void OnEnable()
     {
         _stat.OnChange += UpdateStat;
+        UpdateStat(_stat.Value);
     }
 
     private void OnDisable()

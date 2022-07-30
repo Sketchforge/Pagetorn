@@ -77,6 +77,7 @@ public class InventoryManager : MonoBehaviour
     // Swap item from Inventory UI
     private void SwapItem(InventoryItemSlot slot)
     {
+        if (!slot.AllowsItem(_heldItem)) return;
         (_heldItem, _heldItemAmount) = slot.SwapItem(_heldItem, _heldItemAmount);
         UpdateHeldItem();
     }
@@ -91,6 +92,7 @@ public class InventoryManager : MonoBehaviour
     }
     private void PlaceItem(InventoryItemSlot slot)
     {
+        if (!slot.AllowsItem(_heldItem)) return;
         slot.InsertItem(_heldItem, _heldItemAmount);
         _heldItem = null;
         _heldItemAmount = 0;

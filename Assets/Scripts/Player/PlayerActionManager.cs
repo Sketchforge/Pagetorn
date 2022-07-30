@@ -10,8 +10,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField, ReadOnly] private PlayerState _playerState;
     [SerializeField] private PlayerMovementScript _movement;
     [SerializeField] private MouseRotation _lookRotation;
-    [SerializeField] private PlayerPerspectiveChange _perspective;
-    [SerializeField] private CinemachineInputProvider _cameraInput;
+    [SerializeField] private MouseRotation _lookBodyRotation;
     
     public PlayerState State => _playerState;
     private bool InGame => State == PlayerState.InGame;
@@ -46,12 +45,12 @@ public class PlayerActionManager : MonoBehaviour
 
     public void Look(Vector2 look)
     {
+        _lookBodyRotation.SetLookDir(look);
         _lookRotation.SetLookDir(look);
     }
 
     public void TogglePerspective()
     {
-        _perspective.TogglePerspective();
     }
 
     public void Attack()
@@ -115,7 +114,6 @@ public class PlayerActionManager : MonoBehaviour
             TrySetState(PlayerState.InGame);
         }
         Cursor.lockState = InGame ? CursorLockMode.Locked : CursorLockMode.None;
-        _cameraInput.enabled = InGame;
         if (!InGame)
         {
             _movement.SetMoveDir(Vector2.zero);

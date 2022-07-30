@@ -17,7 +17,7 @@ public class InventoryItemSlot : MonoBehaviour
 
     public bool HasItem => _item != null;
     public (Item, int) GetItem() => (_item, _amount);
-    public bool AllowsItem(Item item) => !_filterItemType && _filter == item.Type;
+    public bool AllowsItem(Item item) => !_filterItemType || _filter == item.Type;
 
     [Button]
     public void UpdateItemSlot()
