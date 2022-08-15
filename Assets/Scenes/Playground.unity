@@ -12895,7 +12895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2680b54d4dfc643a79c349309e8aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logInput: 1
+  _logInput: 0
   _logMovement: 0
   _logState: 0
   _playerState: 0
@@ -14067,7 +14067,7 @@ PrefabInstance:
     - target: {fileID: 7517947909265720409, guid: 885992797d33093499734415a3d6275d, type: 3}
       propertyPath: _item
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 00431b6fd0a38b14eb80ed7953b767d3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 885992797d33093499734415a3d6275d, type: 3}
 --- !u!224 &1857418270 stripped

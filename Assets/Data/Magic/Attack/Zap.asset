@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
   m_Name: Zap
   m_EditorClassIdentifier: 
-  _magicName: Zap
-  _type: 0
+  _itemName: 
+  _type: 23
   _description: 'A book on Nikolai Tesla.
 
     Shoots a ray of lightning that links
     to nearby targets, and applies knockback. 30 damage, 800kp, 3 pages.'
   _sprite: {fileID: 0}
+  _canStack: 0
+  _stackAmount: 99
+  _magicType: 0
   _knowledgePoints: 800
   _pageAmount: 3
   _canAttack: 1

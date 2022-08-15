@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
 
     public Transform Player => _player;
     public bool Dead => _isDead;
+    public Survival Survival => _survival;
 
     #region Unity Functions
 

@@ -1,13 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Magic")]
-public class Magic : ScriptableObject
+public class Magic : Item
 {
     [Header("Basic Magic Info")]
-    [SerializeField, ReadOnly] private string _magicName;
-    [SerializeField] private MagicType _type;
-    [SerializeField, TextArea] private string _description = "";
-    [SerializeField] private Sprite _sprite;
+    [SerializeField] private MagicType _magicType;
     [SerializeField] private int _knowledgePoints = 10;
     [SerializeField] private int _pageAmount = 1;
     [SerializeField, ReadOnly] private bool _canAttack;
@@ -38,10 +35,9 @@ public class Magic : ScriptableObject
 
 
     // Public Variable Storage
-    public string MagicName => _magicName;
-    public MagicType Type => _type;
+    public string MagicName => ItemName;
+    public MagicType MagicType => _magicType;
     public int KnowledgePoints => _knowledgePoints;
-    public Sprite Sprite => _sprite;
     public int PageAmount => _pageAmount;
 
     /*public bool CanAttack => _canAttack;
@@ -65,16 +61,21 @@ public class Magic : ScriptableObject
     public bool IsTimed => _isTimed;
     public float Duration => _isTimed ? _duration : 0;
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
-        _magicName = name.Replace("SC", "SoftCover").Replace("HC", "HardCover").Replace(" ", "");
+        base.OnValidate();
         _canAttack = (IsAttack);
         _canDefend = (IsDefense);
         _canInstruct = (IsInstruction);
     }
 
-    public bool IsAttack => _type is MagicType.Attack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
-    public bool IsDefense => _type is MagicType.Defense /*MagicType.Heal or MagicType.Block or MagicType.Dodge or MagicType.Speed*/;
-    public bool IsInstruction => _type is MagicType.Instruction /*MagicType.Flourish or MagicType.Fix*/;
+    public bool IsAttack => _magicType is MagicType.Attack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
+    public bool IsDefense => _magicType is MagicType.Defense /*MagicType.Heal or MagicType.Block or MagicType.Dodge or MagicType.Speed*/;
+    public bool IsInstruction => _magicType is MagicType.Instruction /*MagicType.Flourish or MagicType.Fix*/;
 
+    public void CastSpell()
+    {
+        // TODO: Cast
+        Debug.Log($"Casting {MagicName}");
+    }
 }

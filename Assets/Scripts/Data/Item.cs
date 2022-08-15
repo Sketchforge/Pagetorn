@@ -17,7 +17,7 @@ public class Item : ScriptableObject
     public bool CanStack => _canStack;
     public int StackAmount => _canStack ? _stackAmount : 1;
 
-    private void OnValidate()
+    protected virtual void OnValidate()
     {
         _itemName = name.Replace("SC", "SoftCover").Replace("HC", "HardCover").Replace(" ", "");
         _canStack = !(IsArmor || IsToolOrWeapon);
