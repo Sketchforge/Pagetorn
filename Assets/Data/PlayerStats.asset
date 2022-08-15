@@ -21,4 +21,4 @@ MonoBehaviour:
   _hydration: 100
   _hydrationLowThreshold: 20
   _maxHydration: 100
-  _magicLevel: 0
+  _knowledgePoints: 5

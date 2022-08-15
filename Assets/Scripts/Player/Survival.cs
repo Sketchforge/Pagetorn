@@ -22,8 +22,9 @@ public class Survival : ScriptableObject
     [SerializeField] private float _maxHydration = 100;
     
     [Header("Magic")]
-    [SerializeField] private float _magicLevel;
-    
+    //[SerializeField] private float _magicLevel = 0; // you know, just in case :)
+    [SerializeField] private float _knowledgePoints = 0;
+
     public Action OnStatsChanged = delegate { };
 
     #if UNITY_EDITOR
