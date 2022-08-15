@@ -1,21 +1,27 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField, ReadOnly] protected bool _active;
 
     [Header("My Stats")]
-    [SerializeField] private EnemyData data;
-    [SerializeField] float _health;
-    [SerializeField] float _attackDamage;
-    [SerializeField] float _moveSpeed;
-    [SerializeField] float _rateOfAttack;
+    [SerializeField] float _maxHealth = 100f;
+    [SerializeField] protected float _attackDamage = 10f;
+    [SerializeField] float _moveSpeed = 5f;
+    [SerializeField] protected float _rateOfAttack = 2f;
+    [SerializeField] protected int _numberGloopsEaten = 0;
 
     [Header("My Vision")]
-    [SerializeField] protected float _rangeOfVision;
-    [SerializeField] protected float _attackRange;
+    [SerializeField] protected float _rangeOfVision = 50;
+    [SerializeField] protected float _attackRange = 30;
+    [SerializeField] protected float _memoryTimeout = 5;
     //TODO: Add tool to make vision cones, cubes, or spheres, rather than just having a sphere.
+
+    [Header("My Loot")]
+    [SerializeField] protected List<GameObject> Loot;
+
 
     [Header("My Animation")]
     [SerializeField] Animator myAnimator = null;
@@ -33,16 +39,19 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Necessary Data")]
     private PlayerManager _playerManager; //do I need this if player is Singleton?
-    protected Transform _playerTarget;
+    protected Transform _target;
     protected NavMeshAgent _agent;
     private Rigidbody _myRb;
     public bool seesTarget = false;
     protected bool atTarget = false;
+    public Health _myHealth;
 
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _myRb = GetComponent<Rigidbody>();     
+        _myRb = GetComponent<Rigidbody>();
+        _myHealth = GetComponent<Health>();
+        _myHealth.SetHealth(_maxHealth);
     }
 
     private void OnEnable()
@@ -57,7 +66,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        _playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
+        //_playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
         
         _agent.speed = _moveSpeed;
     }
@@ -65,6 +74,20 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Update()
     {
         if (!_active) return; 
+        
+        if (_myHealth.health <= 0)
+        {
+            Debug.Log("I am an enemy. I am dead. Damn");
+
+            for (int i = 0; i < Loot.Capacity; i++)
+            {
+                Instantiate(Loot[i], gameObject.transform.position, Quaternion.identity);
+            }
+
+            gameObject.SetActive(false);
+            //Destroy(this.gameObject);
+        }
+        
     }
 
     private void OnPause(bool paused)
@@ -84,9 +107,13 @@ public class EnemyBase : MonoBehaviour
 
     protected void FaceTarget()
     {
-        Vector3 direction = (_playerTarget.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        if (_target)
+        {
+            Vector3 direction = (_target.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+        
     }
 
 
@@ -98,33 +125,47 @@ public class EnemyBase : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 
-    void SetEnemyValues()
-    {
-        
-        GetComponent<Health>().SetHealth(data.HP);
-        _attackDamage = data.damage;    
-        _moveSpeed = data.moveSpeed;
-        _rateOfAttack = data.attackRate;
-        _rangeOfVision = data.rangeOfVision;
-        Debug.Log("Set Enemy Values!");
-    }
 
     protected void MoveTo(Vector3 _newTarget)
     {
         NavMesh.SamplePosition(_newTarget,out var hit, 10, NavMesh.AllAreas);
         _agent.SetDestination(hit.position);
-        Debug.Log("Targeting: " + _newTarget);
+        //Debug.Log("Targeting: " + _newTarget);
 
     }
 
-    protected bool FindPlayer()
+    protected void FindTarget()
     {
-        return (Vector3.Distance(transform.position, _playerTarget.position) <= _rangeOfVision);
+        Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
+        foreach (Collider collider in checkTargets)
+        {
+            if (collider.tag == "Player")
+            {
+                _target = PlayerManager.Instance.Player;
+                break;
+            }
+            if (collider.tag == "AlphaCrawler" && collider.transform != this.transform)
+            {
+                _target = collider.transform;
+                break;
+            }
+            if (collider.tag == "Gloop")
+            {
+                _target = collider.transform;
+                break;
+            }
+        }
+    }
+
+    protected bool CheckTarget()
+    {
+        FindTarget();
+        return (Vector3.Distance(transform.position, _target.position) <= _rangeOfVision);
     }
 
     protected bool CheckAttackTarget()
     {
-        return (Vector3.Distance(transform.position, _playerTarget.position) < _attackRange);
+        return (Vector3.Distance(transform.position, _target.position) < _attackRange);
     }
 
 }

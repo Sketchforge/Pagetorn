@@ -13,6 +13,8 @@ public class EnemyTypeAlphaCrawler : EnemyBase
 
     private Vector3 startingPosition;
     private Vector3 roamPosition;
+    private float _attackTime;
+    private float _memoryTime;
 
     protected override void Start()
     {
@@ -27,37 +29,77 @@ public class EnemyTypeAlphaCrawler : EnemyBase
     {
         base.Update();
         if (!_active) return;
-        
+
         switch (State)
         {
-            default:
-            case CrawlerState.Roaming:
-                Debug.Log(_crawlerState);
-                MoveTo(roamPosition);
-                if (Vector3.Distance(transform.position, roamPosition) < 1f)
-                {
-                    //reached roam pos
-                    roamPosition = GetRoamingPosition();
-                }
-                if (FindPlayer()) TrySetState(CrawlerState.Chasing);
-                break;
-            case CrawlerState.Chasing:
-                Debug.Log(_crawlerState);
-                FaceTarget();
+        default:
+        case CrawlerState.Roaming:
+            Debug.Log(_crawlerState);
+            _memoryTime = Time.time;
+            MoveTo(roamPosition);
+            if (Vector3.Distance(transform.position, roamPosition) < 50f)
+            {
+                //reached roam pos
                 roamPosition = GetRoamingPosition();
-                MoveTo(_playerTarget.position);
-                if (!FindPlayer()) TrySetState(CrawlerState.Roaming);
-                if (CheckAttackTarget()) TrySetState(CrawlerState.Attacking);
-                break;
-            case CrawlerState.Attacking:
-                Debug.Log(_crawlerState);
-                //Do attack
-                if (_playerTarget.tag == "Player")
+            }
+
+            if (CheckTarget()) TrySetState(CrawlerState.Chasing);
+            break;
+        case CrawlerState.Chasing:
+            Debug.Log(_crawlerState);
+                if (_target)
                 {
-                    //Deal damage
+                    roamPosition = GetRoamingPosition();
+                    FaceTarget();
+
+
+                    MoveTo(_target.position);
+
+                    if ((Time.time - _memoryTime) > _memoryTimeout)
+                        if (!CheckTarget()) TrySetState(CrawlerState.Roaming);
+
+                    _attackTime = Time.time;
+
+                    if (CheckAttackTarget()) TrySetState(CrawlerState.Attacking);
                 }
+            break;
+        case CrawlerState.Attacking:
+            
+            //Do attack
+            if (_target == PlayerManager.Instance.Player)
+            {
+                if ((Time.time - _attackTime) > _rateOfAttack)
+                {
+                    PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, _attackDamage); //switch w/ hitbox and animation later
+                    TrySetState(CrawlerState.Chasing);
+                    Debug.Log(_crawlerState);
+                }
+            }
+            if (_target.tag == "AlphaCrawler")
+            {
+                if ((Time.time - _attackTime) > _rateOfAttack)
+                {
+                    _target.GetComponent<Health>().Damage(Mathf.CeilToInt(Random.Range(_attackDamage / 2, _attackDamage)));
+                    TrySetState(CrawlerState.Chasing);
+                    Debug.Log(_crawlerState);
+                }
+            }
+
+            if (_target.tag == "Gloop") //TODO: Add !Raiding bool
+            {
+                TrySetState(CrawlerState.Eating);
+            }
+            if ((Time.time - _attackTime) > _rateOfAttack)
                 TrySetState(CrawlerState.Chasing);
-                break;
+            break;
+        case CrawlerState.Eating:
+            Debug.Log(_crawlerState);
+            Destroy(_target.gameObject);
+            //Eat gloob animation
+            //Destroy gloob
+            _numberGloopsEaten++;
+            TrySetState(CrawlerState.Roaming);
+            break;
 
         }
 
@@ -71,11 +113,11 @@ public class EnemyTypeAlphaCrawler : EnemyBase
             TrySetState(CrawlerState.Chasing);
             if (atTarget)
             {
-                if (_playerTarget == PlayerManager.Instance.Player)
+                if (_target == PlayerManager.Instance.Player)
                 {
                     TrySetState(CrawlerState.Attacking);
                 }
-                else if (_playerTarget.tag == "Glob")
+                else if (_target.tag == "Gloop")
                 {
                     TrySetState(CrawlerState.Eating);
                 }
