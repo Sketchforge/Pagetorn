@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Magic")]
 public class Magic : Item
 {
-    [Header("Basic Magic Info")]
+[Header("Basic Magic Info")]
     [SerializeField] private MagicType _magicType;
     [SerializeField] private int _knowledgePoints = 10;
     [SerializeField] private int _pageAmount = 1;
@@ -24,6 +24,7 @@ public class Magic : Item
     [ShowIf("_canMitigate")] [SerializeField] private int _mitigation = 1;
 
     [Header("Etc")]
+    [SerializeField] private Animation _animation;
     [SerializeField] private bool _isElemental = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementFire = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementElectricity = false;
@@ -39,6 +40,7 @@ public class Magic : Item
     public MagicType MagicType => _magicType;
     public int KnowledgePoints => _knowledgePoints;
     public int PageAmount => _pageAmount;
+    private int _pageAmountEdit;
 
     /*public bool CanAttack => _canAttack;
     public bool CanDefend => _canDefend;
@@ -67,6 +69,7 @@ public class Magic : Item
         _canAttack = (IsAttack);
         _canDefend = (IsDefense);
         _canInstruct = (IsInstruction);
+        _pageAmountEdit = PageAmount;
     }
 
     public bool IsAttack => _magicType is MagicType.Attack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
@@ -77,5 +80,20 @@ public class Magic : Item
     {
         // TODO: Cast
         Debug.Log($"Casting {MagicName}");
+        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints) // find if player has enough points to cast
+        {
+            _animation.Play();
+
+            if (CanDamage) PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Damage); // temp, possible elemental damage check?
+            //if (Knockback) move object x distance (in which direction, i wonder?)
+            if (CanHeal) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Heal);
+            if (CanMitigate) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Mitigation); // temp, find out how to mitigate damage from other sources while active
+            //if (IsAOE) create sphere for aoe, possibly do more/less damage away from center using aoePotency?
+            //if (IsTimed) figure out how to keep spell active for Duration
+
+            _pageAmountEdit--;
+            Debug.Log($"Pages: {_pageAmountEdit}");
+        }
+        else Debug.Log($"Whoops can't cast lol loser");
     }
 }
