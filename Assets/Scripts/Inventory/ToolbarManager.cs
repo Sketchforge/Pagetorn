@@ -8,6 +8,7 @@ public class ToolbarManager : MonoBehaviour
     [SerializeField] private List<InventoryItemSlot> _slots = new List<InventoryItemSlot>();
 
     public Item SelectedItem => _slots[_selectedItem].Item;
+    public ItemType SelectedItemType => SelectedItem != null ? SelectedItem.Type : ItemType.Basic;
 
     private int _selectedItem;
 

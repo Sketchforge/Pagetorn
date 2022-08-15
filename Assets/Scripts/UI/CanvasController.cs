@@ -8,6 +8,7 @@ public class CanvasController : MonoBehaviour
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _hud;
     [SerializeField] private InventoryManager _inventoryManager;
+    [SerializeField] private CraftingManager _craftingManager;
     [SerializeField] private ToolbarManager _toolbarManager;
 
     public static InventoryManager InventoryManager => Singleton._inventoryManager;
@@ -30,6 +31,7 @@ public class CanvasController : MonoBehaviour
     {
         _pauseMenu.SetActive(true);
         _inventoryManager.SetActive(false);
+        _craftingManager.SetActive(false);
         _hud.SetActive(false);
         PauseMenuOpen = true;
         PlayerManager.Actions.CheckState();
@@ -39,6 +41,17 @@ public class CanvasController : MonoBehaviour
     {
         _pauseMenu.SetActive(false);
         _inventoryManager.SetActive(true);
+        _craftingManager.SetActive(false);
+        _hud.SetActive(false);
+        InventoryOpen = true;
+        PlayerManager.Actions.CheckState();
+    }
+
+    public void OpenCrafting()
+    {
+        _pauseMenu.SetActive(false);
+        _inventoryManager.SetActive(true);
+        _craftingManager.SetActive(true);
         _hud.SetActive(false);
         InventoryOpen = true;
         PlayerManager.Actions.CheckState();
@@ -48,6 +61,7 @@ public class CanvasController : MonoBehaviour
     {
         _pauseMenu.SetActive(false);
         _inventoryManager.SetActive(false);
+        _craftingManager.SetActive(false);
         _hud.SetActive(true);
         PauseMenuOpen = false;
         InventoryOpen = false;

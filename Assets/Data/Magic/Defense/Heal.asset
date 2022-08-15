@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   _magicName: Heal
-  _type: 1
+  _type: 2
   _description: A book on medicine. Heals the player for 50% HP. 100kp, 2 pages.
   _sprite: {fileID: 0}
   _knowledgePoints: 100

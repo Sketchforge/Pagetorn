@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Book 3
   m_EditorClassIdentifier: 
   _itemName: Book3
-  _type: 20
+  _type: 23
   _description: Its a book
   _sprite: {fileID: 21300000, guid: f3b6bc0ef8cf80341b31b646662e5b6c, type: 3}
   _canStack: 1

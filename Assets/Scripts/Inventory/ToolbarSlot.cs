@@ -12,20 +12,18 @@ public class ToolbarSlot : MonoBehaviour
 
     public bool Selectable => _slotToCopy.HasItem;
 
-    public void SetSelected(bool selected)
-    {
-        _selected.SetActive(selected);
-    }
-
     private void OnEnable()
     {
-        UpdateVisual();
         _slotToCopy.OnItemUpdate += UpdateVisual;
+        _slotToCopy.OnSelected += SetSelected;
+        UpdateVisual();
+        _selected.SetActive(_slotToCopy.Selected);
     }
     
     private void OnDisable()
     {
         _slotToCopy.OnItemUpdate += UpdateVisual;
+        _slotToCopy.OnSelected -= SetSelected;
     }
 
     [Button]
@@ -35,5 +33,10 @@ public class ToolbarSlot : MonoBehaviour
         bool hasSprite = item && item.Sprite;
         _slot.gameObject.SetActive(hasSprite);
         if (hasSprite) _slot.sprite = item.Sprite;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        _selected.SetActive(selected);
     }
 }
