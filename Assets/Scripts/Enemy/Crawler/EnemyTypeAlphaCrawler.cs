@@ -45,14 +45,20 @@ public class EnemyTypeAlphaCrawler : EnemyBase
 
             if (CheckTarget()) TrySetState(CrawlerState.Chasing);
             break;
+
         case CrawlerState.Chasing:
             Debug.Log(_crawlerState);
                 if (_target)
                 {
-                    roamPosition = GetRoamingPosition();
                     FaceTarget();
+                    roamPosition = GetRoamingPosition();
 
-
+                    if (_target.tag == "Witch")
+                    {
+                        TrySetState(CrawlerState.Fleeing);
+                        break;
+                    }
+                    
                     MoveTo(_target.position);
 
                     if ((Time.time - _memoryTime) > _memoryTimeout)
@@ -62,9 +68,16 @@ public class EnemyTypeAlphaCrawler : EnemyBase
 
                     if (CheckAttackTarget()) TrySetState(CrawlerState.Attacking);
                 }
+                if (_target.GetComponent<EnemyBase>())
+                {
+                    if (!_target.GetComponent<EnemyBase>()._active)
+                        FindTarget();
+                        TrySetState(CrawlerState.Roaming);
+                }
+
             break;
+
         case CrawlerState.Attacking:
-            
             //Do attack
             if (_target == PlayerManager.Instance.Player)
             {
@@ -75,7 +88,7 @@ public class EnemyTypeAlphaCrawler : EnemyBase
                     Debug.Log(_crawlerState);
                 }
             }
-            if (_target.tag == "AlphaCrawler")
+            if (_target.tag == "AlphaCrawler" && _target != this)
             {
                 if ((Time.time - _attackTime) > _rateOfAttack)
                 {
@@ -84,7 +97,6 @@ public class EnemyTypeAlphaCrawler : EnemyBase
                     Debug.Log(_crawlerState);
                 }
             }
-
             if (_target.tag == "Gloop") //TODO: Add !Raiding bool
             {
                 TrySetState(CrawlerState.Eating);
@@ -92,12 +104,32 @@ public class EnemyTypeAlphaCrawler : EnemyBase
             if ((Time.time - _attackTime) > _rateOfAttack)
                 TrySetState(CrawlerState.Chasing);
             break;
+
         case CrawlerState.Eating:
-            Debug.Log(_crawlerState);
-            Destroy(_target.gameObject);
+            Debug.Log(_crawlerState);  
             //Eat gloob animation
-            //Destroy gloob
+            Destroy(_target.gameObject);
             _numberGloopsEaten++;
+            TrySetState(CrawlerState.Roaming);
+            break;
+
+        case CrawlerState.Fleeing:
+            Debug.Log(_crawlerState);
+
+            float distance = Vector3.Distance(transform.position, _target.transform.position);
+
+            if (distance < distanceToRun)
+                {
+                    Vector3 dirToTarget = transform.position - _target.transform.position;
+
+                    Vector3 newPos = transform.position + dirToTarget;
+
+                    MoveTo(newPos);
+                }
+            else if (distance >= distanceToRun)
+                TrySetState(CrawlerState.Roaming);
+            break;
+        case CrawlerState.Following:
             TrySetState(CrawlerState.Roaming);
             break;
 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Gloop
   - AlphaCrawler
+  - Witch
+  - BetaCrawler
   layers:
   - Default
   - TransparentFX

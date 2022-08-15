@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class EnemyBase : MonoBehaviour
 {
-    [SerializeField, ReadOnly] protected bool _active;
+    [SerializeField, ReadOnly] public bool _active;
+
+    [SerializeField] protected GameObject nextStage;
 
     [Header("My Stats")]
     [SerializeField] float _maxHealth = 100f;
@@ -39,12 +41,14 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Necessary Data")]
     private PlayerManager _playerManager; //do I need this if player is Singleton?
-    protected Transform _target;
-    protected NavMeshAgent _agent;
+    [SerializeField] protected Transform _target;
+    public NavMeshAgent _agent;
     private Rigidbody _myRb;
     public bool seesTarget = false;
     protected bool atTarget = false;
     public Health _myHealth;
+
+    protected int distanceToRun = 40;
 
     void Awake()
     {
@@ -67,7 +71,7 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Start()
     {
         //_playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
-        
+        OnPause(false);
         _agent.speed = _moveSpeed;
     }
 
@@ -85,6 +89,7 @@ public class EnemyBase : MonoBehaviour
             }
 
             gameObject.SetActive(false);
+            _active = false;
             //Destroy(this.gameObject);
         }
         
@@ -139,6 +144,11 @@ public class EnemyBase : MonoBehaviour
         Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
         foreach (Collider collider in checkTargets)
         {
+            if (collider.tag == "Witch")
+            {
+                _target = collider.transform; //target to run FROM librarian
+                break;
+            }
             if (collider.tag == "Player")
             {
                 _target = PlayerManager.Instance.Player;
