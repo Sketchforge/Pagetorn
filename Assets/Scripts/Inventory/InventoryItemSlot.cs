@@ -14,11 +14,13 @@ public class InventoryItemSlot : MonoBehaviour
     [SerializeField] private int _amount;
     
     public Action OnItemUpdate = delegate { };
+    public Action<bool> OnSelected = delegate { };
 
     public bool HasItem => _item != null;
     public Item Item => _item;
     public (Item, int) GetItem() => (_item, _amount);
     public bool AllowsItem(Item item) => !_filterItemType || _filter == item.Type;
+    public bool Selected { get; private set; }
 
     [Button]
     public void UpdateItemSlot()
@@ -71,5 +73,7 @@ public class InventoryItemSlot : MonoBehaviour
     public void SetSelected(bool selected)
     {
         _selected.SetActive(selected);
+        Selected = selected;
+        OnSelected?.Invoke(selected);
     }
 }

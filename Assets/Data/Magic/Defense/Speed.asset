@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
-  _magicName: Speed
-  _type: 1
+  _itemName: 
+  _type: 23
   _description: A book on the travels of a certain pilot. Gives a 30% speed boost
     for 30 minutes. 400kp, 1 page.
   _sprite: {fileID: 0}
+  _canStack: 0
+  _stackAmount: 99
+  _magicType: 1
   _knowledgePoints: 400
   _pageAmount: 1
   _canAttack: 0
@@ -29,6 +32,9 @@ MonoBehaviour:
   _heal: 1
   _canMitigate: 0
   _mitigation: 1
+  _isElemental: 0
+  _elementFire: 0
+  _elementElectricity: 0
   _isAOE: 0
   _aoeSize: 5
   _aoePotency: 1

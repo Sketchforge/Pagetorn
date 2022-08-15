@@ -17,4 +17,5 @@ public enum ItemType
     Basic = 20,
     Crafting = 21,
     Consumables = 22,
+    Magic = 23,
 }

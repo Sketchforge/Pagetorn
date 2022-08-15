@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,20 @@ public class InventoryManager : MonoBehaviour
     private int _heldItemAmount;
 
     public bool MovingItem { get; private set; }
+
+    public void SetActive(bool active)
+    {
+        if (!active && MovingItem)
+        {
+            if (AddItemToInventory(_heldItem, _heldItemAmount))
+            {
+                _heldItem = null;
+                _heldItemAmount = 0;
+            }
+            UpdateHeldItem();
+        }
+        _container.SetActive(active);
+    }
 
     private void Start()
     {
@@ -32,8 +47,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void SetActive(bool active) => _container.SetActive(active);
-
     private void UpdateHeldItem()
     {
         if (_heldItem != null)
@@ -50,9 +63,12 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Add item from external source (Not UI -- picking up item from world or other)
-    public void AddItemToInventory(Item item, int amount)
+    public bool AddItemToInventory(Item item, int amount)
     {
-        // TODO: Add item to inventory slots
+        var slot = _slots.FirstOrDefault(slot => !slot.HasItem && slot.AllowsItem(item));
+        if (slot == null) return false;
+        slot.InsertItem(item, amount);
+        return true;
     }
 
     // Pickup item from Inventory UI
