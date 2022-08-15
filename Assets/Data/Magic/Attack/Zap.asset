@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zap
   m_EditorClassIdentifier: 
   _magicName: Zap
-  _type: 1
+  _type: 0
   _description: 'A book on Nikolai Tesla.
 
     Shoots a ray of lightning that links
@@ -31,6 +31,9 @@ MonoBehaviour:
   _heal: 1
   _canMitigate: 0
   _mitigation: 1
+  _isElemental: 0
+  _elementFire: 0
+  _elementElectricity: 0
   _isAOE: 1
   _aoeSize: 5
   _aoePotency: 0.5

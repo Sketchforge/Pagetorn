@@ -16,17 +16,20 @@ public class Magic : ScriptableObject
 
     [Header("Magic Type Specifics")]
     // Attack specific
-    [ShowIf("_canAttack")] [SerializeField] private bool _canDamage = false;
+    [SerializeField] private bool _canDamage = false;
     [ShowIf("_canDamage")] [SerializeField] private int _damage = 1;
-    [ShowIf("_canAttack")] [SerializeField] private bool _hasKnockback = false;
+    [SerializeField] private bool _hasKnockback = false;
 
     // Defense specific
-    [ShowIf("_canDefend")] [SerializeField] private bool _canHeal = false;
+    [SerializeField] private bool _canHeal = false;
     [ShowIf("_canHeal")] [SerializeField] private int _heal = 1;
-    [ShowIf("_canDefend")] [SerializeField] private bool _canMitigate = false;
+    [SerializeField] private bool _canMitigate = false;
     [ShowIf("_canMitigate")] [SerializeField] private int _mitigation = 1;
 
     [Header("Etc")]
+    [SerializeField] private bool _isElemental = false;
+    [ShowIf("_isElemental")] [SerializeField] private bool _elementFire = false;
+    [ShowIf("_isElemental")] [SerializeField] private bool _elementElectricity = false;
     [SerializeField] private bool _isAOE = false;
     [ShowIf("_isAOE")] [SerializeField] private float _aoeSize = 5;
     [ShowIf("_isAOE")] [SerializeField] private float _aoePotency = 1;
@@ -41,17 +44,21 @@ public class Magic : ScriptableObject
     public Sprite Sprite => _sprite;
     public int PageAmount => _pageAmount;
 
-    public bool CanAttack => _canAttack;
+    /*public bool CanAttack => _canAttack;
     public bool CanDefend => _canDefend;
     public bool CanInstruct => _canInstruct;
-    public bool CanDamage => _canAttack ? _canDamage : false;
+    */
+    public bool CanDamage => _canDamage;
     public int Damage => _canDamage ? _damage : 0;
-    public bool Knockback => _canAttack ? _hasKnockback : false;
-    public bool CanHeal => _canDefend ? _canHeal : false;
+    public bool Knockback => _hasKnockback;
+    public bool CanHeal => _canHeal;
     public int Heal => _canHeal ? _heal : 0;
-    public bool CanMitigate => _canDefend ? _canMitigate : false;
+    public bool CanMitigate => _canMitigate;
     public int Mitigation => _canMitigate ? _mitigation : 0;
 
+    public bool IsElemental => _isElemental;
+    public bool ElementFire => _elementFire;
+    public bool ElementElectricity => _elementElectricity;
     public bool IsAOE => _isAOE;
     public float AOESize => _isAOE ? _aoeSize : 0;
     public float AOEPotency => _isAOE ? _aoePotency : 0;
@@ -66,7 +73,7 @@ public class Magic : ScriptableObject
         _canInstruct = (IsInstruction);
     }
 
-    public bool IsAttack => _type is MagicType.FireAttack or MagicType.LightningAttack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
+    public bool IsAttack => _type is MagicType.Attack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
     public bool IsDefense => _type is MagicType.Defense /*MagicType.Heal or MagicType.Block or MagicType.Dodge or MagicType.Speed*/;
     public bool IsInstruction => _type is MagicType.Instruction /*MagicType.Flourish or MagicType.Fix*/;
 
