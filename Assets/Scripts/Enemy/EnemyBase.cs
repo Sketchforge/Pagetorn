@@ -13,7 +13,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float _rateOfAttack;
 
     [Header("My Vision")]
-    [SerializeField] float _rangeOfVision;
+    [SerializeField] protected float _rangeOfVision;
+    [SerializeField] protected float _attackRange;
     //TODO: Add tool to make vision cones, cubes, or spheres, rather than just having a sphere.
 
     [Header("My Animation")]
@@ -32,7 +33,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Necessary Data")]
     private PlayerManager _playerManager; //do I need this if player is Singleton?
-    protected Transform _target;
+    protected Transform _playerTarget;
     protected NavMeshAgent _agent;
     private Rigidbody _myRb;
     public bool seesTarget = false;
@@ -54,40 +55,16 @@ public class EnemyBase : MonoBehaviour
         GameManager.OnPause -= OnPause;
     }
 
-    void Start()
+    protected virtual void Start()
     {
-        _target = PlayerManager.Instance.Player; //later make RANGED a possible target
-        Debug.Log(_target);
-
+        _playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
+        
         _agent.speed = _moveSpeed;
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        if (!_active) return;
-
-        float distance = Vector3.Distance(_target.position, transform.position);
-
-        if (distance <= _rangeOfVision)
-        {
-            seesTarget = true;
-            MoveTo(_target.position);
-
-            if (distance <= _agent.stoppingDistance)
-            {
-                atTarget = true;
-                //Attack the target if Player or Natural Enemy
-                //Face the target if Player, Natural Enemy, or Glob
-                //Eat target if Glob.
-                FaceTarget();
-            }
-            else if (distance < _agent.stoppingDistance)
-            {
-                atTarget = false;
-            }
-        }
-        else if (distance > _rangeOfVision)
-            seesTarget = false;
+        if (!_active) return; 
     }
 
     private void OnPause(bool paused)
@@ -105,9 +82,9 @@ public class EnemyBase : MonoBehaviour
         // BUG: Sometimes this makes the enemy fall through the floor?
     }
 
-    void FaceTarget()
+    protected void FaceTarget()
     {
-        Vector3 direction = (_target.position - transform.position).normalized;
+        Vector3 direction = (_playerTarget.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
@@ -117,6 +94,8 @@ public class EnemyBase : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _rangeOfVision);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 
     void SetEnemyValues()
@@ -130,10 +109,22 @@ public class EnemyBase : MonoBehaviour
         Debug.Log("Set Enemy Values!");
     }
 
-    protected void MoveTo(Vector3 _target)
+    protected void MoveTo(Vector3 _newTarget)
     {
-        _agent.SetDestination(_target);
-       
+        NavMesh.SamplePosition(_newTarget,out var hit, 10, NavMesh.AllAreas);
+        _agent.SetDestination(hit.position);
+        Debug.Log("Targeting: " + _newTarget);
+
+    }
+
+    protected bool FindPlayer()
+    {
+        return (Vector3.Distance(transform.position, _playerTarget.position) <= _rangeOfVision);
+    }
+
+    protected bool CheckAttackTarget()
+    {
+        return (Vector3.Distance(transform.position, _playerTarget.position) < _attackRange);
     }
 
 }

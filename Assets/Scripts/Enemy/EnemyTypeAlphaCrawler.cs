@@ -7,43 +7,58 @@ public class EnemyTypeAlphaCrawler : EnemyBase
     [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] private CrawlerState _crawlerState;
     public CrawlerState State => _crawlerState;
-    private bool Roaming => State == CrawlerState.Roaming;
-    private bool Chasing => State == CrawlerState.Chasing;
-    private bool Attacking => State == CrawlerState.Attacking;
+    //private bool Roaming => State == CrawlerState.Roaming;
+    //private bool Chasing => State == CrawlerState.Chasing;
+    //private bool Attacking => State == CrawlerState.Attacking;
 
     private Vector3 startingPosition;
     private Vector3 roamPosition;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         CheckState();
         startingPosition = transform.position;
         roamPosition = GetRoamingPosition();
         Debug.Log("Destination: " + _agent.destination);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (!_active) return;
-        if(Roaming)
+        
+        switch (State)
         {
-            Debug.Log("Roam Position: " + roamPosition);
-            MoveTo(roamPosition);
-            if (Vector3.Distance(transform.position, roamPosition) > 1f)
-            {
-                //reached roam pos
+            default:
+            case CrawlerState.Roaming:
+                Debug.Log(_crawlerState);
+                MoveTo(roamPosition);
+                if (Vector3.Distance(transform.position, roamPosition) < 1f)
+                {
+                    //reached roam pos
+                    roamPosition = GetRoamingPosition();
+                }
+                if (FindPlayer()) TrySetState(CrawlerState.Chasing);
+                break;
+            case CrawlerState.Chasing:
+                Debug.Log(_crawlerState);
+                FaceTarget();
                 roamPosition = GetRoamingPosition();
-                Debug.Log("Destination: " + _agent.destination);
-            }
-        }
+                MoveTo(_playerTarget.position);
+                if (!FindPlayer()) TrySetState(CrawlerState.Roaming);
+                if (CheckAttackTarget()) TrySetState(CrawlerState.Attacking);
+                break;
+            case CrawlerState.Attacking:
+                Debug.Log(_crawlerState);
+                //Do attack
+                if (_playerTarget.tag == "Player")
+                {
+                    //Deal damage
+                }
+                TrySetState(CrawlerState.Chasing);
+                break;
 
-        else if (Chasing)
-        {
-            MoveTo(_target.position);
-        }
-        else if (Attacking)
-        {
-            Debug.Log("Enemy Attack!");
         }
 
     }
@@ -56,11 +71,11 @@ public class EnemyTypeAlphaCrawler : EnemyBase
             TrySetState(CrawlerState.Chasing);
             if (atTarget)
             {
-                if (_target = PlayerManager.Instance.Player)
+                if (_playerTarget == PlayerManager.Instance.Player)
                 {
                     TrySetState(CrawlerState.Attacking);
                 }
-                else if (_target.tag == "Glob")
+                else if (_playerTarget.tag == "Glob")
                 {
                     TrySetState(CrawlerState.Eating);
                 }
@@ -83,6 +98,9 @@ public class EnemyTypeAlphaCrawler : EnemyBase
     
     private Vector3 GetRoamingPosition()
     {
-        return startingPosition + new Vector3(Random.Range(-1f,1f), 1, Random.Range(-1,1f)).normalized * Random.Range(10f, 70f);
+        return startingPosition + new Vector3(Random.Range(-1f,1f), 0, Random.Range(-1,1f)).normalized * Random.Range(10f, 70f);
     }
+
+    
+
 }
