@@ -22,8 +22,9 @@ public class Survival : ScriptableObject
     [SerializeField] private float _maxHydration = 100;
     
     [Header("Magic")]
-    //[SerializeField] private float _magicLevel = 0; // you know, just in case :)
+    //[SerializeField] private float _magicLevel; // possibly shows as a number every time kp passes max slider amount, or could signify level up passsive buffs
     [SerializeField] private float _knowledgePoints = 0;
+    [SerializeField] private float _maxKnowledge = 100;
 
     public Action OnStatsChanged = delegate { };
 
@@ -33,6 +34,7 @@ public class Survival : ScriptableObject
         _health = Mathf.Clamp(_health, 0, _maxHealth);
         _hunger = Mathf.Clamp(_hunger, 0, _maxHunger);
         _hydration = Mathf.Clamp(_hydration, 0, _maxHydration);
+        _knowledgePoints = Mathf.Clamp(_knowledgePoints, 0, _maxKnowledge);
         OnStatsChanged?.Invoke();
     }
     #endif
@@ -44,6 +46,7 @@ public class Survival : ScriptableObject
             SurvivalStatEnum.Health => _health,
             SurvivalStatEnum.Hunger => _hunger,
             SurvivalStatEnum.Hydration => _hydration,
+            SurvivalStatEnum.Magic => _knowledgePoints,
             _ => 0
         };
     }
@@ -95,6 +98,9 @@ public class Survival : ScriptableObject
                 break;
             case SurvivalStatEnum.Hydration:
                 _hydration = value;
+                break;
+            case SurvivalStatEnum.Magic:
+                _knowledgePoints = value;
                 break;
         }
     }

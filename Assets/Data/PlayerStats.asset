@@ -21,4 +21,5 @@ MonoBehaviour:
   _hydration: 100
   _hydrationLowThreshold: 20
   _maxHydration: 100
-  _knowledgePoints: 5
+  _knowledgePoints: 500
+  _maxKnowledge: 5000
