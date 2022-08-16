@@ -28,6 +28,7 @@ public class Magic : Item
     [SerializeField] private bool _isElemental = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementFire = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementElectricity = false;
+    [SerializeField] private bool _canTrack = false;
     [SerializeField] private bool _isAOE = false;
     [ShowIf("_isAOE")] [SerializeField] private float _aoeSize = 5;
     [ShowIf("_isAOE")] [SerializeField] private float _aoePotency = 1;
@@ -57,6 +58,7 @@ public class Magic : Item
     public bool IsElemental => _isElemental;
     public bool ElementFire => _elementFire;
     public bool ElementElectricity => _elementElectricity;
+    public bool CanTrack => _canTrack;
     public bool IsAOE => _isAOE;
     public float AOESize => _isAOE ? _aoeSize : 0;
     public float AOEPotency => _isAOE ? _aoePotency : 0;
@@ -80,19 +82,25 @@ public class Magic : Item
     {
         // TODO: Cast
         Debug.Log($"Casting {MagicName}");
-        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints) // find if player has enough points to cast
+        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints && _pageAmountEdit > 0) // find if player has enough points to cast
         {
-            _animation.Play();
+            //_animation.Play();
 
             if (CanDamage) PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Damage); // temp, possible elemental damage check?
             //if (Knockback) move object x distance (in which direction, i wonder?)
             if (CanHeal) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Heal);
-            if (CanMitigate) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Mitigation); // temp, find out how to mitigate damage from other sources while active
+            if (CanMitigate) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Mitigation); // possibly alter Survival's Increase/Decrease method to include a mitigation variable?
+            //if (CanTrack) GameObject.transform.position; // target an object near cursor (possible raycast/cone? similar to crafting block) to track or affect primarily
             //if (IsAOE) create sphere for aoe, possibly do more/less damage away from center using aoePotency?
             //if (IsTimed) figure out how to keep spell active for Duration
 
             _pageAmountEdit--;
             Debug.Log($"Pages: {_pageAmountEdit}");
+            if (_pageAmountEdit <= 0) // then lower stack amount, eventually clearing the slot
+            {
+                //if (CanStack) InventoryItemSlot.ClearSlot();
+                Debug.Log($"Amount left: {PageAmount}");
+            }
         }
         else Debug.Log($"Whoops can't cast lol loser");
     }
