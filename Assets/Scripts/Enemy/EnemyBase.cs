@@ -120,9 +120,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected void FaceTarget()
     {
         if (!_target) return;
-        Vector3 direction = (_target.transform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        FacePosition(_target.transform.position);
     }
 
     private void OnDrawGizmosSelected()
@@ -160,5 +158,12 @@ public abstract class EnemyBase : MonoBehaviour
     protected void Log(string message)
     {
         if (_logState) Debug.Log("[" + name + "] " + message, gameObject);
+    }
+
+    protected void FacePosition(Vector3 pos)
+    {
+        Vector3 direction = (pos - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 }
