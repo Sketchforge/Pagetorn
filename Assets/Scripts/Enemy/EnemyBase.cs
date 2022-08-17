@@ -139,7 +139,7 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    protected void FindTarget()
+    protected virtual void FindTarget()
     {
         Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
         foreach (Collider collider in checkTargets)

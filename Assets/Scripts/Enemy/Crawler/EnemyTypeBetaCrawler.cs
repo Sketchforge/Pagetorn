@@ -20,7 +20,7 @@ public class EnemyTypeBetaCrawler : EnemyBase
     protected override void Start()
     {
         base.Start();
-        //CheckState();
+        //CheckState(); 
         startingPosition = transform.position;
         roamPosition = GetRoamingPosition();
         followPosition = GetFollowPosition();
@@ -46,7 +46,7 @@ public class EnemyTypeBetaCrawler : EnemyBase
                 }
                 if (!myAlpha && Vector3.Distance(transform.position, roamPosition) < 50f)
                 {
-                    //reached roam pos
+                    //reached roam pos 
                     roamPosition = GetRoamingPosition();
                 }
 
@@ -57,9 +57,9 @@ public class EnemyTypeBetaCrawler : EnemyBase
                 Debug.Log(_crawlerState);
                 if (_target)
                 {
-                    
+
                     FaceTarget();
-                    //followPosition = GetRoamingPosition();
+                    //followPosition = GetRoamingPosition(); 
 
                     if (_target.tag == "Witch")
                     {
@@ -92,14 +92,14 @@ public class EnemyTypeBetaCrawler : EnemyBase
                 }
                 break;
 
-            case CrawlerState.Following: //follow the Alpha
+            case CrawlerState.Following: //follow the Alpha 
                 Debug.Log("Following Daddy...");
                 _memoryTime = Time.time;
                 MoveTo(followPosition);
-                
+
                 if (Vector3.Distance(transform.position, followPosition) < 10f)
                 {
-                    //reached roam pos
+                    //reached roam pos 
                     followPosition = GetFollowPosition();
                 }
 
@@ -107,12 +107,12 @@ public class EnemyTypeBetaCrawler : EnemyBase
                 break;
 
             case CrawlerState.Attacking:
-                //Do attack
+                //Do attack 
                 if (_target == PlayerManager.Instance.Player)
                 {
                     if ((Time.time - _attackTime) > _rateOfAttack)
                     {
-                        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, _attackDamage); //switch w/ hitbox and animation later
+                        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, _attackDamage); //switch w/ hitbox and animation later 
                         TrySetState(CrawlerState.Chasing);
                         Debug.Log(_crawlerState);
                     }
@@ -126,7 +126,7 @@ public class EnemyTypeBetaCrawler : EnemyBase
                         Debug.Log(_crawlerState);
                     }
                 }
-                if (_target.tag == "Gloop" && myAlpha == null) //TODO: Add !Raiding bool
+                if (_target.tag == "Gloop" && myAlpha == null) //TODO: Add !Raiding bool 
                 {
                     TrySetState(CrawlerState.Eating);
                 }
@@ -136,7 +136,7 @@ public class EnemyTypeBetaCrawler : EnemyBase
 
             case CrawlerState.Eating:
                 Debug.Log(_crawlerState);
-                //Eat gloob animation
+                //Eat gloob animation 
                 Destroy(_target.gameObject);
                 _numberGloopsEaten++;
                 if (_numberGloopsEaten >= 1 && !myAlpha && nextStage)
@@ -184,6 +184,47 @@ public class EnemyTypeBetaCrawler : EnemyBase
     private Vector3 GetRoamingPosition()
     {
         return startingPosition + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1, 1f)).normalized * Random.Range(10f, 70f);
+    }
+
+    protected override void FindTarget()
+    {
+        Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
+        foreach (Collider collider in checkTargets)
+        {
+            if (collider.tag == "Witch")
+            {
+                _target = collider.transform; //target to run FROM librarian
+                break;
+            }
+            if (collider.tag == "Player")
+            {
+                _target = PlayerManager.Instance.Player;
+                break;
+            }
+            if (collider.tag == "AlphaCrawler" && collider.transform != myAlpha)
+            {
+                _target = collider.transform;
+                break;
+            }
+            if (collider.tag == "Gloop")
+            {
+                _target = collider.transform;
+                break;
+            }
+        }
+    }
+   
+   
+    protected void FindMyAlpha()
+    {
+        Debug.Log("Searching for Alpha");
+        Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
+        foreach (Collider collider in checkTargets)
+            if (collider.tag == "AlphaCrawler" && myAlpha == null)
+            {
+                myAlpha = collider.transform;
+                break;
+            }
     }
 
 
