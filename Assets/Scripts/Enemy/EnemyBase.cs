@@ -1,61 +1,48 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 
-public class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
+    [Header("Debug")]
+    [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] public bool _active;
-
-    [SerializeField] protected GameObject nextStage;
-
-    [Header("My Stats")]
-    [SerializeField] float _maxHealth = 100f;
-    [SerializeField] protected float _attackDamage = 10f;
-    [SerializeField] float _moveSpeed = 5f;
-    [SerializeField] protected float _rateOfAttack = 2f;
+    [SerializeField] protected Targetable _target;
+    
+    [Header("References")]
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Health _health;
+    [SerializeField] private EnemyData _data;
     [SerializeField] protected int _numberGloopsEaten = 0;
-
-    [Header("My Vision")]
-    [SerializeField] protected float _rangeOfVision = 50;
-    [SerializeField] protected float _attackRange = 30;
-    [SerializeField] protected float _memoryTimeout = 5;
-    //TODO: Add tool to make vision cones, cubes, or spheres, rather than just having a sphere.
-
-    [Header("My Loot")]
-    [SerializeField] protected List<GameObject> Loot;
-
-
+    
+    /*
     [Header("My Animation")]
-    [SerializeField] Animator myAnimator = null;
+    [SerializeField] private Animator myAnimator = null;
 
     [Header("My Feedback")]
-    [SerializeField] ParticleSystem _spawnParticles;
-    [SerializeField] ParticleSystem _impactParticles;
-    [SerializeField] ParticleSystem _attackParticles;
-    [SerializeField] AudioSource _myAudioSource;
-    [SerializeField] AudioClip _moveSound;
-    [SerializeField] AudioClip _idleSound;
-    [SerializeField] AudioClip _spawnSound;
-    [SerializeField] AudioClip _impactSound;
-    [SerializeField] AudioClip _attackSound;
-
-    [Header("Necessary Data")]
-    private PlayerManager _playerManager; //do I need this if player is Singleton?
-    [SerializeField] protected Transform _target;
-    public NavMeshAgent _agent;
-    private Rigidbody _myRb;
-    public bool seesTarget = false;
-    protected bool atTarget = false;
-    public Health _myHealth;
+    [SerializeField] private ParticleSystem _spawnParticles;
+    [SerializeField] private ParticleSystem _impactParticles;
+    [SerializeField] private ParticleSystem _attackParticles;
+    [SerializeField] private AudioSource _myAudioSource;
+    [SerializeField] private AudioClip _moveSound;
+    [SerializeField] private AudioClip _idleSound;
+    [SerializeField] private AudioClip _spawnSound;
+    [SerializeField] private AudioClip _impactSound;
+    [SerializeField] private AudioClip _attackSound;
+    */
 
     protected int distanceToRun = 40;
+    private bool _hasTarget;
 
-    void Awake()
+    public virtual EnemyData Data => _data;
+
+    #region Unity Functions
+
+    private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _myRb = GetComponent<Rigidbody>();
-        _myHealth = GetComponent<Health>();
-        _myHealth.SetHealth(_maxHealth);
+        _health.SetHealth(_data.MaxHealth);
     }
 
     private void OnEnable()
@@ -68,114 +55,110 @@ public class EnemyBase : MonoBehaviour
         GameManager.OnPause -= OnPause;
     }
 
-    protected virtual void Start()
+    private void OnValidate()
+    {
+        if (!_agent) _agent = GetComponent<NavMeshAgent>();
+        if (!_rb) _rb = GetComponent<Rigidbody>();
+        if (!_health) _health = GetComponent<Health>();
+    }
+
+    private void Start()
     {
         //_playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
         OnPause(false);
-        _agent.speed = _moveSpeed;
+        _agent.speed = _data.MoveSpeed;
+        OnStart();
     }
 
-    protected virtual void Update()
+    private void Update()
     {
-        if (!_active) return; 
-        
-        if (_myHealth.health <= 0)
+        if (!_active) return;
+        if (_hasTarget && _target == null)
         {
-            Debug.Log("I am an enemy. I am dead. Damn");
-
-            for (int i = 0; i < Loot.Capacity; i++)
-            {
-                Instantiate(Loot[i], gameObject.transform.position, Quaternion.identity);
-            }
-
-            gameObject.SetActive(false);
-            _active = false;
-            //Destroy(this.gameObject);
+            _hasTarget = false;
+            OnLoseTarget();
         }
-        
+        if (!_hasTarget && _target != null)
+        {
+            _hasTarget = true;
+        } 
+
+        if (_health.health <= 0)
+        {
+            Log("Died");
+
+            for (int i = 0; i < _data.Loot.Capacity; i++)
+            {
+                var obj = Instantiate(_data.Loot[i], gameObject.transform.position, Quaternion.identity);
+                obj.name += " - " + name + " " + i;
+            }
+            Destroy(gameObject);
+        }
+        OnUpdate();
     }
+    
+    #endregion
+
+    protected abstract void OnLoseTarget();
+    protected abstract void OnStart();
+    protected abstract void OnUpdate();
 
     private void OnPause(bool paused)
     {
         _active = !paused;
         _agent.enabled = !paused;
-        if (_myRb)
+        if (_rb)
         {
             if (paused)
-                _myRb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+                _rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             else if (!paused)
-                _myRb.constraints = RigidbodyConstraints.None;
+                _rb.constraints = RigidbodyConstraints.None;
         }
-
         // BUG: Sometimes this makes the enemy fall through the floor?
     }
 
     protected void FaceTarget()
     {
-        if (_target)
-        {
-            Vector3 direction = (_target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
-        
+        if (!_target) return;
+        Vector3 direction = (_target.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
 
     private void OnDrawGizmosSelected()
     {
+        if (!Data) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _rangeOfVision);
+        Gizmos.DrawWireSphere(transform.position, Data.RangeOfVision);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _attackRange);
+        Gizmos.DrawWireSphere(transform.position, Data.AttackRange);
     }
 
-
-    protected void MoveTo(Vector3 _newTarget)
+    protected void MoveTo(Vector3 newTarget)
     {
-        NavMesh.SamplePosition(_newTarget,out var hit, 10, NavMesh.AllAreas);
+        NavMesh.SamplePosition(newTarget,out var hit, 10, NavMesh.AllAreas);
         _agent.SetDestination(hit.position);
         //Debug.Log("Targeting: " + _newTarget);
-
     }
-
-    protected virtual void FindTarget()
-    {
-        Collider[] checkTargets = Physics.OverlapSphere(gameObject.transform.position, _rangeOfVision);
-        foreach (Collider collider in checkTargets)
-        {
-            if (collider.tag == "Witch")
-            {
-                _target = collider.transform; //target to run FROM librarian
-                break;
-            }
-            if (collider.tag == "Player")
-            {
-                _target = PlayerManager.Instance.Player;
-                break;
-            }
-            if (collider.tag == "AlphaCrawler" && collider.transform != this.transform)
-            {
-                _target = collider.transform;
-                break;
-            }
-            if (collider.tag == "Gloop")
-            {
-                _target = collider.transform;
-                break;
-            }
-        }
-    }
-
+    
     protected bool CheckTarget()
     {
-        FindTarget();
-        return (Vector3.Distance(transform.position, _target.position) <= _rangeOfVision);
+        var targets = Targetable.GetAllWithinRange(transform.position, Data.RangeOfVision);
+        var target = GetPotentialTarget(targets);
+        _target = target;
+        _hasTarget = _target;
+        return _hasTarget;
     }
 
+    protected abstract Targetable GetPotentialTarget(IEnumerable<Targetable> potentialTargets);
+    
     protected bool CheckAttackTarget()
     {
-        return (Vector3.Distance(transform.position, _target.position) < _attackRange);
+        return (Vector3.Distance(transform.position, _target.transform.position) < Data.AttackRange);
     }
 
+    protected void Log(string message)
+    {
+        if (_logState) Debug.Log("[" + name + "] " + message, gameObject);
+    }
 }

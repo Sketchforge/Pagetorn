@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d00994884004ff4f9935cf130ff1c3c, type: 3}
-  m_Name: Crawler
+  m_Name: AlphaCrawler
   m_EditorClassIdentifier: 
-  _maxHealth: 50
-  _attackDamage: 4
+  _maxHealth: 100
+  _attackDamage: 10
   _moveSpeed: 5
   _rateOfAttack: 2
-  _rangeOfVision: 8
-  _attackRange: 2.5
+  _rangeOfVision: 12
+  _attackRange: 6
   _memoryTimeout: 5
   _loot:
+  - {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
   - {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
