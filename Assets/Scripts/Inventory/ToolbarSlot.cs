@@ -10,8 +10,6 @@ public class ToolbarSlot : MonoBehaviour
     [SerializeField] private GameObject _selected;
     [SerializeField] private InventoryItemSlot _slotToCopy;
 
-    public bool Selectable => _slotToCopy.HasItem;
-
     private void OnEnable()
     {
         _slotToCopy.OnItemUpdate += UpdateVisual;
@@ -35,7 +33,7 @@ public class ToolbarSlot : MonoBehaviour
         if (hasSprite) _slot.sprite = item.Sprite;
     }
 
-    public void SetSelected(bool selected)
+    private void SetSelected(bool selected)
     {
         _selected.SetActive(selected);
     }

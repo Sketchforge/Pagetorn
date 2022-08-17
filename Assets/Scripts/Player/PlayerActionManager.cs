@@ -74,7 +74,7 @@ public class PlayerActionManager : MonoBehaviour
                 // Try to use spell
                 LogInput("Attack (Spell)");
                 var magic = (Magic)CanvasController.ToolbarManager.SelectedItem;
-                if (magic != null) magic.CastSpell();
+                if (magic != null) magic.CastSpell(CanvasController.ToolbarManager.SelectedItemSlot);
                 break;
             default:
                 // Basic / weak attack with item in hand?
