@@ -78,11 +78,11 @@ public class Magic : Item
     public bool IsDefense => _magicType is MagicType.Defense /*MagicType.Heal or MagicType.Block or MagicType.Dodge or MagicType.Speed*/;
     public bool IsInstruction => _magicType is MagicType.Instruction /*MagicType.Flourish or MagicType.Fix*/;
 
-    public void CastSpell()
+    public void CastSpell(InventoryItemSlot slot)
     {
         // TODO: Cast
         Debug.Log($"Casting {MagicName}");
-        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints && _pageAmountEdit > 0) // find if player has enough points to cast
+        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints && slot.ItemHealth >= 0) // find if player has enough points to cast
         {
             //_animation.Play();
 
@@ -94,13 +94,7 @@ public class Magic : Item
             //if (IsAOE) create sphere for aoe, possibly do more/less damage away from center using aoePotency?
             //if (IsTimed) figure out how to keep spell active for Duration
 
-            _pageAmountEdit--;
-            Debug.Log($"Pages: {_pageAmountEdit}");
-            if (_pageAmountEdit <= 0) // then lower stack amount, eventually clearing the slot
-            {
-                //if (CanStack) InventoryItemSlot.ClearSlot();
-                Debug.Log($"Amount left: {PageAmount}");
-            }
+            slot.DamageItem(1);
         }
         else Debug.Log($"Whoops can't cast lol loser");
     }
