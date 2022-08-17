@@ -23,8 +23,10 @@ public class Survival : ScriptableObject
     
     [Header("Magic")]
     //[SerializeField] private float _magicLevel; // possibly shows as a number every time kp passes max slider amount, or could signify level up passsive buffs
-    [SerializeField] private float _knowledgePoints = 0;
+    [SerializeField] private float _knowledgePoints;
     [SerializeField] private float _maxKnowledge = 100;
+
+    public float Mitigation = 1.0f;
 
     public Action OnStatsChanged = delegate { };
 
@@ -46,7 +48,7 @@ public class Survival : ScriptableObject
             SurvivalStatEnum.Health => _health,
             SurvivalStatEnum.Hunger => _hunger,
             SurvivalStatEnum.Hydration => _hydration,
-            SurvivalStatEnum.Magic => _knowledgePoints,
+            SurvivalStatEnum.MagicPoints => _knowledgePoints,
             _ => 0
         };
     }
@@ -58,6 +60,7 @@ public class Survival : ScriptableObject
             SurvivalStatEnum.Health => _maxHealth,
             SurvivalStatEnum.Hunger => _maxHunger,
             SurvivalStatEnum.Hydration => _maxHydration,
+            SurvivalStatEnum.MagicPoints => _maxKnowledge,
             _ => 0
         };
     }
@@ -99,7 +102,7 @@ public class Survival : ScriptableObject
             case SurvivalStatEnum.Hydration:
                 _hydration = value;
                 break;
-            case SurvivalStatEnum.Magic:
+            case SurvivalStatEnum.MagicPoints:
                 _knowledgePoints = value;
                 break;
         }
@@ -110,13 +113,18 @@ public class Survival : ScriptableObject
         _health = _maxHealth;
         _hunger = _maxHunger;
         _hydration = _maxHydration;
+        _knowledgePoints = 0;
         OnStatsChanged?.Invoke();
     }
 
     public void Increase(SurvivalStatEnum stat, float amount)
     {
-        SetStat(stat, GetStat(stat) + amount);
+        SetStat(stat, GetStat(stat) + amount); // could potentially add a Buff variable?
         OnStatsChanged?.Invoke();
     }
-    public void Decrease(SurvivalStatEnum stat, float amount) => Increase(stat, -amount);
+    public void Decrease(SurvivalStatEnum stat, float amount)
+    {
+        SetStat(stat, GetStat(stat) - amount * Mitigation);
+        OnStatsChanged?.Invoke();
+    }
 }

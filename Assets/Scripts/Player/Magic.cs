@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Magic")]
 public class Magic : Item
 {
-[Header("Basic Magic Info")]
+    [Header("Basic Magic Info")]
     [SerializeField] private MagicType _magicType;
     [SerializeField] private int _knowledgePoints = 10;
     [SerializeField] private int _pageAmount = 1;
@@ -34,6 +35,8 @@ public class Magic : Item
     [ShowIf("_isAOE")] [SerializeField] private float _aoePotency = 1;
     [SerializeField] private bool _isTimed = false;
     [ShowIf("_isTimed")] [SerializeField] private float _duration = 50;
+    private float _timer = 1;
+    private bool _isCurrentlyTimed = false;
 
 
     // Public Variable Storage
@@ -72,6 +75,7 @@ public class Magic : Item
         _canDefend = (IsDefense);
         _canInstruct = (IsInstruction);
         _pageAmountEdit = PageAmount;
+        _timer = Duration;
     }
 
     public bool IsAttack => _magicType is MagicType.Attack /*MagicType.Flame or MagicType.Zap or MagicType.Woosh*/;
@@ -82,20 +86,45 @@ public class Magic : Item
     {
         // TODO: Cast
         Debug.Log($"Casting {MagicName}");
-        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.Magic) >= KnowledgePoints && slot.ItemHealth >= 0) // find if player has enough points to cast
+
+        // BUG: Only 1 timed spell can be cast at a time
+        if (_isCurrentlyTimed) {
+            Debug.Log("Hey you are already using a timed spell");
+            Debug.Log("Time left on spell: " + (_timer));
+            return;
+        }
+
+        if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.MagicPoints) >= KnowledgePoints && slot.ItemHealth >= 0) // find if player has enough points to cast
         {
             //_animation.Play();
 
             if (CanDamage) PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Damage); // temp, possible elemental damage check?
             //if (Knockback) move object x distance (in which direction, i wonder?)
             if (CanHeal) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Heal);
-            if (CanMitigate) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Mitigation); // possibly alter Survival's Increase/Decrease method to include a mitigation variable?
+            if (CanMitigate && IsTimed) PlayerManager.Instance.Survival.Mitigation = (100 - Mitigation) / 100; // has to be timed, and lets inspector set percent
             //if (CanTrack) GameObject.transform.position; // target an object near cursor (possible raycast/cone? similar to crafting block) to track or affect primarily
             //if (IsAOE) create sphere for aoe, possibly do more/less damage away from center using aoePotency?
-            //if (IsTimed) figure out how to keep spell active for Duration
 
-            slot.DamageItem(1);
+            slot.DamageItem(1); // TODO: Set up proper timer system
+            /*if (IsTimed && _timer >= 0)
+            {
+                StartCoroutine(CountdownTimer(_timer, Duration));
+            }*/
         }
         else Debug.Log($"Whoops can't cast lol loser");
+
+        if (CanMitigate && !IsTimed || !CanMitigate && IsTimed)
+            Debug.LogError($"Mitigation has to be timed to be used!");
     }
+
+    /*private IEnumerator<float> CountdownTimer(float timer, float maxTime)
+    {
+        while (timer <= maxTime)
+        {
+            //countdownImage.fillAmount = timer / maxTime;
+            timer += Time.deltaTime;
+            Debug.Log("Time left: " + (int)timer);
+            yield return 0;
+        }
+    }*/
 }
