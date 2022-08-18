@@ -4,6 +4,7 @@ public enum TargetableType
     Chimera,
     Player,
     AlphaCrawler,
+    AlphaFlyer,
     Flyer,
     Crawler,
     Ranged,
