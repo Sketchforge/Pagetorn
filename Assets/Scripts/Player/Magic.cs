@@ -25,7 +25,7 @@ public class Magic : Item
     [ShowIf("_canMitigate")] [SerializeField] private int _mitigation = 1;
 
     [Header("Etc")]
-    [SerializeField] private Animation _animation;
+    //[SerializeField] private Animation _animation;
     [SerializeField] private bool _isElemental = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementFire = false;
     [ShowIf("_isElemental")] [SerializeField] private bool _elementElectricity = false;
@@ -37,6 +37,9 @@ public class Magic : Item
     [ShowIf("_isTimed")] [SerializeField] private float _duration = 50;
     private float _timer = 1;
     private bool _isCurrentlyTimed = false;
+
+    [SerializeField] private GameObject _spellItem = null;
+    public GameObject SpellItem => _spellItem;
 
 
     // Public Variable Storage
@@ -86,7 +89,7 @@ public class Magic : Item
     {
         // TODO: Cast
         Debug.Log($"Casting {MagicName}");
-
+        
         // BUG: Only 1 timed spell can be cast at a time
         if (_isCurrentlyTimed) {
             Debug.Log("Hey you are already using a timed spell");
@@ -96,35 +99,22 @@ public class Magic : Item
 
         if (PlayerManager.Instance.Survival.GetStat(SurvivalStatEnum.MagicPoints) >= KnowledgePoints && slot.ItemHealth >= 0) // find if player has enough points to cast
         {
+            GameObject spellObject = Instantiate(_spellItem);
+            SpellManager spell = spellObject.GetComponent<SpellManager>();
+
+            spell.OnCast(this);
+
             //_animation.Play();
 
-            if (CanDamage) PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Damage); // temp, possible elemental damage check?
-            //if (Knockback) move object x distance (in which direction, i wonder?)
-            if (CanHeal) PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, Heal);
-            if (CanMitigate && IsTimed) PlayerManager.Instance.Survival.Mitigation = (100 - Mitigation) / 100; // has to be timed, and lets inspector set percent
+            //if (Knockback) ;
             //if (CanTrack) GameObject.transform.position; // target an object near cursor (possible raycast/cone? similar to crafting block) to track or affect primarily
             //if (IsAOE) create sphere for aoe, possibly do more/less damage away from center using aoePotency?
 
-            slot.DamageItem(1); // TODO: Set up proper timer system
-            /*if (IsTimed && _timer >= 0)
-            {
-                StartCoroutine(CountdownTimer(_timer, Duration));
-            }*/
+            slot.DamageItem(1);
         }
         else Debug.Log($"Whoops can't cast lol loser");
 
-        if (CanMitigate && !IsTimed || !CanMitigate && IsTimed)
+        if (CanMitigate && !IsTimed)
             Debug.LogError($"Mitigation has to be timed to be used!");
     }
-
-    /*private IEnumerator<float> CountdownTimer(float timer, float maxTime)
-    {
-        while (timer <= maxTime)
-        {
-            //countdownImage.fillAmount = timer / maxTime;
-            timer += Time.deltaTime;
-            Debug.Log("Time left: " + (int)timer);
-            yield return 0;
-        }
-    }*/
 }

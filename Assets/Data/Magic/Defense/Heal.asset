@@ -18,6 +18,8 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: f3b6bc0ef8cf80341b31b646662e5b6c, type: 3}
   _canStack: 1
   _stackAmount: 99
+  _hasHealth: 0
+  _maxHealth: 5
   _magicType: 1
   _knowledgePoints: 100
   _pageAmount: 2
@@ -34,8 +36,10 @@ MonoBehaviour:
   _isElemental: 0
   _elementFire: 0
   _elementElectricity: 0
+  _canTrack: 0
   _isAOE: 0
   _aoeSize: 1
   _aoePotency: 1
   _isTimed: 0
   _duration: 50
+  _spellItem: {fileID: 1901118868709632695, guid: 377809a7a1f859e408f1e2da5cce23a0, type: 3}

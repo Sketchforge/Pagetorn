@@ -21,6 +21,8 @@ MonoBehaviour:
   _sprite: {fileID: 0}
   _canStack: 1
   _stackAmount: 99
+  _hasHealth: 0
+  _maxHealth: 5
   _magicType: 0
   _knowledgePoints: 200
   _pageAmount: 4
@@ -37,8 +39,10 @@ MonoBehaviour:
   _isElemental: 0
   _elementFire: 0
   _elementElectricity: 0
+  _canTrack: 0
   _isAOE: 0
   _aoeSize: 1
   _aoePotency: 1
   _isTimed: 0
   _duration: 50
+  _spellItem: {fileID: 0}

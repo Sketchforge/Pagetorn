@@ -4088,6 +4088,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      propertyPath: _gloopPoints
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _pickupRange
       value: 1.5
       objectReference: {fileID: 0}
@@ -10491,6 +10495,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      propertyPath: _gloopPoints
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _pickupRange
       value: 1.5
       objectReference: {fileID: 0}
@@ -16117,6 +16125,10 @@ PrefabInstance:
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _gloopSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      propertyPath: _gloopPoints
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _pickupRange
@@ -23260,11 +23272,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7680721275283247625, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.13
+      value: -9.55
       objectReference: {fileID: 0}
     - target: {fileID: 7680721275283247625, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.302
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7680721275283247625, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23301,6 +23313,10 @@ PrefabInstance:
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _gloopSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      propertyPath: _gloopPoints
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 9075315310015392524, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
       propertyPath: _pickupRange
