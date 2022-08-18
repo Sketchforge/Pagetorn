@@ -144,9 +144,9 @@ public class EnemyTypeCrawler : EnemyBase
         FaceTarget();
         if (_target.Type == TargetableType.Player)
         {
-            if ((Time.time - _attackTime) > Data.RateOfAttack)
+            if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack-2, Data.RateOfAttack))
             {
-                PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Data.AttackDamage); //switch w/ hitbox and animation later 
+                PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage/2, Data.AttackDamage)); //switch w/ hitbox and animation later 
                 TrySetState(CrawlerState.Chasing);
             }
         }
