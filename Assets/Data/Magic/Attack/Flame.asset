@@ -18,7 +18,7 @@ MonoBehaviour:
 
     Shoots a fireball at a target dealing
     60 damage. 200kp, 4 pages.'
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 1315244061a159140a0d87d2a4eb575d, type: 3}
   _canStack: 1
   _stackAmount: 99
   _hasHealth: 0
@@ -31,6 +31,8 @@ MonoBehaviour:
   _canInstruct: 0
   _canDamage: 1
   _damage: 60
+  _isProjectile: 1
+  _projectileSpeed: 30
   _hasKnockback: 0
   _canHeal: 0
   _heal: 1
@@ -39,10 +41,13 @@ MonoBehaviour:
   _isElemental: 0
   _elementFire: 0
   _elementElectricity: 0
+  _activeRadius: 1
   _canTrack: 0
+  _canChain: 0
+  _chainRange: 5
   _isAOE: 0
   _aoeSize: 1
   _aoePotency: 1
   _isTimed: 0
   _duration: 50
-  _spellItem: {fileID: 0}
+  _spellItem: {fileID: 1901118868709632695, guid: 3644268f4e601a840b016ce01bf9208b, type: 3}
