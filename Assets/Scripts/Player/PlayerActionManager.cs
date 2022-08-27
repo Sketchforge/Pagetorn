@@ -18,6 +18,7 @@ public class PlayerActionManager : MonoBehaviour
     
     public PlayerState State => _playerState;
     private bool InGame => State == PlayerState.InGame;
+    public Transform LookDirection => _lookDir;
     
     private void Start()
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab908cb17a0e2a04bb72fcd10d4fe83a, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _health: 30
+  _health: 100
   _healthLowThreshold: 20
   _maxHealth: 100
   _hunger: 100
@@ -21,6 +21,6 @@ MonoBehaviour:
   _hydration: 100
   _hydrationLowThreshold: 20
   _maxHydration: 100
-  _knowledgePoints: 700
-  _maxKnowledge: 700
+  _knowledgePoints: 1000
+  _maxKnowledge: 3000
   Mitigation: 1

@@ -28,6 +28,7 @@ MonoBehaviour:
   _canInstruct: 0
   _canDamage: 0
   _damage: 1
+  _projectileSpeed: 1
   _hasKnockback: 0
   _canHeal: 1
   _heal: 50
@@ -36,10 +37,13 @@ MonoBehaviour:
   _isElemental: 0
   _elementFire: 0
   _elementElectricity: 0
+  _activeRadius: 1
   _canTrack: 0
+  _canChain: 0
+  _chainRange: 5
   _isAOE: 0
   _aoeSize: 1
   _aoePotency: 1
   _isTimed: 0
   _duration: 50
-  _spellItem: {fileID: 1901118868709632695, guid: 377809a7a1f859e408f1e2da5cce23a0, type: 3}
+  _spellItem: {fileID: 1901118868709632695, guid: 3644268f4e601a840b016ce01bf9208b, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256fe224c0e30cd4db06c24488f1fb7a, type: 3}
   m_Name: Woosh
   m_EditorClassIdentifier: 
-  _itemName: 
+  _itemName: Woosh
   _type: 23
   _description: 'A book on rocketry. Causes the player to fly high in the air, leaving
     a trail of flames, landing with a slam.
@@ -20,8 +20,10 @@ MonoBehaviour:
     Deals 20 damage to nearby enemies
     and applies knockback. Flames also deal damage. 2000kp, 3 pages.'
   _sprite: {fileID: 0}
-  _canStack: 0
+  _canStack: 1
   _stackAmount: 99
+  _hasHealth: 0
+  _maxHealth: 5
   _magicType: 0
   _knowledgePoints: 2000
   _pageAmount: 3
@@ -30,6 +32,7 @@ MonoBehaviour:
   _canInstruct: 0
   _canDamage: 1
   _damage: 20
+  _projectileSpeed: 1
   _hasKnockback: 1
   _canHeal: 0
   _heal: 1
@@ -38,8 +41,13 @@ MonoBehaviour:
   _isElemental: 0
   _elementFire: 0
   _elementElectricity: 0
+  _activeRadius: 1
+  _canTrack: 0
+  _canChain: 0
+  _chainRange: 1
   _isAOE: 1
   _aoeSize: 5
   _aoePotency: 1
   _isTimed: 0
   _duration: 50
+  _spellItem: {fileID: 1901118868709632695, guid: 3644268f4e601a840b016ce01bf9208b, type: 3}
