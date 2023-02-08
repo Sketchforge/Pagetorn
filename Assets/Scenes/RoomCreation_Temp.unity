@@ -786,7 +786,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-12060
+  m_Name: pb_Mesh-76690
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -955,6 +955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blank-4-Way
       objectReference: {fileID: 0}
+    - target: {fileID: 491652343289440896, guid: dbc409cc8f1e56d44b56f8d325ed0732, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 491652343289440897, guid: dbc409cc8f1e56d44b56f8d325ed0732, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -1012,6 +1016,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2-Way_Small
       objectReference: {fileID: 0}
+    - target: {fileID: 1456700323498271064, guid: e6d9f6082c8630a42bc9a56125a11974, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1456700323498271065, guid: e6d9f6082c8630a42bc9a56125a11974, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1068,6 +1076,10 @@ PrefabInstance:
     - target: {fileID: 1812949529824519124, guid: a6fab56d516370e46b6c1e73a999168c, type: 3}
       propertyPath: m_Name
       value: 4-Way_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 1812949529824519124, guid: a6fab56d516370e46b6c1e73a999168c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1812949529824519125, guid: a6fab56d516370e46b6c1e73a999168c, type: 3}
       propertyPath: m_RootOrder
@@ -1170,6 +1182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Short
       objectReference: {fileID: 0}
+    - target: {fileID: 2924073113319894569, guid: 703673ec832416f4e823cca79a7438eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 703673ec832416f4e823cca79a7438eb, type: 3}
 --- !u!1001 &3078233464616093150
@@ -1182,6 +1198,10 @@ PrefabInstance:
     - target: {fileID: 3078233463460374348, guid: 4a866bc1a695d154482bc2f05b01b4c9, type: 3}
       propertyPath: m_Name
       value: 4-Way_Large
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078233463460374348, guid: 4a866bc1a695d154482bc2f05b01b4c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3078233463460374349, guid: 4a866bc1a695d154482bc2f05b01b4c9, type: 3}
       propertyPath: m_RootOrder
@@ -1239,6 +1259,10 @@ PrefabInstance:
     - target: {fileID: 4161994523530481896, guid: d3a8a6e94f5c89946a28e59157a1bc6a, type: 3}
       propertyPath: m_Name
       value: 2-Way_Cafeteria
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161994523530481896, guid: d3a8a6e94f5c89946a28e59157a1bc6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4161994523530481897, guid: d3a8a6e94f5c89946a28e59157a1bc6a, type: 3}
       propertyPath: m_RootOrder
@@ -1341,6 +1365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2-Way_Large
       objectReference: {fileID: 0}
+    - target: {fileID: 4437765288593154163, guid: dc115cb3bed1265438dc5c538ec35723, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc115cb3bed1265438dc5c538ec35723, type: 3}
 --- !u!1001 &6203370121446343278
@@ -1353,6 +1381,10 @@ PrefabInstance:
     - target: {fileID: 6203370120869432256, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
       propertyPath: m_Name
       value: DeadEnd_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203370120869432256, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6203370120869432257, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
       propertyPath: m_RootOrder
@@ -1467,6 +1499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4-Way_Cafeteria
       objectReference: {fileID: 0}
+    - target: {fileID: 6625647446292483949, guid: 0e9a8f466f3b8eb4b8c99525bebad4e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e9a8f466f3b8eb4b8c99525bebad4e8, type: 3}
 --- !u!1001 &7306996987632577278
@@ -1479,6 +1515,10 @@ PrefabInstance:
     - target: {fileID: 7306996986947990128, guid: 1fae77a3826b51a4392dec0a684851fd, type: 3}
       propertyPath: m_Name
       value: 4-Way_Med
+      objectReference: {fileID: 0}
+    - target: {fileID: 7306996986947990128, guid: 1fae77a3826b51a4392dec0a684851fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7306996986947990129, guid: 1fae77a3826b51a4392dec0a684851fd, type: 3}
       propertyPath: m_RootOrder
@@ -1537,6 +1577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Long
       objectReference: {fileID: 0}
+    - target: {fileID: 7473704766214296310, guid: 76990bd935946794bab8f587102c0baf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7473704766214296311, guid: 76990bd935946794bab8f587102c0baf, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1594,6 +1638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeadEnd_Large
       objectReference: {fileID: 0}
+    - target: {fileID: 8217578901337652492, guid: 4deb4f48925b7164896f7adc5db70953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8217578901337652493, guid: 4deb4f48925b7164896f7adc5db70953, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1650,6 +1698,10 @@ PrefabInstance:
     - target: {fileID: 8258509241656843064, guid: ed0e8deca18ab2b4fb048bba140daf33, type: 3}
       propertyPath: m_Name
       value: Computer-Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258509241656843064, guid: ed0e8deca18ab2b4fb048bba140daf33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8258509241656843065, guid: ed0e8deca18ab2b4fb048bba140daf33, type: 3}
       propertyPath: m_RootOrder
@@ -1752,6 +1804,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2-Way_Med
       objectReference: {fileID: 0}
+    - target: {fileID: 8874060408456894070, guid: 88a14163644a9c548935e57eda73d736, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88a14163644a9c548935e57eda73d736, type: 3}
 --- !u!1001 &9112055888249549521
@@ -1764,6 +1820,10 @@ PrefabInstance:
     - target: {fileID: 9112055886499539772, guid: 984ad742f8f34f144acef6da2cd745f4, type: 3}
       propertyPath: m_Name
       value: Kids_Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112055886499539772, guid: 984ad742f8f34f144acef6da2cd745f4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9112055886499539775, guid: 984ad742f8f34f144acef6da2cd745f4, type: 3}
       propertyPath: m_RootOrder

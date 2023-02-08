@@ -87,6 +87,7 @@ public class EnemyTypeCrawler : EnemyBase
 
     private void OnRoamingState()
     {
+        //Debug.Log("RoamState");
         _memoryTime = Time.time;
         if (Vector3.Distance(transform.position, _roamPosition) > 20f)
         {
@@ -96,7 +97,7 @@ public class EnemyTypeCrawler : EnemyBase
         MoveTo(_roamPosition);
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
-            Debug.Log("RoamStateIsBeingGlitchy");
+            //Debug.Log("RoamStateIsBeingGlitchy");
             _roamPosition = GetRoamingPosition();
         }
 
@@ -105,6 +106,7 @@ public class EnemyTypeCrawler : EnemyBase
     
     private void OnChasingState()
     {
+        //Debug.Log("ChaseState");
         if (!_target)
         {
             TrySetState(CrawlerState.Roaming);
@@ -118,7 +120,9 @@ public class EnemyTypeCrawler : EnemyBase
             return;
         }
 
-        MoveTo(_target.transform.position);
+        MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
+        if (_isAlpha)
+            makeFollowersCircleTarget();
 
         if ((Time.time - _memoryTime) > Data.MemoryTimeout)
         {
@@ -131,11 +135,15 @@ public class EnemyTypeCrawler : EnemyBase
 
         _attackTime = Time.time;
 
-        if (CheckAttackTarget()) TrySetState(CrawlerState.Attacking);
+        if (CheckAttackTarget())
+        {
+            TrySetState(CrawlerState.Attacking);
+        }
     }
     
     private void OnAttackingState()
     {
+        //Debug.Log("AttackState");
         if (!_target)
         {
             TrySetState(CrawlerState.Roaming);
@@ -144,17 +152,23 @@ public class EnemyTypeCrawler : EnemyBase
         FaceTarget();
         if (_target.Type == TargetableType.Player)
         {
-            if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack-2, Data.RateOfAttack))
+            if (!_isAlpha)
             {
-                PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage/2, Data.AttackDamage)); //switch w/ hitbox and animation later 
-                TrySetState(CrawlerState.Chasing);
+                if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack)) //if not an alpha, simply deal damage
+                {
+                    PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
+                    Debug.Log("Hit Player");
+                    _attackTime = Time.time;
+                    TrySetState(CrawlerState.Roaming);
+                }
             }
         }
         if (_target.Type == TargetableType.AlphaCrawler)
         {
-            if ((Time.time - _attackTime) > Data.RateOfAttack)
+            if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack))
             {
                 _target.GetComponent<Health>().Damage(Mathf.CeilToInt(Random.Range(Data.AttackDamage / 2, Data.AttackDamage)));
+                _attackTime = Time.time;
                 TrySetState(CrawlerState.Chasing);
             }
         }
@@ -300,5 +314,17 @@ public class EnemyTypeCrawler : EnemyBase
     {
         if (!_isAlpha) return;
         _children.Add(crawler);
+    }
+
+    private void makeFollowersCircleTarget()
+    {
+        Debug.Log("Circle Target!");
+        for (int i = 0; i < _children.Count; i++)
+        {
+            _children[i].MoveTo(new Vector3(
+                _target.transform.position.x + _radiusSurroundTarget * Mathf.Cos(2 * Mathf.PI * i / _children.Count),
+                _target.transform.position.y,
+                _target.transform.position.z + _radiusSurroundTarget * Mathf.Sin(2 * Mathf.PI * i / _children.Count)));
+        }
     }
 }

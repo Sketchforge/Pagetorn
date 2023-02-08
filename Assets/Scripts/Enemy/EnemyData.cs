@@ -7,9 +7,9 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _maxHealth = 1;
     [SerializeField] private float _attackDamage = 1;
     [SerializeField] private float _moveSpeed = 1;
-    [SerializeField] private float _rateOfAttack = 1;
+    [SerializeField] private float _rateOfAttack = 4;
     [SerializeField] private float _rangeOfVision = 50;
-    [SerializeField] private float _attackRange = 30;
+    [SerializeField] private float _attackRange = 12;
     [SerializeField] private float _memoryTimeout = 5;
     [SerializeField] private List<GameObject> _loot;
 

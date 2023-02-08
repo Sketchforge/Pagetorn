@@ -9,6 +9,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] public bool _active;
     [SerializeField] protected Targetable _target;
+    [SerializeField] protected float _radiusSurroundTarget = 6f;
     
     [Header("References")]
     [SerializeField] private Rigidbody _rb;
@@ -42,6 +43,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void Awake()
     {
+        //AIManager.Instance.Units.Add(this);
         _health.SetHealth(_data.MaxHealth);
     }
 
@@ -132,7 +134,7 @@ public abstract class EnemyBase : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, Data.AttackRange);
     }
 
-    protected void MoveTo(Vector3 newTarget)
+    public void MoveTo(Vector3 newTarget)
     {
         NavMesh.SamplePosition(newTarget,out var hit, 10, NavMesh.AllAreas);
         _agent.SetDestination(hit.position);

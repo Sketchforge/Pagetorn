@@ -173,16 +173,19 @@ public class EnemyTypeFlyer : EnemyBase
         }
         if (_target)
         {
-            MoveTo(CircleTarget(_target));
+            makeFollowersCircleTarget();
+            //MoveTo(CircleTarget(_target));
+            //StartCoroutine(RotateAroundTarget());
             GameObject artToControl = _isAlpha ? _alphaArt : _flyerArt;
             
             artToControl.transform.position = new Vector3(transform.position.x, transform.position.y + _flyingHeight, transform.position.z);
             if ((Time.time - _circlingTime) > _circleTimeout)
             {
                 //TODO: Swoop down, attack, swoop back up.
+                //StopCoroutine(RotateAroundTarget());
                 _attackTime = Time.time;
                 isCircling = false;
-                artToControl.transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
+                artToControl.transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z); //TELEPORTS THE FLYERS, SHOULD BE ANIMATION, CURRENTLY BROKEN
                 if (CheckAttackTarget()) TrySetState(FlyerState.Attacking);
             }
         }
@@ -190,6 +193,7 @@ public class EnemyTypeFlyer : EnemyBase
 
     private void OnAttackingState()
     {
+       
         if (!_target)
         {
             TrySetState(FlyerState.Roaming);
@@ -201,6 +205,7 @@ public class EnemyTypeFlyer : EnemyBase
             if ((Time.time - _attackTime) > Data.RateOfAttack)
             {
                 PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Data.AttackDamage); //switch w/ hitbox and animation later 
+                _attackTime = Time.time;
                 TrySetState(FlyerState.Chasing);
             }
         }
@@ -291,8 +296,6 @@ public class EnemyTypeFlyer : EnemyBase
         return true;
     }
 
-
-
     private static float GetRandom(Vector2 range) => Random.Range(range.x, range.y);
 
     protected override Targetable GetPotentialTarget(IEnumerable<Targetable> targets)
@@ -375,5 +378,33 @@ public class EnemyTypeFlyer : EnemyBase
     {
         return (Vector3.Distance(transform.position, _target.transform.position) < Data.AttackRange + 20);
     }
+
+    private void makeFollowersCircleTarget()
+    {
+        //Debug.Log("Circle Target!");
+        for (int i = 0; i < _children.Count; i++)
+        {
+            _children[i].MoveTo(new Vector3(
+                _target.transform.position.x + _radiusSurroundTarget * Mathf.Cos(2 * Mathf.PI * i / _children.Count),
+                _target.transform.position.y,
+                _target.transform.position.z + _radiusSurroundTarget * Mathf.Sin(2 * Mathf.PI * i / _children.Count)));
+
+            _children[i].transform.RotateAround(_target.transform.position, Vector3.up, 1f);
+        }
+
+        
+    }
+
+    //private IEnumerator RotateAroundTarget()
+    //{
+    //    WaitForFixedUpdate Wait = new WaitForFixedUpdate();
+    //    while (true)
+    //    {
+    //        transform.RotateAround(_target.transform.position, Vector3.up, 0.01f);
+    //        yield return Wait;
+    //    }
+    //}
+
+
 
 }
