@@ -20,7 +20,7 @@ public class PostProcessingEvent : Event
     [SerializeField] private float _duration = 4;
     [SerializeField] private AnimationCurve _fadeOut = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
 
-    public override void ActivateEvent(Transform player)
+    public override void ActivateEvent()
     {
         if (_affectFog)
         {

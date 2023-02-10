@@ -9,7 +9,7 @@ public class EventTrigger : MonoBehaviour
     {
         if (other.GetComponent<PlayerMovementScript>())
         {
-            _event.ActivateEvent(other.transform);
+            _event.ActivateEvent();
             if (_destroySelf) Destroy(gameObject);
         }
     }

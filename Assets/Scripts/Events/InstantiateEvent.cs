@@ -12,8 +12,9 @@ public class InstantiateEvent : Event
     [SerializeField] private int _instantiateCount = 1;
     [SerializeField] private bool _facePlayer = true;
 
-    public override void ActivateEvent(Transform player)
+    public override void ActivateEvent()
     {
+        Transform player = PlayerManager.Instance.Player;
         var pos = player.TransformPoint(_offsetFromPlayer);
         for (int i = 0; i < _instantiateCount; i++)
         {
