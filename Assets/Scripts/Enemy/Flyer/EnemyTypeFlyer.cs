@@ -21,6 +21,7 @@ public class EnemyTypeFlyer : EnemyBase
     [SerializeField] private List<EnemyTypeFlyer> _children = new List<EnemyTypeFlyer>();
     [SerializeField] private Vector2 _randomRoamRange = new Vector2(10f, 50f);
     [SerializeField] private Vector2 _randomFollowRange = new Vector2(2f, 5f);
+    [SerializeField] protected float _radiusSurroundTarget = 3f;
 
 
     [Header("Debug")]

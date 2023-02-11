@@ -9,7 +9,6 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] public bool _active;
     [SerializeField] protected Targetable _target;
-    [SerializeField] protected float _radiusSurroundTarget = 6f;
     
     [Header("References")]
     [SerializeField] private Rigidbody _rb;

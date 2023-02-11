@@ -2,27 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTypeCrawler : EnemyBase
+public class EnemyTypeRanger : EnemyBase
 {
-    [Header("Crawler Specific")]
+    [Header("Ranger Specific")]
     [SerializeField] private EnemyData _alphaData;
-    [SerializeField] private bool _isAlpha;
-    [SerializeField, ReadOnly] private CrawlerState _crawlerState;
+    [SerializeField] private bool _isAlpha = false;
+    [SerializeField, ReadOnly] private RangerState _rangerState;
 
     [SerializeField] private Targetable _targetable;
-    [SerializeField] private GameObject _crawlerArt;
+    [SerializeField] private GameObject _rangerArt;
     [SerializeField] private GameObject _alphaArt;
 
-    [SerializeField] private EnemyTypeCrawler _alpha;
-    [SerializeField] private List<EnemyTypeCrawler> _children = new List<EnemyTypeCrawler>();
+    [SerializeField] private EnemyTypeRanger _alpha;
+    [SerializeField] private List<EnemyTypeRanger> _children = new List<EnemyTypeRanger>();
     [SerializeField] private Vector2 _randomRoamRange = new Vector2(10f, 50f);
     [SerializeField] private Vector2 _randomFollowRange = new Vector2(2f, 5f);
-    [SerializeField] protected float _radiusSurroundTarget = 6f;
+    [SerializeField] protected float _radiusSurroundTarget = 30f;
+    [SerializeField] protected float _chargeShotTime = 4f;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private Vector3 _startingPosition;
     [SerializeField, ReadOnly] private Vector3 _roamPosition;
     [SerializeField, ReadOnly] private float _attackTime;
+    [SerializeField, ReadOnly] private float _chargeTime;
     [SerializeField, ReadOnly] private float _memoryTime;
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField] private bool hasRoamPos = true;
@@ -48,23 +50,26 @@ public class EnemyTypeCrawler : EnemyBase
         {
             _target = null;
         }
-        
-        switch (_crawlerState)
+
+        switch (_rangerState)
         {
             default:
-            case CrawlerState.Roaming:
+            case RangerState.Roaming:
                 OnRoamingState();
                 break;
-            case CrawlerState.Chasing:
+            case RangerState.Chasing:
                 OnChasingState();
                 break;
-            case CrawlerState.Attacking:
+            case RangerState.Charging:
+                OnChargingState();
+                break;
+            case RangerState.Attacking:
                 OnAttackingState();
                 break;
-            case CrawlerState.Eating:
+            case RangerState.Eating:
                 OnEatingState();
                 break;
-            case CrawlerState.Fleeing:
+            case RangerState.Fleeing:
                 OnFleeingState();
                 break;
         }
@@ -72,15 +77,15 @@ public class EnemyTypeCrawler : EnemyBase
 
     protected override void OnLoseTarget()
     {
-        _crawlerState = CrawlerState.Roaming;
+        _rangerState = RangerState.Roaming;
     }
 
     [Button]
     private void UpdateAlphaStatus()
     {
         Log("Update Alpha Status: " + _isAlpha);
-        _targetable.SetType(_isAlpha ? TargetableType.AlphaCrawler : TargetableType.Crawler);
-        _crawlerArt.SetActive(!_isAlpha);
+        _targetable.SetType(_isAlpha ? TargetableType.AlphaRanger : TargetableType.Ranger); //targetable is null... why
+        _rangerArt.SetActive(!_isAlpha);
         _alphaArt.SetActive(_isAlpha);
     }
 
@@ -102,26 +107,26 @@ public class EnemyTypeCrawler : EnemyBase
             _roamPosition = GetRoamingPosition();
         }
 
-        if (CheckTarget()) TrySetState(CrawlerState.Chasing);
+        if (CheckTarget()) TrySetState(RangerState.Chasing);
     }
-    
+
     private void OnChasingState()
     {
         //Debug.Log("ChaseState");
         if (!_target)
         {
-            TrySetState(CrawlerState.Roaming);
+            TrySetState(RangerState.Roaming);
             return;
         }
         FaceTarget();
 
         if (_target.Type == TargetableType.Witch)
         {
-            TrySetState(CrawlerState.Fleeing);
+            TrySetState(RangerState.Fleeing);
             return;
         }
 
-        MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
+        MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x / 2, 0, _randomFollowRange.y / 2));
         if (_isAlpha)
             makeFollowersCircleTarget();
 
@@ -129,56 +134,82 @@ public class EnemyTypeCrawler : EnemyBase
         {
             if (!CheckTarget())
             {
-                TrySetState(CrawlerState.Roaming);
+                TrySetState(RangerState.Roaming);
                 return;
             }
         }
 
-        _attackTime = Time.time;
+        _chargeTime = Time.time;
 
         if (CheckAttackTarget())
         {
-            TrySetState(CrawlerState.Attacking);
+            TrySetState(RangerState.Charging);
         }
     }
-    
+
+    private void OnChargingState()
+    {
+        if (!_isAlpha)
+        {
+            if ((Time.time - _chargeTime) < Random.Range(_chargeShotTime - 1f, _chargeShotTime))
+            {
+                Debug.Log("Charging...");
+            }
+
+            if ((Time.time - _chargeTime) > Random.Range(_chargeShotTime - 1f, _chargeShotTime))
+            {
+                _attackTime = Time.time;
+                if (CheckAttackTarget()) //check again, if still in range, shoot
+                {
+                    TrySetState(RangerState.Attacking);
+                }
+                else
+                {
+                    TrySetState(RangerState.Roaming);
+                }
+            }
+        }
+
+    }
+
     private void OnAttackingState()
     {
         //Debug.Log("AttackState");
         if (!_target)
         {
-            TrySetState(CrawlerState.Roaming);
+            TrySetState(RangerState.Roaming);
             return;
         }
         FaceTarget();
         if (_target.Type == TargetableType.Player)
         {
-            if (!_isAlpha)
-            {
+            //if (!_isAlpha)
+            //{
                 if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack)) //if not an alpha, simply deal damage
                 {
-                    PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
-                    Debug.Log("Hit Player");
+                    //PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
+                    Debug.Log("Shot Glob");
                     _attackTime = Time.time;
-                    TrySetState(CrawlerState.Roaming);
+                    TrySetState(RangerState.Roaming);
                 }
-            }
+            //}
         }
         if (_target.Type == TargetableType.AlphaRanger)
         {
             if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack))
             {
-                _target.GetComponent<Health>().Damage(Mathf.CeilToInt(Random.Range(Data.AttackDamage / 2, Data.AttackDamage)));
+                //_target.GetComponent<Health>().Damage(Mathf.CeilToInt(Random.Range(Data.AttackDamage / 2, Data.AttackDamage)));
+                Debug.Log("Shot Glob at Alpha");
                 _attackTime = Time.time;
-                TrySetState(CrawlerState.Chasing);
+                TrySetState(RangerState.Roaming);
             }
         }
         if (_target.Type == TargetableType.Gloop && !HasAlpha) //TODO: Add !Raiding bool 
         {
-            TrySetState(CrawlerState.Eating);
+            TrySetState(RangerState.Eating);
         }
         if ((Time.time - _attackTime) > Data.RateOfAttack)
-            TrySetState(CrawlerState.Chasing);
+            TrySetState(RangerState.Chasing);
     }
 
     private void OnEatingState()
@@ -190,7 +221,7 @@ public class EnemyTypeCrawler : EnemyBase
         var gloop = _target.GetComponent<Gloop>();
         if (gloop == null || gloop.Eaten)
         {
-            TrySetState(CrawlerState.Roaming);
+            TrySetState(RangerState.Roaming);
             return;
         }
         gloop.Eaten = true;
@@ -202,9 +233,9 @@ public class EnemyTypeCrawler : EnemyBase
             _isAlpha = true;
             UpdateAlphaStatus();
         }
-        TrySetState(CrawlerState.Roaming);
+        TrySetState(RangerState.Roaming);
     }
-    
+
     private void OnFleeingState()
     {
         float distance = Vector3.Distance(transform.position, _target.transform.position);
@@ -219,39 +250,39 @@ public class EnemyTypeCrawler : EnemyBase
         }
         else if (distance >= distanceToRun)
         {
-            TrySetState(CrawlerState.Roaming);
+            TrySetState(RangerState.Roaming);
         }
     }
-    
+
     #endregion
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private bool TrySetState(CrawlerState newState, bool fromAlpha = false)
+    private bool TrySetState(RangerState newState, bool fromAlpha = false)
     {
         if (HasAlpha && !fromAlpha)
         {
             // Brute force to fix bugs
-            _crawlerState = _alpha._crawlerState;
+            _rangerState = _alpha._rangerState;
             return false;
         }
-        if (newState == _crawlerState) return false;
+        if (newState == _rangerState) return false;
         Log($"State switched to {newState}");
-        _crawlerState = newState;
+        _rangerState = newState;
         if (_isAlpha)
         {
-            var childState = _crawlerState;
-            bool alphaIsEating = childState == CrawlerState.Eating;
-            if (alphaIsEating) childState = CrawlerState.Roaming;
-            foreach (var crawler in _children)
+            var childState = _rangerState;
+            bool alphaIsEating = childState == RangerState.Eating;
+            if (alphaIsEating) childState = RangerState.Roaming;
+            foreach (var ranger in _children)
             {
-                crawler.TrySetState(childState, true);
-                if (!alphaIsEating) crawler._target = _target;
+                ranger.TrySetState(childState, true);
+                if (!alphaIsEating) ranger._target = _target;
             }
         }
         _startingPosition = transform.position;
         return true;
     }
-    
+
     private Vector3 GetRoamingPosition()
     {
         if (Time.time - _roamTime < 1f && !hasRoamPos) return _roamPosition;
@@ -293,7 +324,7 @@ public class EnemyTypeCrawler : EnemyBase
             {
                 if (!_isAlpha)
                 {
-                    _alpha = t.GetComponent<EnemyTypeCrawler>();
+                    _alpha = t.GetComponent<EnemyTypeRanger>();
                     if (HasAlpha) _alpha.AddFollower(this);
                 }
                 if (targetPriority < 1)
@@ -311,10 +342,10 @@ public class EnemyTypeCrawler : EnemyBase
         return target;
     }
 
-    private void AddFollower(EnemyTypeCrawler crawler)
+    private void AddFollower(EnemyTypeRanger ranger)
     {
         if (!_isAlpha) return;
-        _children.Add(crawler);
+        _children.Add(ranger);
     }
 
     private void makeFollowersCircleTarget()

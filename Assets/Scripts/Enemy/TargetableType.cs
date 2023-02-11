@@ -5,8 +5,9 @@ public enum TargetableType
     Player,
     AlphaCrawler,
     AlphaFlyer,
+    AlphaRanger,
     Flyer,
     Crawler,
-    Ranged,
+    Ranger,
     Gloop,
 }
