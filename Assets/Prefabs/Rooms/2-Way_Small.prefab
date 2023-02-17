@@ -951,6 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1456700323498271065}
+  - component: {fileID: 3729800005364928389}
   m_Layer: 0
   m_Name: 2-Way_Small
   m_TagString: Untagged
@@ -975,6 +976,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3729800005364928389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456700323498271064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4136b58dad7217c4a83f38531d989933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorLocations:
+    Up: 1
+    Down: 1
+    Left: 0
+    Right: 0
+  distanceObject: {fileID: 1456700322094893041}
+  fullRoomSize: {x: 0, y: 0}
+  upDistanceToDoor: 0
+  downDistanceToDoor: 0
+  leftDistanceToDoor: 0
+  rightDistanceToDoor: 0
 --- !u!1 &1456700323780579384
 GameObject:
   m_ObjectHideFlags: 0
