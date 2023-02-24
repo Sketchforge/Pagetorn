@@ -164,7 +164,7 @@ public class EnemyTypeCrawler : EnemyBase
                 }
             }
         }
-        if (_target.Type == TargetableType.AlphaRanger)
+        if (_target.Type == TargetableType.AlphaCrawler)
         {
             if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack))
             {
@@ -255,7 +255,7 @@ public class EnemyTypeCrawler : EnemyBase
     private Vector3 GetRoamingPosition()
     {
         if (Time.time - _roamTime < 1f && !hasRoamPos) return _roamPosition;
-        _roamTime = Time.time;
+        
         var rand = Random.insideUnitSphere * GetRandom(HasAlpha ? _randomFollowRange : _randomRoamRange);
         rand.y = 0;
         if (HasAlpha)
@@ -268,6 +268,7 @@ public class EnemyTypeCrawler : EnemyBase
             hasRoamPos = false;
             return rand + _startingPosition;
         }
+        _roamTime = Time.time;
     }
 
     private static float GetRandom(Vector2 range) => Random.Range(range.x, range.y);
@@ -289,7 +290,7 @@ public class EnemyTypeCrawler : EnemyBase
                 target = t;
                 targetPriority = 5;
             }
-            if (t.Type == TargetableType.AlphaRanger && t.transform != transform)
+            if (t.Type == TargetableType.AlphaCrawler && t.transform != transform)
             {
                 if (!_isAlpha)
                 {

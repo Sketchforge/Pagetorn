@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Ranger
   m_EditorClassIdentifier: 
   _maxHealth: 1
-  _attackDamage: 1
+  _attackDamage: 10
   _moveSpeed: 10
   _rateOfAttack: 4
   _rangeOfVision: 50
-  _attackRange: 12
+  _attackRange: 15
   _memoryTimeout: 5
   _loot:
   - {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}

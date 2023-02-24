@@ -19,6 +19,10 @@ public class EnemyTypeRanger : EnemyBase
     [SerializeField] private Vector2 _randomFollowRange = new Vector2(2f, 5f);
     [SerializeField] protected float _radiusSurroundTarget = 30f;
     [SerializeField] protected float _chargeShotTime = 4f;
+    [SerializeField] protected Transform _bulletOrigin;
+    [SerializeField] private GameObject bulletObj;
+    [SerializeField] private float bulletForce = 30;
+    [SerializeField] private GameObject myBullet;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private Vector3 _startingPosition;
@@ -50,6 +54,11 @@ public class EnemyTypeRanger : EnemyBase
         {
             _target = null;
         }
+
+        //CHECKS FOR HITS OUTSIDE OF STATES
+        //if (myBullet != null)
+        //    if (myBullet.GetComponent<RangerBullet>().hitPlayer)
+        //        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage));
 
         switch (_rangerState)
         {
@@ -128,7 +137,11 @@ public class EnemyTypeRanger : EnemyBase
 
         MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x / 2, 0, _randomFollowRange.y / 2));
         if (_isAlpha)
+        {
             makeFollowersCircleTarget();
+            _randomFollowRange = new Vector2(15f, 20f); //add more offset, too close to player
+        }
+            
 
         if ((Time.time - _memoryTime) > Data.MemoryTimeout)
         {
@@ -139,11 +152,12 @@ public class EnemyTypeRanger : EnemyBase
             }
         }
 
+        _attackTime = Time.time;
         _chargeTime = Time.time;
 
         if (CheckAttackTarget())
         {
-            TrySetState(RangerState.Charging);
+            TrySetState(RangerState.Attacking);
         }
     }
 
@@ -189,6 +203,12 @@ public class EnemyTypeRanger : EnemyBase
                 {
                     //PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
                     Debug.Log("Shot Glob");
+                    myBullet = Instantiate(bulletObj, _bulletOrigin.position, Quaternion.identity, null);
+                    myBullet.GetComponent<RangerBullet>().parentData = Data;
+                    myBullet.GetComponent<RangerBullet>().targetTransform = _target.transform;
+                    //myBullet.GetComponent<RangerBullet>().rb.velocity = transform.forward * 10f;
+                    //myBullet.GetComponent<RangerBullet>().rb.AddForce(transform.forward * bulletForce);
+
                     _attackTime = Time.time;
                     TrySetState(RangerState.Roaming);
                 }
@@ -359,4 +379,5 @@ public class EnemyTypeRanger : EnemyBase
                 _target.transform.position.z + _radiusSurroundTarget * Mathf.Sin(2 * Mathf.PI * i / _children.Count)));
         }
     }
+
 }
