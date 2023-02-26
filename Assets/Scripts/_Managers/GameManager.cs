@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
     public static Action<bool> OnPause = delegate { };
 
     [SerializeField, ReadOnly] private bool _paused = false;
+    [SerializeField] private PostProcessingManager _postProcessingManager;
+
+    public static PostProcessingManager PostProcessingManager => Instance._postProcessingManager;
 
     private void Awake()
     {
