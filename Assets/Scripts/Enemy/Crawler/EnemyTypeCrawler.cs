@@ -90,7 +90,7 @@ public class EnemyTypeCrawler : EnemyBase
     {
         //Debug.Log("RoamState");
         _memoryTime = Time.time;
-        if (Vector3.Distance(transform.position, _roamPosition) > 20f)
+        if (Vector3.Distance(transform.position, _roamPosition) < 20f)
         {
             _roamPosition = GetRoamingPosition();
         }
@@ -119,6 +119,11 @@ public class EnemyTypeCrawler : EnemyBase
         {
             TrySetState(CrawlerState.Fleeing);
             return;
+        }
+
+        if (_target.Type == TargetableType.Gloop && !HasAlpha)
+        {
+            _randomFollowRange = new Vector2(0.1f, 1f);
         }
 
         MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
@@ -258,6 +263,7 @@ public class EnemyTypeCrawler : EnemyBase
         
         var rand = Random.insideUnitSphere * GetRandom(HasAlpha ? _randomFollowRange : _randomRoamRange);
         rand.y = 0;
+        _roamTime = Time.time;
         if (HasAlpha)
         {
             hasRoamPos = false;
@@ -265,10 +271,10 @@ public class EnemyTypeCrawler : EnemyBase
         }
         else
         {
-            hasRoamPos = false;
+            hasRoamPos = true;
             return rand + _startingPosition;
         }
-        _roamTime = Time.time;
+        
     }
 
     private static float GetRandom(Vector2 range) => Random.Range(range.x, range.y);

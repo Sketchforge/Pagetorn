@@ -15,7 +15,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private MouseRotation _lookBodyRotation;
     [SerializeField] private Transform _lookDir;
     [SerializeField] private float _interactDistance = 4;
-    
+
     public PlayerState State => _playerState;
     private bool InGame => State == PlayerState.InGame;
     public Transform LookDirection => _lookDir;
@@ -23,6 +23,11 @@ public class PlayerActionManager : MonoBehaviour
     private void Start()
     {
         CheckState();
+    }
+
+    private void Update()
+    {
+        DataManager.totalTime += Time.deltaTime;
     }
 
     public void Move(Vector2 moveDir)

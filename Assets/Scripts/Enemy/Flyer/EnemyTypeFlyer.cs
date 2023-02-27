@@ -127,7 +127,7 @@ public class EnemyTypeFlyer : EnemyBase
         MoveTo(_roamPosition);
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
-            Debug.Log("RoamStateIsBeingGlitchy");
+            //Debug.Log("RoamStateIsBeingGlitchy");
             _roamPosition = GetRoamingPosition();
         }
         if (CheckTarget()) TrySetState(FlyerState.Chasing);
