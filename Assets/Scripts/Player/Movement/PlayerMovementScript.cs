@@ -32,6 +32,11 @@ public class PlayerMovementScript : MonoBehaviour
     public bool isGrounded;
     public bool isOnEnemy;
 
+    [Header("Data Storage")]
+    [SerializeField] private Vector3 lastPos;
+    [SerializeField] private Vector3 currentPos;
+
+
     private bool gamePaused;
     private bool isDead;
 
@@ -53,6 +58,8 @@ public class PlayerMovementScript : MonoBehaviour
     private void Start()
     {
         _defaultMoveSpeed = _moveSpeed;
+        lastPos = transform.position;
+        currentPos = transform.position;
     }
 
     private void Update()
@@ -96,15 +103,12 @@ public class PlayerMovementScript : MonoBehaviour
     {
         
         //If Sprint button is pressed, sprint!
-
-
         if (_isSprinting && !_isCrouching)
         {
             _moveSpeed = _sprintSpeed;
         }
 
         //If Crouch button is pressed, crouch down
-
         else if (_isCrouching && !_isSprinting)
         {
             _moveSpeed = _slowedSpeed * 3;
@@ -129,6 +133,11 @@ public class PlayerMovementScript : MonoBehaviour
 
             controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
         }
+        
+        //update DataManager
+        currentPos = transform.position;
+        DataManager.NumberDistanceWalked += Vector3.Distance(currentPos, lastPos);
+        lastPos = currentPos;
 
 
         //Vector3 _moveDirection = transform.right * x + transform.forward * z; //find the move direction based on axis buttons pressed times their respective transforms

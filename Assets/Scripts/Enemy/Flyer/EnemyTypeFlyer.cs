@@ -21,6 +21,7 @@ public class EnemyTypeFlyer : EnemyBase
     [SerializeField] private List<EnemyTypeFlyer> _children = new List<EnemyTypeFlyer>();
     [SerializeField] private Vector2 _randomRoamRange = new Vector2(10f, 50f);
     [SerializeField] private Vector2 _randomFollowRange = new Vector2(2f, 5f);
+    [SerializeField] protected float _radiusSurroundTarget = 3f;
 
 
     [Header("Debug")]
@@ -126,7 +127,7 @@ public class EnemyTypeFlyer : EnemyBase
         MoveTo(_roamPosition);
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
-            Debug.Log("RoamStateIsBeingGlitchy");
+            //Debug.Log("RoamStateIsBeingGlitchy");
             _roamPosition = GetRoamingPosition();
         }
         if (CheckTarget()) TrySetState(FlyerState.Chasing);

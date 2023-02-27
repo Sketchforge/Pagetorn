@@ -9,7 +9,8 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private bool _logState;
     [SerializeField, ReadOnly] public bool _active;
     [SerializeField] protected Targetable _target;
-    [SerializeField] protected float _radiusSurroundTarget = 6f;
+    public bool onlyRotateY = true;
+    public bool useStaticBillboard = false;
     
     [Header("References")]
     [SerializeField] private Rigidbody _rb;
@@ -17,6 +18,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private EnemyData _data;
     [SerializeField] protected int _numberGloopsEaten = 0;
+    [SerializeField] protected GameObject _BetaFace;
+    [SerializeField] protected GameObject _AlphaFace;
+    [SerializeField] private Camera theCam;
     
     /*
     [Header("My Animation")]
@@ -69,7 +73,8 @@ public abstract class EnemyBase : MonoBehaviour
         //_playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
         OnPause(false);
         _agent.speed = _data.MoveSpeed;
-        OnStart();
+        theCam = Camera.main;
+        OnStart();      
     }
 
     private void Update()
@@ -98,7 +103,13 @@ public abstract class EnemyBase : MonoBehaviour
         }
         OnUpdate();
     }
-    
+
+    private void LateUpdate()
+    {
+        BillboardFace(_AlphaFace.transform);
+        BillboardFace(_BetaFace.transform);
+    }
+
     #endregion
 
     protected abstract void OnLoseTarget();
@@ -167,5 +178,22 @@ public abstract class EnemyBase : MonoBehaviour
         Vector3 direction = (pos - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    protected void BillboardFace(Transform myFace)
+    {
+        if (!useStaticBillboard)
+        {
+            transform.LookAt(theCam.transform);
+            Debug.Log("isRotatingFace");
+        }
+        else
+        {
+            transform.rotation = theCam.transform.rotation;
+        }
+
+        if (onlyRotateY)
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+
     }
 }
