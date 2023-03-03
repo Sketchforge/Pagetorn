@@ -1,14 +1,53 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+	[SerializeField] private Canvas _mainMenuCanvas;
+	[SerializeField] private Canvas _optionsCanvas;
+	
+	[Header("Buttons to Select")]
+	[SerializeField] private GameObject _mainMenuFirstSelected;
+	[SerializeField] private GameObject _openOptionsSelect;
+	[SerializeField] private GameObject _closeOptionsSelect;
+	
+	private void Start()
+	{
+		SetMenuActive(0);
+		SetSelected(_mainMenuFirstSelected);
+	}
+	
+	public void QuitGame()
+	{
+		Application.Quit();
+		
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#endif
+	}
+	
+	public void StartGame()
+	{
+		SceneManager.LoadScene(1);
+	}
+	
+	public void OpenOptions()
+	{
+		SetMenuActive(1);
+		SetSelected(_openOptionsSelect);
+	}
+	
+	public void CloseOptions()
+	{
+		SetMenuActive(0);
+		SetSelected(_closeOptionsSelect);
+	}
+	
+	private void SetMenuActive(int menu)
+	{
+		_mainMenuCanvas.enabled = menu == 0;
+		_optionsCanvas.enabled = menu == 1;
+	}
+	
+	private void SetSelected(GameObject obj) => MouseControllerManager.UpdateSelected(obj);
 }
