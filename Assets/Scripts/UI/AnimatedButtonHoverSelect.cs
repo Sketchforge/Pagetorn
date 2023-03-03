@@ -64,8 +64,9 @@ public class AnimatedButtonHoverSelect : MonoBehaviour, ISelectHandler, IDeselec
 	private void UpdateDelta(float delta)
 	{
 		_delta = delta;
-		var w = Mathf.Lerp(1, _widthScale, _delta);
-		var h = Mathf.Lerp(1, _heightScale, _delta);
+		var d = _deltaCurve.Evaluate(delta);
+		var w = Mathf.Lerp(1, _widthScale, d);
+		var h = Mathf.Lerp(1, _heightScale, d);
 		_transform.localScale = new Vector3(w, h, 1);
 	}
 
