@@ -9,18 +9,19 @@ public class ToolbarSlot : MonoBehaviour
 {
     [SerializeField] private Image _slot;
 	[SerializeField] private Image _selected;
-	[SerializeField] private Color _selectedColor;
+	[SerializeField] private Color _selectedColor = Color.green;
+	[SerializeField] private Color _notSelectedColor = new Color(0, 0, 0, 0);
 	[SerializeField] private TMP_Text _amountText;
 	[SerializeField] private InventoryItemSlot _slotToCopy;
-    
-	private static Color _invisible = new Color(0, 0, 0, 0);
+	
+	private static Color _invisible = new Color(0,0,0,0);
 
     private void OnEnable()
     {
         _slotToCopy.OnItemUpdate += UpdateVisual;
         _slotToCopy.OnSelected += SetSelected;
         UpdateVisual();
-	    _selected.color = _invisible;
+	    _selected.color = _notSelectedColor;
     }
     
     private void OnDisable()
@@ -41,6 +42,6 @@ public class ToolbarSlot : MonoBehaviour
 
     private void SetSelected(bool selected)
 	{
-		_selected.color = selected ? _selectedColor : _invisible;
+		_selected.color = selected ? _selectedColor : _notSelectedColor;
     }
 }
