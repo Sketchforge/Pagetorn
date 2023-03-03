@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -326,7 +326,7 @@ public class EnemyTypeCrawler : EnemyBase
 
     private void makeFollowersCircleTarget()
     {
-        Debug.Log("Circle Target!");
+	    //Debug.Log("Circle Target!");
         for (int i = 0; i < _children.Count; i++)
         {
             _children[i].MoveTo(new Vector3(

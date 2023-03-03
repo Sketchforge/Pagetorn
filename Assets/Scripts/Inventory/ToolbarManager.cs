@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ToolbarManager : MonoBehaviour
 {
+	[SerializeField] private bool _scrollToBlankSlots;
     [SerializeField] private List<InventoryItemSlot> _slots = new List<InventoryItemSlot>();
 
     public InventoryItemSlot SelectedItemSlot => _slots[_selectedItem];
@@ -22,7 +23,7 @@ public class ToolbarManager : MonoBehaviour
     {
         for (int i = _selectedItem + 1; i < _slots.Count; i++)
         {
-            if (_slots[i].HasItem)
+	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
                 return;
@@ -30,7 +31,7 @@ public class ToolbarManager : MonoBehaviour
         }
         for (int i = 0; i < _selectedItem; i++)
         {
-            if (_slots[i].HasItem)
+	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
                 return;
@@ -44,7 +45,7 @@ public class ToolbarManager : MonoBehaviour
     {
         for (int i = _selectedItem - 1; i >= 0; i--)
         {
-            if (_slots[i].HasItem)
+	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
                 return;
@@ -52,7 +53,7 @@ public class ToolbarManager : MonoBehaviour
         }
         for (int i = _slots.Count - 1; i > _selectedItem; i--)
         {
-            if (_slots[i].HasItem)
+	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
                 return;

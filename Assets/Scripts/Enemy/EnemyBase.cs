@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
@@ -185,7 +185,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (!useStaticBillboard)
         {
             transform.LookAt(theCam.transform);
-            Debug.Log("isRotatingFace");
+	        //Debug.Log("isRotatingFace");
         }
         else
         {
