@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class CanvasController : MonoBehaviour
 {
     public static CanvasController Singleton;
     
-    [SerializeField] private GameObject _pauseMenu;
-    [SerializeField] private GameObject _hud;
+	[SerializeField] private Canvas _pauseMenu;
+    [SerializeField] private Canvas _hud;
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private CraftingManager _craftingManager;
     [SerializeField] private ToolbarManager _toolbarManager;
@@ -29,40 +29,40 @@ public class CanvasController : MonoBehaviour
 
     public void OpenPauseMenu()
     {
-        _pauseMenu.SetActive(true);
+	    _pauseMenu.enabled = true;
         _inventoryManager.SetActive(false);
         _craftingManager.SetActive(false);
-        _hud.SetActive(false);
+	    _hud.enabled = false;
         PauseMenuOpen = true;
         PlayerManager.Actions.CheckState();
     }
 
     public void OpenInventory()
     {
-        _pauseMenu.SetActive(false);
+	    _pauseMenu.enabled = false;
         _inventoryManager.SetActive(true);
         _craftingManager.SetActive(false);
-        _hud.SetActive(false);
+	    _hud.enabled = false;
         InventoryOpen = true;
         PlayerManager.Actions.CheckState();
     }
 
     public void OpenCrafting()
     {
-        _pauseMenu.SetActive(false);
+	    _pauseMenu.enabled = false;
         _inventoryManager.SetActive(true);
         _craftingManager.SetActive(true);
-        _hud.SetActive(false);
+	    _hud.enabled = false;
         InventoryOpen = true;
         PlayerManager.Actions.CheckState();
     }
 
     public void CloseMenu()
-    {
-        _pauseMenu.SetActive(false);
+	{
+		_pauseMenu.enabled = false;
         _inventoryManager.SetActive(false);
-        _craftingManager.SetActive(false);
-        _hud.SetActive(true);
+		_craftingManager.SetActive(false);
+		_hud.enabled = true;
         PauseMenuOpen = false;
         InventoryOpen = false;
         PlayerManager.Actions.CheckState();

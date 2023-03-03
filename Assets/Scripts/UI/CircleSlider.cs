@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,25 +11,43 @@ public class CircleSlider : MonoBehaviour
     
     [Header("Position")]
     [SerializeField, Range(0, 1)] private float _offset;
-    [SerializeField, Range(0, 1)] private float _max;
+	[SerializeField, Range(0, 1)] private float _max;
+	[SerializeField] private bool _reverseFillDirection;
     
     [Header("References")]
     [SerializeField] private Image _sliderBorder;
     [SerializeField] private Image _sliderBackground;
     [SerializeField] private Slider _slider;
-    [SerializeField] private Image _sliderFill;
+	[SerializeField] private Image _sliderFill;
 
     private void OnValidate()
     {
-        UpdateSlider();
+        UpdateFullSlider();
     }
+    
+	private Quaternion MakeRot(float value) => Quaternion.Euler(new Vector3(0f, 0f, value));
 
-    private void UpdateSlider()
-    {
-        _slider.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -_offset * 360f));
-        _sliderBorder.fillAmount = _max + 0.005f;
-        _sliderBackground.fillAmount = _max;
+	private void UpdateFullSlider()
+	{
+		float offset = _reverseFillDirection ? - _offset - _max : -_offset;
+		_slider.transform.rotation = MakeRot(offset * 360f);
+		
+		_sliderBorder.transform.localRotation = MakeRot(_reverseFillDirection ? -1f : 1f);
+		_sliderBorder.fillAmount = _max + 0.005f;
+		
+		_sliderBackground.fillAmount = _max;
+        
         _slider.value = _value * _max;
-        _sliderFill.color = _valueColor;
-    }
+		_sliderFill.color = _valueColor;
+        
+		_sliderBorder.fillClockwise = !_reverseFillDirection;
+		_sliderBackground.fillClockwise = !_reverseFillDirection;
+		_sliderFill.fillClockwise = !_reverseFillDirection;
+	}
+    
+	public void UpdateSlider(float value)
+	{
+		_value = value;
+		_slider.value = _value * _max;
+	}
 }
