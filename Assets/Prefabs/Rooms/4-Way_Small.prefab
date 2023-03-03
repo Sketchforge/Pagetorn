@@ -1036,7 +1036,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812949529577597283}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2048, y: -13.9777, z: -0.2434}
+  m_LocalPosition: {x: 0.001, y: -13.9777, z: 0.002}
   m_LocalScale: {x: 10.94757, y: 0.15307, z: 9.988773}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1227,7 +1227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812949529728104592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.2038, y: 0, z: 0.24539998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1344,13 +1344,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812949529824519125}
+  - component: {fileID: 3504767155881776822}
   m_Layer: 0
   m_Name: 4-Way_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1812949529824519125
 Transform:
   m_ObjectHideFlags: 0
@@ -1359,7 +1360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812949529824519124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.892841, y: 13.857692, z: -25.045038}
+  m_LocalPosition: {x: 0, y: 13.857692, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1368,6 +1369,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3504767155881776822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812949529824519124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4136b58dad7217c4a83f38531d989933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorLocations:
+    Up: 1
+    Down: 1
+    Left: 1
+    Right: 1
+  distanceObject: {fileID: 1812949529577597283}
+  fullRoomSize: {x: 10.94757, y: 9.988773}
+  roomLocationBounds: {x: 0, y: 0, z: 0, w: 0}
+  upDistanceToDoor: 4.9943867
+  downDistanceToDoor: 4.9943867
+  leftDistanceToDoor: 5.473785
+  rightDistanceToDoor: 5.473785
 --- !u!1 &1812949529887880269
 GameObject:
   m_ObjectHideFlags: 0
