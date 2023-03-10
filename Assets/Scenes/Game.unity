@@ -617,6 +617,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5429172256005293185, guid: 9aca187dc2b378b4f9cea5cff8fabf40, type: 3}
   m_PrefabInstance: {fileID: 52165627}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &61920270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6926319091169707847, guid: 9b0d7f2cf09601f4c878c1d259b49585, type: 3}
+  m_PrefabInstance: {fileID: 1689774457315240622}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &61920271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5523898003403368850, guid: 9b0d7f2cf09601f4c878c1d259b49585, type: 3}
@@ -22044,6 +22049,7 @@ MonoBehaviour:
   _lookDir: {fileID: 1362101104}
   _interactDistance: 4
   _myAnimator: {fileID: 0}
+  _heldItemSocket: {fileID: 61920270}
 --- !u!114 &1713219309
 MonoBehaviour:
   m_ObjectHideFlags: 0
