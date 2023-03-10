@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eabf5fdfa6ed73b4e9db2b00cca37c32, type: 3}
-  m_Name: HC Hammer
+  m_Name: New Item
   m_EditorClassIdentifier: 
-  _itemName: HardCoverHammer
-  _type: 11
-  _description: A hammer made from hardcover books. Higher knockback, faster at destroying
-    things
-  _sprite: {fileID: 21300000, guid: ec1b9fcfac35a7242a00b314c2dce10d, type: 3}
+  _itemName: 
+  _type: 20
+  _description: 
+  _sprite: {fileID: 0}
   _canStack: 0
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
-  _prefabObject: {fileID: 9102507294978855102, guid: 74a75aaac91880f4b8f695b86d1495a7, type: 3}

@@ -12,6 +12,7 @@ public class Item : ScriptableObject
     [ShowIf("_canStack")] [SerializeField] private int _stackAmount = 99;
     [SerializeField, ReadOnly] private bool _hasHealth;
     [ShowIf("_hasHealth")] [SerializeField] private int _maxHealth = 5;
+    [SerializeField] public GameObject _prefabObject;
 
     public string ItemName => _itemName;
     public ItemType Type => _type;
