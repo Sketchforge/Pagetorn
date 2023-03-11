@@ -37,8 +37,6 @@ public class ToolbarManager : MonoBehaviour
 	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
-                if (objectSpawned)
-                    Destroy(objectSpawned);//for future reference, because its 1 am, should instead deactivate objects, and check if one exists, not destroy the object. Or destroy object but save data.
                 return;
             }
         }
@@ -61,8 +59,6 @@ public class ToolbarManager : MonoBehaviour
 	        if (_scrollToBlankSlots || _slots[i].HasItem)
             {
                 SelectItem(i);
-                if (objectSpawned)
-                    Destroy(objectSpawned);
                 return;
             }
         }
@@ -80,11 +76,14 @@ public class ToolbarManager : MonoBehaviour
             slot.SetSelected(false);
         }
         _slots[itemSlot].SetSelected(true);
+        if (objectSpawned)
+            Destroy(objectSpawned);//for future reference, because its 1 am, should instead deactivate objects, and check if one exists, not destroy the object. Or destroy object but save data.
         bool hasPrefabObject = SelectedItem && SelectedItem._prefabObject;
         if (hasPrefabObject)
         {
            objectSpawned = Instantiate(SelectedItem._prefabObject, _playerObjectSocket);
             //objectSpawned.transform.position = new Vector3(0, 0, 0);
         }
+        
     }
 }
