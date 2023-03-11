@@ -30,6 +30,7 @@ public class Gloop : MonoBehaviour
             {
                 Eaten = true;
                 PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.MagicPoints, _gloopPoints);
+                DataManager.NumberKnowledgePointsGathered += _gloopPoints;
                 Destroy(gameObject);
             }
         }
