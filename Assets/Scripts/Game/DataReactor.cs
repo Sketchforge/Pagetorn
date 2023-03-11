@@ -6,6 +6,7 @@ public class DataReactor : MonoBehaviour
 {
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
+    public float averageMonstersKilledPerHour = 30;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
@@ -16,6 +17,10 @@ public class DataReactor : MonoBehaviour
     [SerializeField] private bool _inFog = false;
     [SerializeField] PostProcessingEvent _darkenEvent;
 
+    private float spellCountTimer = 60f;
+    private float monsterKillCountTimer = 3600f; // one hour
+    private float _resetTime = 10f;
+
 
     // Update is called once per frame
     void Update()
@@ -24,17 +29,14 @@ public class DataReactor : MonoBehaviour
         numDistanceWalked = DataManager.NumberDistanceWalked;
         totalTimePassed = DataManager.totalTime;
         //
-
+        #region Distance Walked Reaction
         if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 100f, MAX_DISTANCE + 100f) && !_inFog)
         {
             Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _fogEvent.ActivateEvent();
             DataManager.TimesWalkedLargeDistances++;
 
-            if (DataManager.TimesWalkedLargeDistances >= 5)
-            {
-                DataManager.bWalksLargeDistances = true;
-            }
+            
 
             _inFog = true;
         }
@@ -45,12 +47,72 @@ public class DataReactor : MonoBehaviour
             DataManager.NumberDistanceWalked = 0;
             _inFog = false;
         }
+        #endregion
 
+        #region Behavior Nominator
+        
+        //DataManager.bCollectsLotsofBooks;
+        //DataManager.bExploresLotsOfRooms;
+
+        //WALKS LARGE DISTANCES//
+        if (DataManager.TimesWalkedLargeDistances >= 5)
+        {
+            DataManager.bWalksLargeDistances = true;
+        }
+
+        //KILLS LOTS OF MONSTERS//
+        if (!DataManager.bKillsLotsOfMonsters)
+            monsterKillCountTimer -= Time.deltaTime;
+        else if (DataManager.bKillsLotsOfMonsters)
+            _resetTime -= Time.deltaTime;
+
+        if (monsterKillCountTimer <= 0f) //if greater than a minute
+        {
+            DataManager.NumberMonstersKilledLastHour = 0; //resets to 0;
+            monsterKillCountTimer = 3600f;
+        }
+
+        if (DataManager.NumberMonstersKilledLastHour >= averageMonstersKilledPerHour)
+            DataManager.bKillsLotsOfMonsters = true;
+        
+        if (_resetTime <= 0f)
+        {
+            DataManager.NumberMonstersKilledLastHour = 0;
+            DataManager.bKillsLotsOfMonsters = false;
+            _resetTime = 10f;
+        }
+
+        //DataManager.bKillsLotsOfMonsters;
+
+        //USES SPELLS OFTEN//
+        if (!DataManager.bUsesSpellsOften)
+            spellCountTimer -= Time.deltaTime;
+        //Debug.Log(Time.deltaTime - spellCountTimer);
+        if (spellCountTimer <= 0f) //if greater than a minute
+        {
+            DataManager.NumberSpellsDoneLastMinute = 0; //resets to 0;
+            spellCountTimer = 60f;
+        }
+
+        if (DataManager.NumberSpellsDoneLastMinute >= 10)
+        {
+            DataManager.bUsesSpellsOften = true;
+        }
+
+        #endregion
+
+        #region Behavior Reactor
         if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
         {
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
 
         }
+        #endregion
+
+      
+
     }
+
+
 
 }

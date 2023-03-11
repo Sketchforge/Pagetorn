@@ -2842,6 +2842,9 @@ GameObject:
   m_Component:
   - component: {fileID: 223501434}
   - component: {fileID: 223501433}
+  - component: {fileID: 223501436}
+  - component: {fileID: 223501435}
+  - component: {fileID: 223501437}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2862,7 +2865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _paused: 0
-  _postProcessingManager: {fileID: 0}
+  _postProcessingManager: {fileID: 223501437}
 --- !u!4 &223501434
 Transform:
   m_ObjectHideFlags: 0
@@ -2874,10 +2877,76 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 664948470}
+  - {fileID: 1345918477}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &223501435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223501431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be465a7cf297e14479ac36b871ccacdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberKnowledgePointsGathered: 0
+  NumberDistanceWalked: 0
+  AmountTimeStoodStill: 0
+  NumberMeleeAttacksDone: 0
+  NumberSpellsDone: 0
+  NumberItemsCollected: 0
+  NumberBooksCollected: 0
+  NumberRoomsFound: 0
+  NumberMonstersKilled: 0
+  totalTime: 0
+  TimesWalkedLargeDistances: 0
+  bWalksLargeDistances: 0
+  NumberMonstersKilledLastHour: 0
+  bKillsLotsOfMonsters: 0
+  NumberSpellsDoneLastMinute: 0
+  bUsesSpellsOften: 0
+  bCollectsLotsofBooks: 0
+  bExploresLotsOfRooms: 0
+--- !u!114 &223501436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223501431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c48b6bdc59fe449ad8d896e4664847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numDistanceWalked: 0.48000014
+  totalTimePassed: 10.773872
+  averageMonstersKilledPerHour: 3
+  MAX_DISTANCE: 200
+  MAX_TIME: 0
+  _fogEvent: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
+  _inFog: 0
+  _darkenEvent: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}
+--- !u!114 &223501437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223501431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906bbc308bcf23e448b8e6d007dab129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _masterVolume: {fileID: 664948471}
+  _secondaryVolume: {fileID: 1345918478}
 --- !u!1 &229174178
 GameObject:
   m_ObjectHideFlags: 0
@@ -10535,6 +10604,55 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 8328929141476230841, guid: 5fd17387b068c2e4b82fa17d68821111, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!1 &664948469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664948470}
+  - component: {fileID: 664948471}
+  m_Layer: 31
+  m_Name: MasterPostProcessing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &664948470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664948469}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223501434}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664948471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664948469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 030d137193c59ab42a2c1583b43285e0, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 1
 --- !u!1 &666350439
 GameObject:
   m_ObjectHideFlags: 0
@@ -18434,6 +18552,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336996535}
   m_CullTransparentMesh: 1
+--- !u!1 &1345918476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1345918477}
+  - component: {fileID: 1345918478}
+  m_Layer: 31
+  m_Name: SecondaryPostProcessing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1345918477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345918476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223501434}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1345918478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345918476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: eed1c8b76653bf64aaadf1d12f44b7a9, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 0
+  priority: 1
 --- !u!1 &1349673249
 GameObject:
   m_ObjectHideFlags: 0

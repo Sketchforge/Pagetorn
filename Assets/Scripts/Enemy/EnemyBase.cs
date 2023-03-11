@@ -97,6 +97,11 @@ public abstract class EnemyBase : MonoBehaviour
         if (_health.health <= 0)
         {
             Log("Died");
+            if (_target.Type == TargetableType.Player)
+            {
+                DataManager.NumberMonstersKilled++;
+                DataManager.NumberMonstersKilledLastHour++;
+            }
 
             for (int i = 0; i < _data.Loot.Capacity; i++)
             {

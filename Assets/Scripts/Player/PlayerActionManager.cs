@@ -30,11 +30,13 @@ public class PlayerActionManager : MonoBehaviour
     private void Update()
     {
         DataManager.totalTime += Time.deltaTime;
+        DataManager.AmountTimeStoodStill += Time.deltaTime;
     }
 
     public void Move(Vector2 moveDir)
     {
         if (_logMovement) Debug.Log("Move: " + moveDir, gameObject);
+        DataManager.AmountTimeStoodStill = 0;
         _movement.SetMoveDir(moveDir);
     }
 
@@ -85,6 +87,7 @@ public class PlayerActionManager : MonoBehaviour
                     if (weaponAnim)
                     {
                         weaponAnim.SetTrigger("Swing");
+                        DataManager.NumberMeleeAttacksDone++;
                     }
                 }
                 //if (currentWeapon != null) currentWeapon.UseWeaponTrigger("Swing 1");
@@ -101,6 +104,8 @@ public class PlayerActionManager : MonoBehaviour
             case ItemType.Magic:
                 // Try to use spell
                 LogInput("Attack (Spell)");
+                DataManager.NumberSpellsDone++;
+                DataManager.NumberSpellsDoneLastMinute++;
                 var magic = (Magic)CanvasController.ToolbarManager.SelectedItem;
                 if (magic != null) magic.CastSpell(CanvasController.ToolbarManager.SelectedItemSlot);
                 break;
