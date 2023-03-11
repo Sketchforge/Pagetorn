@@ -12,6 +12,9 @@ public class ToolbarManager : MonoBehaviour
     public Item SelectedItem => _slots[_selectedItem].Item;
     public ItemType SelectedItemType => SelectedItem != null ? SelectedItem.Type : ItemType.Basic;
 
+    [SerializeField] private Transform _playerObjectSocket;
+    private GameObject objectSpawned;
+
     private int _selectedItem;
 
     private void Start()
@@ -62,6 +65,7 @@ public class ToolbarManager : MonoBehaviour
         if (_slots[_selectedItem].HasItem) return;
         if (_selectedItem == 0) SelectItem(_slots.Count - 1);
         else SelectItem(_selectedItem - 1);
+        
     }
 
     public void SelectItem(int itemSlot)
@@ -72,5 +76,14 @@ public class ToolbarManager : MonoBehaviour
             slot.SetSelected(false);
         }
         _slots[itemSlot].SetSelected(true);
+        if (objectSpawned)
+            Destroy(objectSpawned);//for future reference, because its 1 am, should instead deactivate objects, and check if one exists, not destroy the object. Or destroy object but save data.
+        bool hasPrefabObject = SelectedItem && SelectedItem._prefabObject;
+        if (hasPrefabObject)
+        {
+           objectSpawned = Instantiate(SelectedItem._prefabObject, _playerObjectSocket);
+            //objectSpawned.transform.position = new Vector3(0, 0, 0);
+        }
+        
     }
 }

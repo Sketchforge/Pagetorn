@@ -15,6 +15,8 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private MouseRotation _lookBodyRotation;
     [SerializeField] private Transform _lookDir;
     [SerializeField] private float _interactDistance = 4;
+    [SerializeField] private Animator _myAnimator;
+    [SerializeField] private GameObject _heldItemSocket;
 
     public PlayerState State => _playerState;
     private bool InGame => State == PlayerState.InGame;
@@ -72,9 +74,29 @@ public class PlayerActionManager : MonoBehaviour
         {
             case ItemType.Blade:
             case ItemType.Hammer:
-            case ItemType.Tool:
                 // Try to attack with weapon
                 LogInput("Attack (Weapon)");
+                //if (_myAnimator)
+                    
+                var currentWeapon = CanvasController.ToolbarManager.SelectedItem;
+                if (currentWeapon.IsToolOrWeapon)
+                {
+                    var weaponAnim = _heldItemSocket.GetComponentInChildren<Animator>(); //temporary? might not be great to use animators on all prefabs
+                    if (weaponAnim)
+                    {
+                        weaponAnim.SetTrigger("Swing");
+                    }
+                }
+                //if (currentWeapon != null) currentWeapon.UseWeaponTrigger("Swing 1");
+
+
+
+                break;
+            case ItemType.Tool:
+                // Try to attack with weapon
+                LogInput("Attack (Tool)");
+                //var currentTool = CanvasController.ToolbarManager.SelectedItem;
+                
                 break;
             case ItemType.Magic:
                 // Try to use spell
