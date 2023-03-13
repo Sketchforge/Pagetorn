@@ -5,154 +5,196 @@ using UnityEngine.InputSystem;
 
 public class WorldGenerator : MonoBehaviour
 {
-    [Tooltip("Should NOT be referenced from Prefabs folder, but rather from objects already in the scene")]
-    public RoomDetails[] roomsToInstantiate;
-    public RoomDetails[] hallwaysToInstantiate;
-    private int i = 0;
+    [SerializeField] private float initialRoomDistance = 500;
+    [SerializeField] private float middleRoomDistance = 1500;
+    [SerializeField] private float finalRoomDistance = 2500;
+
+    //[Tooltip("Should NOT be referenced from Prefabs folder, but rather from objects already in the scene")]
+    [SerializeField] private RoomDetails[] initialRooms;
+    [SerializeField] private RoomDetails[] middleRooms;
+    [SerializeField] private RoomDetails[] finalRooms;
+
+    [SerializeField] private RoomDetails[] hallways;
+    [SerializeField] private RoomDetails[] deadEnds;
+
+    private int lastRoomIndex = 0;
+    private int roomIndex = 0;
+    private RoomDetails randRoom;
+    private int randRotate;
 
     private List<RoomDetails> roomsGenerated = new List<RoomDetails>();
+    private List<RoomDetails> roomsStillOpen = new List<RoomDetails>();
 
     // Start is called before the first frame update
     void Start()
     {
-        i = 0;
-        /*for (int i = 0; i < roomsToInstantiate.Length; i++)
-		{
-            Instantiate<GameObject>(roomsToInstantiate[i].gameObject);
-		}*/
+        roomIndex = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if ((KeyCode.I))
-        {
-            Instantiate<GameObject>(roomsToInstantiate[i].gameObject).SetActive(true);
-            i++;
-            if (i >= roomsToInstantiate.Length) i = 0;
-        }*/
+
     }
 
     private void OnJump() // temporarily using input system to set up
 	{
-        if (roomsGenerated.Count <= 0)
+        if (roomsGenerated.Count <= 0) // if there aren't any rooms and we're at spawn, create the starting rooms. could use a new list just for these, or place them in the scene first??
         {
-            Instantiate<GameObject>(roomsToInstantiate[i].gameObject, roomsToInstantiate[i].gameObject.transform.position, Quaternion.identity, transform).SetActive(true);
-            roomsGenerated.Add(roomsToInstantiate[i]);
-            i++;
-        } else
+            RoomDetails firstRoom = Instantiate<GameObject>(initialRooms[roomIndex].gameObject, initialRooms[roomIndex].gameObject.transform.position, Quaternion.identity, transform).GetComponent<RoomDetails>();
+            roomsGenerated.Add(firstRoom);
+
+            SpawnHallways(firstRoom);
+
+            lastRoomIndex = roomIndex;
+        } else // otherwise do the maze generation
 		{
             //Debug.Log("Previous room: " + roomsGenerated[roomsGenerated.Count - 1]);
-                GenerateRoom();
+            GenerateRoom2();
                 //Debug.Log("Current room: " + roomsGenerated[roomsGenerated.Count - 1]);
         }
-        if (i >= roomsToInstantiate.Length) i = 0;
+        //if (randRoom >= initialRoomsToInstantiate.Length) randRoom = 0;
     }
 
-    private void GenerateRoom()
+    private void GenerateRoom2()
 	{
-        int loopStart = 0;
-        int loopEnd = 0;
-        bool isHallway = false;
-        if (roomsGenerated.Count % 2 == 1)
-		{
-            loopStart = 0;
-            loopEnd = hallwaysToInstantiate.Length;
-            isHallway = true;
-		}
-        else
-		{
-            loopStart = i;
-            loopEnd = roomsToInstantiate.Length;
-            isHallway = false;
-        }
+        Debug.Log("Starting room");
+        int upperBound = roomsStillOpen.Count - 1;
+        Debug.Log("Upperbound: " + upperBound);
 
-        for (int j = loopStart; j < loopEnd; j++)
+        for (int i = 0; i < upperBound; i++)
         {
-            var prevRoom = roomsGenerated[roomsGenerated.Count - 1];
-            var currentRoom = roomsToInstantiate[j];
-            if (isHallway) currentRoom = hallwaysToInstantiate[j];
-            var prevRoomLocation = prevRoom.gameObject.transform.position;
+            Debug.Log("Loop " + i);
+            // Randomly select a room from the given list. To prevent duplicate rooms, stick in a while loop to make sure you get a different room.
+            //while (randRoomIndex == lastRoomIndex)
+                //randRoomIndex = Random.Range(0, initialRooms.Length - 1);
+            roomIndex++;
+            if (roomIndex > initialRooms.Length-1) roomIndex = 0;
+            Debug.Log("Room index: " + roomIndex);
 
-            if (prevRoom.gameObject != currentRoom.gameObject)
-            {
-                //Debug.Log("Previous room: " + prevRoom.gameObject.name + ", current room: " + currentRoom.gameObject.name);
-                if (prevRoom.openDoorLocations.Up && currentRoom.openDoorLocations.Down)
-                {
-                    InstanceUp(prevRoom, currentRoom, prevRoomLocation);
-                    i = j;
-                    return;
-                }
-                else if (prevRoom.openDoorLocations.Down && currentRoom.openDoorLocations.Up)
-                {
-                    InstanceDown(prevRoom, currentRoom, prevRoomLocation);
-                    i = j;
-                    return;
-                }
-                else if (prevRoom.openDoorLocations.Left && currentRoom.openDoorLocations.Right)
-                {
-                    InstanceLeft(prevRoom, currentRoom, prevRoomLocation);
-                    i = j;
-                    return;
-                }
-                else if (prevRoom.openDoorLocations.Right && currentRoom.openDoorLocations.Left)
-                {
-                    InstanceRight(prevRoom, currentRoom, prevRoomLocation);
-                    i = j;
-                    return;
-                }
+
+            // Rotate the room 0-3 times
+            randRotate = Random.Range((int)0, (int)3);
+            Debug.Log("Rotate amount: " + randRotate);
+
+            RoomDetails newRoom = Instantiate<GameObject>(initialRooms[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
+            Debug.Log(newRoom);
+            //for (int j = 0; j < randRotate; j++) newRoom.RotateRoom();
+
+            bool didMove = false;
+            didMove = MoveRoom(newRoom, roomsStillOpen[i]);
+
+            for (int j = 0; j < 4 || didMove == false; j++) // rotate room is breaking the generation??
+			{
+                //newRoom.RotateRoom();
+                didMove = MoveRoom(newRoom, roomsStillOpen[i]);
             }
+            if (didMove == false)
+			{
+                return;
+			}
+            roomsStillOpen.RemoveAt(i);
+            SpawnHallways(newRoom);
         }
-        Debug.Log("Couldn't find an object to instantiate");
-    }
-
-    private void InstanceUp(RoomDetails prevRoom, RoomDetails currentRoom, Vector3 prevRoomLocation)
-	{
-        currentRoom.gameObject.transform.position = 
-            new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
-
-        currentRoom.openDoorLocations.Down = false;
-        prevRoom.openDoorLocations.Up = false;
-        roomsGenerated.Add(Instantiate<GameObject>(currentRoom.gameObject, transform).GetComponent<RoomDetails>());
-
-        //Debug.Log("Last up, now down. Distance: " + prevRoomLocation.z + " Plus Door distance: " + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
 	}
 
-    private void InstanceDown(RoomDetails prevRoom, RoomDetails currentRoom, Vector3 prevRoomLocation)
+
+    // there is totally a way to consolidate SpawnHallways and MoveRoom I know it!
+    private void SpawnHallways(RoomDetails currentRoom)
 	{
-        currentRoom.gameObject.transform.position = 
-            new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z - (prevRoom.downDistanceToDoor + currentRoom.upDistanceToDoor));
+        Vector3 prevRoomLocation = currentRoom.gameObject.transform.position;
 
-        currentRoom.openDoorLocations.Up = false;
-        prevRoom.openDoorLocations.Down = false;
-        roomsGenerated.Add(Instantiate<GameObject>(currentRoom.gameObject, transform).GetComponent<RoomDetails>());
+        if (currentRoom.openDoorLocations.Up)
+        {
+            RoomDetails hallway = Instantiate<GameObject>(hallways[0].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x, hallway.gameObject.transform.position.y, prevRoomLocation.z + (currentRoom.upDistanceToDoor + hallway.downDistanceToDoor));
+            hallway.openDoorLocations.Down = false;
+            currentRoom.openDoorLocations.Up = false;
+            roomsGenerated.Add(hallway);
+            roomsStillOpen.Add(hallway);
+        }
+        if (currentRoom.openDoorLocations.Down)
+        {
+            RoomDetails hallway = Instantiate<GameObject>(hallways[0].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x, hallway.gameObject.transform.position.y, prevRoomLocation.z - (currentRoom.downDistanceToDoor + hallway.upDistanceToDoor));
+            hallway.openDoorLocations.Up = false;
+            currentRoom.openDoorLocations.Down = false;
+            roomsGenerated.Add(hallway);
+            roomsStillOpen.Add(hallway);
+        }
+        if (currentRoom.openDoorLocations.Left)
+        {
+            RoomDetails hallway = Instantiate<GameObject>(hallways[0].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.RotateRoom();
+            hallway.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x - (currentRoom.leftDistanceToDoor + hallway.rightDistanceToDoor), hallway.gameObject.transform.position.y, prevRoomLocation.z);
+            hallway.openDoorLocations.Right = false;
+            currentRoom.openDoorLocations.Left = false;
+            roomsGenerated.Add(hallway);
+            roomsStillOpen.Add(hallway);
+        }
+        if (currentRoom.openDoorLocations.Right)
+        {
+            RoomDetails hallway = Instantiate<GameObject>(hallways[0].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.RotateRoom();
+            hallway.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x + (currentRoom.rightDistanceToDoor + hallway.leftDistanceToDoor), hallway.gameObject.transform.position.y, prevRoomLocation.z);
+            hallway.openDoorLocations.Left = false;
+            currentRoom.openDoorLocations.Right = false;
+            roomsGenerated.Add(hallway);
+            roomsStillOpen.Add(hallway);
+        }
+    }
 
-        //Debug.Log("Last down, now up. Distance: " + prevRoomLocation.z + " Minus Door distance: " + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
+    private bool MoveRoom(RoomDetails currentRoom, RoomDetails prevRoom)
+	{
+        Vector3 prevRoomLocation = prevRoom.gameObject.transform.position;
+
+        if (prevRoom.openDoorLocations.Up)
+        {
+            currentRoom.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
+            roomsGenerated.Add(currentRoom);
+            currentRoom.openDoorLocations.Down = false;
+            return true;
+        }
+        else if (prevRoom.openDoorLocations.Down)
+        {
+            currentRoom.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z - (prevRoom.downDistanceToDoor + currentRoom.upDistanceToDoor));
+            roomsGenerated.Add(currentRoom);
+            currentRoom.openDoorLocations.Up = false;
+            return true;
+        }
+        else if (prevRoom.openDoorLocations.Left)
+        {
+            currentRoom.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x - (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
+            roomsGenerated.Add(currentRoom);
+            currentRoom.openDoorLocations.Right = false;
+            return true;
+        }
+        else if (prevRoom.openDoorLocations.Right)
+        {
+            currentRoom.gameObject.transform.position =
+                new Vector3(prevRoomLocation.x + (prevRoom.rightDistanceToDoor + currentRoom.leftDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
+            roomsGenerated.Add(currentRoom);
+            currentRoom.openDoorLocations.Left = false;
+            return true;
+        }
+        return false;
 	}
 
-    private void InstanceLeft(RoomDetails prevRoom, RoomDetails currentRoom, Vector3 prevRoomLocation)
-    {
-        currentRoom.gameObject.transform.position = 
-            new Vector3(prevRoomLocation.x - (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
 
-        currentRoom.openDoorLocations.Right = false;
-        prevRoom.openDoorLocations.Left = false;
-        //Instantiate<GameObject>(currentRoom.gameObject, transform).SetActive(true);
-        roomsGenerated.Add(Instantiate<GameObject>(currentRoom.gameObject, transform).GetComponent<RoomDetails>());
-        
-        //Debug.Log("Last left, now right. Distance: " + prevRoomLocation.x + " Minus Door distance: " + (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor));
-    }
-
-    private void InstanceRight(RoomDetails prevRoom, RoomDetails currentRoom, Vector3 prevRoomLocation)
-    {
-        currentRoom.gameObject.transform.position = 
-            new Vector3(prevRoomLocation.x + (prevRoom.rightDistanceToDoor + currentRoom.leftDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
-
-        currentRoom.openDoorLocations.Left = false;
-        prevRoom.openDoorLocations.Right = false;
-        //Instantiate<GameObject>(currentRoom.gameObject, transform).SetActive(true);
-        roomsGenerated.Add(Instantiate<GameObject>(currentRoom.gameObject, transform).GetComponent<RoomDetails>());
-
-        //Debug.Log("Last right, now left. Distance: " + prevRoomLocation.x + " Plus Door distance: " + (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor));
-    }
+	private void OnDrawGizmos()
+	{
+        UnityEditor.Handles.color = Color.green;
+        UnityEditor.Handles.DrawWireDisc(transform.position, transform.up, initialRoomDistance);
+        UnityEditor.Handles.color = Color.yellow;
+        UnityEditor.Handles.DrawWireDisc(transform.position, transform.up, middleRoomDistance);
+        UnityEditor.Handles.color = Color.red;
+        UnityEditor.Handles.DrawWireDisc(transform.position, transform.up, finalRoomDistance);
+	}
 }

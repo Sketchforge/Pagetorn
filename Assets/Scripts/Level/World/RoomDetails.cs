@@ -19,10 +19,84 @@ public class RoomDetails : MonoBehaviour
 	public float leftDistanceToDoor;
 	public float rightDistanceToDoor;
 
+	private int roomRotation = 0;
+
 	private void OnValidate()
 	{
-		fullRoomSize.x = distanceObject.transform.localScale.x;
-		fullRoomSize.y = distanceObject.transform.localScale.z;
+		UpdateSizes();
+	}
+
+	private void Update()
+	{
+		if (roomLocationBounds.x == 0 && roomLocationBounds.y == 0)
+		{
+			roomLocationBounds.x = gameObject.transform.position.z + (fullRoomSize.y / 2); // up location
+			roomLocationBounds.y = gameObject.transform.position.z - (fullRoomSize.y / 2); // down location
+			roomLocationBounds.z = gameObject.transform.position.x - (fullRoomSize.x / 2); // left location
+			roomLocationBounds.w = gameObject.transform.position.x + (fullRoomSize.x / 2); // right location
+		}
+	}
+
+	public void RotateRoom()
+	{
+		roomRotation++;
+		roomRotation %= 4;
+
+		//Debug.Log(gameObject.transform.rotation);
+		this.gameObject.transform.Rotate(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z);
+
+		// value to store the new rotated rooms' door locations
+		OpenDoors newDoors;
+		newDoors.Up = false;
+		newDoors.Down = false;
+		newDoors.Left = false;
+		newDoors.Right = false;
+
+		// get the new rotated open doors' locations
+		if (openDoorLocations.Up)
+			newDoors.Right = true;
+		if (openDoorLocations.Down)
+			newDoors.Left = true;
+		if (openDoorLocations.Left)
+			newDoors.Up = true;
+		if (openDoorLocations.Right)
+			newDoors.Down = true;
+
+		// deactivate the locations previously
+		if (!newDoors.Up)
+			openDoorLocations.Up = false;
+		if (!newDoors.Down)
+			openDoorLocations.Down = false;
+		if (!newDoors.Left)
+			openDoorLocations.Left = false;
+		if (!newDoors.Right)
+			openDoorLocations.Right = false;
+
+		// and set the new locations
+		if (newDoors.Up)
+			openDoorLocations.Up = true;
+		if (newDoors.Down)
+			openDoorLocations.Down = true;
+		if (newDoors.Left)
+			openDoorLocations.Left = true;
+		if (newDoors.Right)
+			openDoorLocations.Right = true;
+
+		UpdateSizes();
+	}
+
+	private void UpdateSizes()
+	{
+		if (roomRotation % 2 == 0)
+		{
+			fullRoomSize.x = distanceObject.transform.localScale.x;
+			fullRoomSize.y = distanceObject.transform.localScale.z;
+		}
+		else
+		{
+			fullRoomSize.x = distanceObject.transform.localScale.z;
+			fullRoomSize.y = distanceObject.transform.localScale.x;
+		}
 
 		if (openDoorLocations.Up)
 		{
@@ -44,16 +118,6 @@ public class RoomDetails : MonoBehaviour
 			rightDistanceToDoor = fullRoomSize.x / 2;
 		}
 		else rightDistanceToDoor = 0;
-	}
 
-	private void Update()
-	{
-		if (roomLocationBounds.x == 0 && roomLocationBounds.y == 0)
-		{
-			roomLocationBounds.x = gameObject.transform.position.z + (fullRoomSize.y / 2); // up location
-			roomLocationBounds.y = gameObject.transform.position.z - (fullRoomSize.y / 2); // down location
-			roomLocationBounds.z = gameObject.transform.position.x - (fullRoomSize.x / 2); // left location
-			roomLocationBounds.w = gameObject.transform.position.x + (fullRoomSize.x / 2); // right location
-		}
 	}
 }
