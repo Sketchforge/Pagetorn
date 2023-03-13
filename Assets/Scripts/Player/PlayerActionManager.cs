@@ -15,6 +15,8 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private MouseRotation _lookBodyRotation;
     [SerializeField] private Transform _lookDir;
     [SerializeField] private float _interactDistance = 4;
+    [SerializeField] private Animator _myAnimator;
+    [SerializeField] private GameObject _heldItemSocket;
 
     public PlayerState State => _playerState;
     private bool InGame => State == PlayerState.InGame;
@@ -28,11 +30,13 @@ public class PlayerActionManager : MonoBehaviour
     private void Update()
     {
         DataManager.totalTime += Time.deltaTime;
+        DataManager.AmountTimeStoodStill += Time.deltaTime;
     }
 
     public void Move(Vector2 moveDir)
     {
         if (_logMovement) Debug.Log("Move: " + moveDir, gameObject);
+        DataManager.AmountTimeStoodStill = 0;
         _movement.SetMoveDir(moveDir);
     }
 
@@ -72,13 +76,36 @@ public class PlayerActionManager : MonoBehaviour
         {
             case ItemType.Blade:
             case ItemType.Hammer:
-            case ItemType.Tool:
                 // Try to attack with weapon
                 LogInput("Attack (Weapon)");
+                //if (_myAnimator)
+                    
+                var currentWeapon = CanvasController.ToolbarManager.SelectedItem;
+                if (currentWeapon.IsToolOrWeapon)
+                {
+                    var weaponAnim = _heldItemSocket.GetComponentInChildren<Animator>(); //temporary? might not be great to use animators on all prefabs
+                    if (weaponAnim)
+                    {
+                        weaponAnim.SetTrigger("Swing");
+                        DataManager.NumberMeleeAttacksDone++;
+                    }
+                }
+                //if (currentWeapon != null) currentWeapon.UseWeaponTrigger("Swing 1");
+
+
+
+                break;
+            case ItemType.Tool:
+                // Try to attack with weapon
+                LogInput("Attack (Tool)");
+                //var currentTool = CanvasController.ToolbarManager.SelectedItem;
+                
                 break;
             case ItemType.Magic:
                 // Try to use spell
                 LogInput("Attack (Spell)");
+                DataManager.NumberSpellsDone++;
+                DataManager.NumberSpellsDoneLastMinute++;
                 var magic = (Magic)CanvasController.ToolbarManager.SelectedItem;
                 if (magic != null) magic.CastSpell(CanvasController.ToolbarManager.SelectedItemSlot);
                 break;

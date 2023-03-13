@@ -21,10 +21,13 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected GameObject _BetaFace;
     [SerializeField] protected GameObject _AlphaFace;
     [SerializeField] private Camera theCam;
-    
+
+    [SerializeField] LayerMask hitMask;
+
     /*
     [Header("My Animation")]
     [SerializeField] private Animator myAnimator = null;
+    */
 
     [Header("My Feedback")]
     [SerializeField] private ParticleSystem _spawnParticles;
@@ -36,7 +39,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private AudioClip _spawnSound;
     [SerializeField] private AudioClip _impactSound;
     [SerializeField] private AudioClip _attackSound;
-    */
+    
 
     protected int distanceToRun = 40;
     private bool _hasTarget;
@@ -49,6 +52,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         //AIManager.Instance.Units.Add(this);
         _health.SetHealth(_data.MaxHealth);
+        _myAudioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -93,6 +97,11 @@ public abstract class EnemyBase : MonoBehaviour
         if (_health.health <= 0)
         {
             Log("Died");
+            if (_target.Type == TargetableType.Player)
+            {
+                DataManager.NumberMonstersKilled++;
+                DataManager.NumberMonstersKilledLastHour++;
+            }
 
             for (int i = 0; i < _data.Loot.Capacity; i++)
             {
@@ -195,5 +204,28 @@ public abstract class EnemyBase : MonoBehaviour
         if (onlyRotateY)
             transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.layer == hitMask)
+    //    {
+    //        Debug.Log("Enemy Hit by " + collision.gameObject);
+    //        GetComponent<Health>().Damage(collision.gameObject.GetComponent<WeaponStats>().damage);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        {
+            Debug.Log("Enemy Hit by " + other.gameObject);
+            GetComponent<Health>().Damage(other.gameObject.GetComponent<WeaponStats>().damage);
+            _agent.updatePosition = false;
+            _rb.AddExplosionForce(other.gameObject.GetComponent<WeaponStats>().knockback, other.gameObject.transform.forward, 3f);
+            _agent.updatePosition = true;
+            _myAudioSource.clip = _impactSound;
+            _myAudioSource.Play();
+        }
     }
 }
