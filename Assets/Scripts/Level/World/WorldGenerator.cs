@@ -59,42 +59,46 @@ public class WorldGenerator : MonoBehaviour
     private void GenerateRoom2()
 	{
         Debug.Log("Starting room");
-        int upperBound = roomsStillOpen.Count - 1;
+        int upperBound = roomsStillOpen.Count;
         Debug.Log("Upperbound: " + upperBound);
 
         for (int i = 0; i < upperBound; i++)
         {
             Debug.Log("Loop " + i);
             // Randomly select a room from the given list. To prevent duplicate rooms, stick in a while loop to make sure you get a different room.
-            //while (randRoomIndex == lastRoomIndex)
-                //randRoomIndex = Random.Range(0, initialRooms.Length - 1);
-            roomIndex++;
+            while (roomIndex == lastRoomIndex)
+                roomIndex = Random.Range(0, initialRooms.Length);
+            lastRoomIndex = roomIndex;
+            //roomIndex++;
             if (roomIndex > initialRooms.Length-1) roomIndex = 0;
             Debug.Log("Room index: " + roomIndex);
 
 
-            // Rotate the room 0-3 times
-            randRotate = Random.Range((int)0, (int)3);
-            Debug.Log("Rotate amount: " + randRotate);
-
             RoomDetails newRoom = Instantiate<GameObject>(initialRooms[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
             Debug.Log(newRoom);
+
+            // Rotate the room 0-3 times
+            //randRotate = Random.Range((int)0, (int)3);
+            //Debug.Log("Rotate amount: " + randRotate);
             //for (int j = 0; j < randRotate; j++) newRoom.RotateRoom();
 
             bool didMove = false;
             didMove = MoveRoom(newRoom, roomsStillOpen[i]);
 
-            for (int j = 0; j < 4 || didMove == false; j++) // rotate room is breaking the generation??
+            for (int j = 0; j < 4 && didMove == false; j++) // rotate room is breaking the generation??
 			{
-                //newRoom.RotateRoom();
+                newRoom.RotateRoom();
                 didMove = MoveRoom(newRoom, roomsStillOpen[i]);
             }
             if (didMove == false)
 			{
                 return;
 			}
-            roomsStillOpen.RemoveAt(i);
             SpawnHallways(newRoom);
+        }
+        for (int i = 0; i < upperBound; i++)
+        {
+            roomsStillOpen.RemoveAt(i);
         }
 	}
 
