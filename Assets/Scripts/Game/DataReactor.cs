@@ -7,6 +7,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
+    [SerializeField] static public float monsterSpawnRate = 30f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
@@ -16,10 +17,13 @@ public class DataReactor : MonoBehaviour
     [SerializeField] PostProcessingEvent _fogEvent;
     [SerializeField] private bool _inFog = false;
     [SerializeField] PostProcessingEvent _darkenEvent;
+    [SerializeField] InstantiateEvent _smallCrawlerSpawn;
+    [SerializeField] InstantiateEvent _smallRangerSpawn;
 
     private float spellCountTimer = 60f;
     private float monsterKillCountTimer = 3600f; // one hour
     private float _resetTime = 10f;
+    bool calledSpawnEvent = false;
 
 
     // Update is called once per frame
@@ -29,25 +33,7 @@ public class DataReactor : MonoBehaviour
         numDistanceWalked = DataManager.NumberDistanceWalked;
         totalTimePassed = DataManager.totalTime;
         //
-        #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 100f, MAX_DISTANCE + 100f) && !_inFog)
-        {
-            Debug.Log("Walked " + MAX_DISTANCE + " meters");
-            _fogEvent.ActivateEvent();
-            DataManager.TimesWalkedLargeDistances++;
-
-            
-
-            _inFog = true;
-        }
-
-        if (_inFog)
-        {
-            Debug.Log(_fogEvent._currDuration -= Time.time);
-            DataManager.NumberDistanceWalked = 0;
-            _inFog = false;
-        }
-        #endregion
+        
 
         #region Behavior Nominator
         
@@ -74,7 +60,18 @@ public class DataReactor : MonoBehaviour
 
         if (DataManager.NumberMonstersKilledLastHour >= averageMonstersKilledPerHour)
             DataManager.bKillsLotsOfMonsters = true;
-        
+
+        if (DataManager.NumberMonstersKilledLastHour > 15f)
+        {
+            _smallCrawlerSpawn.ActivateEvent();
+            _smallCrawlerSpawn.ActivateEvent();
+        }
+
+        if (DataManager.NumberMonstersKilledLastHour > 30f)
+        {
+            _smallRangerSpawn.ActivateEvent();
+        }
+
         if (_resetTime <= 0f)
         {
             DataManager.NumberMonstersKilledLastHour = 0;
@@ -102,10 +99,35 @@ public class DataReactor : MonoBehaviour
         #endregion
 
         #region Behavior Reactor
-        if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
+
+        #region Distance Walked Reaction
+        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 100f, MAX_DISTANCE + 100f) && !_inFog)
+        {
+            Debug.Log("Walked " + MAX_DISTANCE + " meters");
+            _fogEvent.ActivateEvent();
+            DataManager.TimesWalkedLargeDistances++;
+
+
+
+            _inFog = true;
+        }
+
+        if (_inFog)
+        {
+            Debug.Log(_fogEvent._currDuration -= Time.time);
+            DataManager.NumberDistanceWalked = 0;
+            _inFog = false;
+        }
+        #endregion
+
+
+        if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
         {
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
-
+            _darkenEvent.ActivateEvent();
+            _smallCrawlerSpawn.ActivateEvent();
+            monsterSpawnRate = 10f;
+            calledSpawnEvent = true;
         }
         #endregion
 

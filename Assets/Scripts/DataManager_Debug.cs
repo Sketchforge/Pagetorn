@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DataManager_Debug : MonoBehaviour
 {
+    [Header("DataManager Current Vals")]
+    [SerializeField] bool _showRealValues = true;
+    
+    
     [Range(0f, 2000f)] public float NumberKnowledgePointsGathered = DataManager.NumberKnowledgePointsGathered;
     [Range(0f, 2000f)] public float NumberDistanceWalked = DataManager.NumberDistanceWalked;
     [Range(0f, 5000f)] public float AmountTimeStoodStill =  DataManager.AmountTimeStoodStill;
@@ -13,6 +17,12 @@ public class DataManager_Debug : MonoBehaviour
     [Range(0, 2000)] public int NumberBooksCollected = DataManager.NumberBooksCollected;
     [Range(0, 2000)] public int NumberRoomsFound = DataManager.NumberRoomsFound;
     [Range(0, 2000)] public int NumberMonstersKilled = DataManager.NumberMonstersKilled;
+    //brainhealth center data
+    [Range(0f, 2000f)] public float focusTime;
+    [Range(0f, 2000f)] public float pupilDilation;
+    [Range(0f, 1000f)] public float mouthQuiver;
+    [SerializeField] public bool eyesClosed;
+
     public float totalTime;
 
     //player behavior
@@ -28,24 +38,72 @@ public class DataManager_Debug : MonoBehaviour
 
     private void Update()
     {
-        NumberKnowledgePointsGathered = DataManager.NumberKnowledgePointsGathered;
-        NumberDistanceWalked = DataManager.NumberDistanceWalked;
-        AmountTimeStoodStill = DataManager.AmountTimeStoodStill;
-        NumberMeleeAttacksDone = DataManager.NumberMeleeAttacksDone;
-        NumberSpellsDone = DataManager.NumberSpellsDone;
-        NumberItemsCollected = DataManager.NumberItemsCollected;
-        NumberBooksCollected = DataManager.NumberBooksCollected;
-        NumberRoomsFound = DataManager.NumberRoomsFound;
-        NumberMonstersKilled = DataManager.NumberMonstersKilled;
 
-        TimesWalkedLargeDistances = DataManager.TimesWalkedLargeDistances;
-        bWalksLargeDistances = DataManager.bWalksLargeDistances;
-        NumberMonstersKilledLastHour = DataManager.NumberMonstersKilledLastHour;
-        bKillsLotsOfMonsters = DataManager.bKillsLotsOfMonsters;
-        NumberSpellsDoneLastMinute = DataManager.NumberSpellsDoneLastMinute;
-        bUsesSpellsOften = DataManager.bUsesSpellsOften;
-        bCollectsLotsofBooks = DataManager.bCollectsLotsofBooks;
-        bExploresLotsOfRooms = DataManager.bExploresLotsOfRooms;
+
+        //SET TO SHOW INPUT
+        if (_showRealValues)
+        {
+            NumberKnowledgePointsGathered = DataManager.NumberKnowledgePointsGathered;
+            NumberDistanceWalked = DataManager.NumberDistanceWalked;
+            AmountTimeStoodStill = DataManager.AmountTimeStoodStill;
+            NumberMeleeAttacksDone = DataManager.NumberMeleeAttacksDone;
+            NumberSpellsDone = DataManager.NumberSpellsDone;
+            NumberItemsCollected = DataManager.NumberItemsCollected;
+            NumberBooksCollected = DataManager.NumberBooksCollected;
+            NumberRoomsFound = DataManager.NumberRoomsFound;
+            NumberMonstersKilled = DataManager.NumberMonstersKilled;
+            focusTime = DataManager.focusTime;
+            pupilDilation = DataManager.pupilDilation;
+            mouthQuiver = DataManager.mouthQuiver;
+            eyesClosed = DataManager.eyesClosed;
+
+            TimesWalkedLargeDistances = DataManager.TimesWalkedLargeDistances;
+            bWalksLargeDistances = DataManager.bWalksLargeDistances;
+            NumberMonstersKilledLastHour = DataManager.NumberMonstersKilledLastHour;
+            bKillsLotsOfMonsters = DataManager.bKillsLotsOfMonsters;
+            NumberSpellsDoneLastMinute = DataManager.NumberSpellsDoneLastMinute;
+            bUsesSpellsOften = DataManager.bUsesSpellsOften;
+            bCollectsLotsofBooks = DataManager.bCollectsLotsofBooks;
+            bExploresLotsOfRooms = DataManager.bExploresLotsOfRooms;
+        }
+        else
+        {
+            DataManager.NumberKnowledgePointsGathered = NumberKnowledgePointsGathered;
+            DataManager.NumberDistanceWalked = NumberDistanceWalked;
+            DataManager.AmountTimeStoodStill = AmountTimeStoodStill;
+            DataManager.NumberMeleeAttacksDone = NumberMeleeAttacksDone;
+            DataManager.NumberSpellsDone = NumberSpellsDone;
+            DataManager.NumberItemsCollected = NumberItemsCollected;
+            DataManager.NumberBooksCollected = NumberBooksCollected;
+            DataManager.NumberRoomsFound = NumberRoomsFound;
+            DataManager.NumberMonstersKilled = NumberMonstersKilled;
+            DataManager.focusTime = focusTime;
+            DataManager.pupilDilation = pupilDilation;
+            DataManager.mouthQuiver = mouthQuiver;
+            DataManager.eyesClosed = eyesClosed;
+
+            DataManager.TimesWalkedLargeDistances = TimesWalkedLargeDistances;
+            DataManager.bWalksLargeDistances = bWalksLargeDistances;
+            DataManager.NumberMonstersKilledLastHour = NumberMonstersKilledLastHour;
+            DataManager.bKillsLotsOfMonsters = bKillsLotsOfMonsters;
+            DataManager.NumberSpellsDoneLastMinute = NumberSpellsDoneLastMinute;
+            DataManager.bUsesSpellsOften = bUsesSpellsOften;
+            DataManager.bCollectsLotsofBooks = bCollectsLotsofBooks;
+            DataManager.bExploresLotsOfRooms = bExploresLotsOfRooms;
+        }
+        
     }
+
+    //public override onInspectorGUI()
+    //{
+    //    DrawDefaultInspector();
+    //
+    //    if (_showCurrentVals)
+    //    {
+    //        serializedObject.Update();
+    //        EditorGUILayout.PropertyField(serializedObject.FindProperty())
+    //        serializedObject.ApplyModifiedProperties();
+    //    }
+    //}
 
 }
