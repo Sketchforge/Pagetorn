@@ -14,6 +14,14 @@ public static class DataManager
     static public int NumberBooksCollected;
     static public int NumberRoomsFound;
     static public int NumberMonstersKilled;
+    
+    //brainhealth center data
+    static public float focusTime;
+    static public float pupilDilation;
+    static public float mouthQuiver;
+    static public bool eyesClosed;
+
+
     static public float totalTime;
 
     //player behavior
