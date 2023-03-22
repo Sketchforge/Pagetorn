@@ -245,7 +245,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-267962
+  m_Name: pb_Mesh-12782
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -740,15 +740,18 @@ MonoBehaviour:
   initialRooms:
   - {fileID: 862161989306240147, guid: 0e9a8f466f3b8eb4b8c99525bebad4e8, type: 3}
   - {fileID: 6880456771733896820, guid: 4a866bc1a695d154482bc2f05b01b4c9, type: 3}
-  - {fileID: 9160958648835929816, guid: d3a8a6e94f5c89946a28e59157a1bc6a, type: 3}
-  - {fileID: 2621180848474322887, guid: dc115cb3bed1265438dc5c538ec35723, type: 3}
+  - {fileID: 3504767155881776822, guid: a6fab56d516370e46b6c1e73a999168c, type: 3}
+  - {fileID: 8675664476043950177, guid: 1fae77a3826b51a4392dec0a684851fd, type: 3}
   - {fileID: 8861739383441248497, guid: 4deb4f48925b7164896f7adc5db70953, type: 3}
   middleRooms: []
   finalRooms: []
   hallways:
   - {fileID: 8043599298417794459, guid: 76990bd935946794bab8f587102c0baf, type: 3}
-  - {fileID: 4335492736852265282, guid: 703673ec832416f4e823cca79a7438eb, type: 3}
-  deadEnds: []
+  deadEnds:
+  - {fileID: 2683184185283672014, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
+  - {fileID: 8861739383441248497, guid: 4deb4f48925b7164896f7adc5db70953, type: 3}
+  checkOffset: {x: 0, y: 0}
+  checkRadius: {x: 220, y: 190}
 --- !u!4 &666685649
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,6 +1092,8 @@ MonoBehaviour:
   _lookBodyRotation: {fileID: 236511118}
   _lookDir: {fileID: 1590145611}
   _interactDistance: 4
+  _myAnimator: {fileID: 0}
+  _heldItemSocket: {fileID: 0}
 --- !u!114 &918578246
 MonoBehaviour:
   m_ObjectHideFlags: 0
