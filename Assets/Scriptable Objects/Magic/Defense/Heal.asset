@@ -20,6 +20,7 @@ MonoBehaviour:
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
+  _prefabObject: {fileID: 5335949647275027712, guid: e42b6bd7c8918094abbc1e2ea22e0401, type: 3}
   _magicType: 1
   _knowledgePoints: 100
   _pageAmount: 2
@@ -28,6 +29,7 @@ MonoBehaviour:
   _canInstruct: 0
   _canDamage: 0
   _damage: 1
+  _isProjectile: 0
   _projectileSpeed: 1
   _hasKnockback: 0
   _canHeal: 1

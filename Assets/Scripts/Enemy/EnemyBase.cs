@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using System.Collections;
 
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -30,16 +31,27 @@ public abstract class EnemyBase : MonoBehaviour
     */
 
     [Header("My Feedback")]
-    [SerializeField] private ParticleSystem _spawnParticles;
-    [SerializeField] private ParticleSystem _impactParticles;
-    [SerializeField] private ParticleSystem _attackParticles;
-    [SerializeField] private AudioSource _myAudioSource;
-    [SerializeField] private AudioClip _moveSound;
-    [SerializeField] private AudioClip _idleSound;
-    [SerializeField] private AudioClip _spawnSound;
-    [SerializeField] private AudioClip _impactSound;
-    [SerializeField] private AudioClip _attackSound;
-    
+    [SerializeField] protected ParticleSystem _spawnParticles;
+    [SerializeField] protected ParticleSystem _impactParticles;
+    [SerializeField] protected ParticleSystem _attackParticles;
+    [SerializeField] protected AudioSource _myAudioSource;
+    [SerializeField] protected AudioClip _moveSound;
+    [SerializeField] protected AudioClip _idleSound;
+    [SerializeField] protected AudioClip _spawnSound;
+    [SerializeField] protected AudioClip _impactSound;
+    [SerializeField] protected AudioClip _attackSound;
+
+    [SerializeField] public AudioSource _musicPlayer;
+    [SerializeField] public AudioClip _myTheme;
+
+
+    //ANIMATION
+    protected Animator _myAnimator;
+    protected float attackLength;
+    protected float damageLength;
+    protected float deathLength;
+    protected float idleLength;
+
 
     protected int distanceToRun = 40;
     private bool _hasTarget;
@@ -222,13 +234,23 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
         {
-            Debug.Log("Enemy Hit by " + other.gameObject);
-            GetComponent<Health>().Damage(other.gameObject.GetComponent<WeaponStats>().damage);
-            _agent.updatePosition = false;
-            _rb.AddExplosionForce(other.gameObject.GetComponent<WeaponStats>().knockback, other.gameObject.transform.forward, 3f);
-            _agent.updatePosition = true;
-            _myAudioSource.clip = _impactSound;
-            _myAudioSource.Play();
+            StartCoroutine(HitByHammer(other));
         }
     }
+
+    private IEnumerator HitByHammer(Collider other)
+    {
+        Debug.Log("Enemy Hit by " + other.gameObject);
+        GetComponent<Health>().Damage(other.gameObject.GetComponent<WeaponStats>().damage);
+        _agent.updatePosition = false;
+        _rb.AddForce(new Vector3(0, other.gameObject.GetComponent<WeaponStats>().knockback/2, other.gameObject.GetComponent<WeaponStats>().knockback), ForceMode.Impulse);
+        _myAudioSource.PlayOneShot(_impactSound);
+
+        yield return new WaitForSeconds(1);
+
+        _agent.updatePosition = true;
+
+    }
+
+    
 }

@@ -27,6 +27,8 @@ public class EnemyTypeCrawler : EnemyBase
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField] private bool hasRoamPos = true;
 
+   
+
     public override EnemyData Data => _isAlpha ? _alphaData : base.Data;
 
     public bool HasAlpha => _alpha != null;
@@ -36,6 +38,11 @@ public class EnemyTypeCrawler : EnemyBase
         _startingPosition = transform.position;
         _roamPosition = GetRoamingPosition();
         UpdateAlphaStatus();
+
+        _myAnimator = _BetaFace.GetComponent<Animator>();
+        UpdateClipLengths();
+
+        _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
     }
 
     protected override void OnUpdate()
@@ -139,6 +146,16 @@ public class EnemyTypeCrawler : EnemyBase
             }
         }
 
+
+        if (_target.Type == TargetableType.Player)
+        {
+            if (_musicPlayer.clip != _myTheme)
+            {
+                _musicPlayer.clip = _myTheme;
+                _musicPlayer.Play();
+            }
+        }
+
         _attackTime = Time.time;
 
         if (CheckAttackTarget())
@@ -162,10 +179,26 @@ public class EnemyTypeCrawler : EnemyBase
             {
                 if ((Time.time - _attackTime) > Random.Range(Data.RateOfAttack - 1f, Data.RateOfAttack)) //if not an alpha, simply deal damage
                 {
-                    PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
-                    Debug.Log("Hit Player");
-                    _attackTime = Time.time;
-                    TrySetState(CrawlerState.Roaming);
+                    float timeElapsed = 0f;
+                    timeElapsed += Time.time;
+                    _myAnimator.SetTrigger("Attack");
+                    if (timeElapsed >= attackLength)
+                    {
+                        Collider[] hitInfo = Physics.OverlapSphere(_BetaFace.transform.position, 10);
+                        foreach(Collider _collider in hitInfo)
+                        {
+                            if (_collider.GetComponent<PlayerMovementScript>() != null)
+                            {
+                                _myAudioSource.PlayOneShot(_attackSound);
+                                PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
+                                Debug.Log("Hit Player");
+                                _attackTime = Time.time;
+                                TrySetState(CrawlerState.Roaming);
+                            }
+                        }
+                        
+                    }
+                    
                 }
             }
         }
@@ -335,4 +368,27 @@ public class EnemyTypeCrawler : EnemyBase
                 _target.transform.position.z + _radiusSurroundTarget * Mathf.Sin(2 * Mathf.PI * i / _children.Count)));
         }
     }
+    protected void UpdateClipLengths()
+    {
+        AnimationClip[] clips = _myAnimator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            switch (clip.name)
+            {
+                case "CrawlerAttackAnim":
+                    attackLength = clip.length;
+                    break;
+                case "Damage":
+                    damageLength = clip.length;
+                    break;
+                case "Dead":
+                    deathLength = clip.length;
+                    break;
+                case "Idle":
+                    idleLength = clip.length;
+                    break;
+            }
+        }
+    }
+
 }

@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 11
-  damage: 10
-  knockback: 200
+  damage: 30
+  knockback: 4000
 --- !u!65 &4307168804381140030
 BoxCollider:
   m_ObjectHideFlags: 0

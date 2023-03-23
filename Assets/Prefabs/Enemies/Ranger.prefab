@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4119633693508310422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7033334}
+  m_LocalPosition: {x: 0, y: 0, z: -0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5449506287914080127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7033334}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -480,7 +480,7 @@ SphereCollider:
   m_GameObject: {fileID: 8453498839466346206}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -573,6 +573,20 @@ MonoBehaviour:
   _BetaFace: {fileID: 5894781869377202642}
   _AlphaFace: {fileID: 7507224294794712878}
   theCam: {fileID: 0}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _spawnParticles: {fileID: 0}
+  _impactParticles: {fileID: 0}
+  _attackParticles: {fileID: 0}
+  _myAudioSource: {fileID: 0}
+  _moveSound: {fileID: 0}
+  _idleSound: {fileID: 0}
+  _spawnSound: {fileID: 0}
+  _impactSound: {fileID: 8300000, guid: fbccf2ed8a5fc0a47a0acc2731b6cd09, type: 3}
+  _attackSound: {fileID: 0}
+  _musicPlayer: {fileID: 0}
+  _myTheme: {fileID: 0}
   _alphaData: {fileID: 11400000, guid: 3ad702b57774f124fb4bc6b09d2ba047, type: 2}
   _isAlpha: 0
   _rangerState: 0

@@ -9,6 +9,7 @@ TagManager:
   - Witch
   - BetaCrawler
   - Flyer
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX
