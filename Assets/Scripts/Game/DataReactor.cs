@@ -121,7 +121,7 @@ public class DataReactor : MonoBehaviour
         }
         #endregion
 
-        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
+        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS && !_inFog)
         {
             _darkenEvent.ActivateEvent();
             _inFog = true;
