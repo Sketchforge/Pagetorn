@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1527bbd11bf42524da2e90674d0130d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gloopPoints: 200
+  _gloopPoints: 50
   _levitateRange: 15
   _pickupRange: 1.5
   _gloopSpeed: 20

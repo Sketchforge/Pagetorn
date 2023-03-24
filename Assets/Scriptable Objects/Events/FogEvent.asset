@@ -15,7 +15,7 @@ MonoBehaviour:
   _chainEvent: {fileID: 0}
   _affectFog: 1
   _fogDensity: 1.18
-  _fogColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+  _fogColor: {r: 0.3207547, g: 0.25014833, b: 0.25014833, a: 0.5294118}
   _switchPostProcessingVolume: 0
   _profile: {fileID: 11400000, guid: eed1c8b76653bf64aaadf1d12f44b7a9, type: 2}
   _fadeIn:
@@ -67,4 +67,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _currDuration: 0
+  _currDuration: 18.865711

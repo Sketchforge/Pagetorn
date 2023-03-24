@@ -6,8 +6,8 @@ public class Magic : Item
 {
     [Header("Basic Magic Info")]
     [SerializeField] private MagicType _magicType;
-    [SerializeField] private int _knowledgePoints = 10;
-    [SerializeField] private int _pageAmount = 1;
+    [SerializeField] public int _knowledgePoints = 10;
+    [SerializeField] public int _pageAmount = 1;
     [SerializeField, ReadOnly] private bool _canAttack;
     [SerializeField, ReadOnly] private bool _canDefend;
     [SerializeField, ReadOnly] private bool _canInstruct;

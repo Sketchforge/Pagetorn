@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -85,6 +86,7 @@ public class PlayerManager : MonoBehaviour
     {
         _isDead = true;
         _movementScript.OnPlayerDeath();
+        SceneManager.LoadScene("MainMenu");
     }
 
     [Button(Mode = ButtonMode.InPlayMode)]

@@ -20,6 +20,7 @@ public class SpellManager : MonoBehaviour
         spellCollider.radius = data.ActiveRadius;
         spellRB = GetComponent<Rigidbody>();
         spellRB.isKinematic = true;
+        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.MagicPoints, _data._knowledgePoints/ _data._pageAmount);
 
         if (data.CanHeal)
         {
