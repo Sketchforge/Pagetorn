@@ -97,7 +97,13 @@ public class SpellManager : MonoBehaviour
     private void OnTriggerEnter(Collider other) // TODO: should objects deal damage here, hone in from range, or use the same range/attack spheres as the AI?
     {
         Debug.Log("Spell hit something");
+
+        if (other.GetComponent<EnemyBase>())
+        {
+            other.GetComponent<EnemyBase>().GetComponent<Health>().Damage(_data.Damage);
+            Destroy(gameObject);
+        }
         //if (_data.CanDamage && other.CompareTag("enemy")) DamageEnemy(_data.Damage);
-        //Destroy(gameObject);
+       
     }
 }

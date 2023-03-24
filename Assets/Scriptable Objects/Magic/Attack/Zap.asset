@@ -23,6 +23,7 @@ MonoBehaviour:
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
+  _prefabObject: {fileID: 5335949647275027712, guid: e42b6bd7c8918094abbc1e2ea22e0401, type: 3}
   _magicType: 0
   _knowledgePoints: 800
   _pageAmount: 3

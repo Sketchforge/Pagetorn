@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6578a0d803e341a43b2dd01964f8704e, type: 3}
   m_Name: DarkenEvent
   m_EditorClassIdentifier: 
+  _chainEvent: {fileID: 0}
   _affectFog: 0
   _fogDensity: 1
   _fogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -41,7 +42,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _duration: 8
+  _duration: 30
   _fadeOut:
     serializedVersion: 2
     m_Curve:
@@ -66,3 +67,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _currDuration: 0
