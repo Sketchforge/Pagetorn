@@ -7,11 +7,12 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 140f;
+    [SerializeField] static public float monsterSpawnRate = 100f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
     [SerializeField] float MAX_TIME;
+    [SerializeField] float MAX_MELEEATTACKS;
 
     [Header("Events")]
     [SerializeField] PostProcessingEvent _fogEvent;
@@ -101,7 +102,7 @@ public class DataReactor : MonoBehaviour
         #region Behavior Reactor
 
         #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 100f, MAX_DISTANCE + 100f) && !_inFog)
+        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f) && !_inFog)
         {
             Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _fogEvent.ActivateEvent();
@@ -120,13 +121,19 @@ public class DataReactor : MonoBehaviour
         }
         #endregion
 
+        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
+        {
+            _darkenEvent.ActivateEvent();
+            _inFog = true;
+            DataManager.NumberMeleeAttacksDone = 0;
+        }
 
         if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
         {
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
             _darkenEvent.ActivateEvent();
             _smallCrawlerSpawn.ActivateEvent();
-            monsterSpawnRate = 10f;
+            monsterSpawnRate = 30f;
             calledSpawnEvent = true;
         }
         #endregion
