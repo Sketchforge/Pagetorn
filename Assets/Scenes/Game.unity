@@ -3330,7 +3330,7 @@ MonoBehaviour:
   averageMonstersKilledPerHour: 3
   MAX_DISTANCE: 300
   MAX_TIME: 0
-  MAX_MELEEATTACKS: 10
+  MAX_MELEEATTACKS: 40
   _fogEvent: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
   _inFog: 0
   _darkenEvent: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}

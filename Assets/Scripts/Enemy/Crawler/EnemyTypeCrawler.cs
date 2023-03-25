@@ -182,7 +182,7 @@ public class EnemyTypeCrawler : EnemyBase
                     float timeElapsed = 0f;
                     timeElapsed += Time.time;
                     _myAnimator.SetTrigger("Attack");
-                    if (timeElapsed >= attackLength)
+                    if (timeElapsed >= attackLength/2)
                     {
                         Collider[] hitInfo = Physics.OverlapSphere(_BetaFace.transform.position, 10);
                         foreach(Collider _collider in hitInfo)
