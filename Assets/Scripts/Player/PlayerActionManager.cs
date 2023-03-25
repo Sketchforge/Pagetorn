@@ -86,8 +86,21 @@ public class PlayerActionManager : MonoBehaviour
                     var weaponAnim = _heldItemSocket.GetComponentInChildren<Animator>(); //temporary? might not be great to use animators on all prefabs
                     if (weaponAnim)
                     {
-                        weaponAnim.SetTrigger("Swing");
-                        DataManager.NumberMeleeAttacksDone++;
+                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerIdle"))
+                        {
+                            weaponAnim.SetTrigger("Swing");
+                            DataManager.NumberMeleeAttacksDone++;
+                        }
+                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerSwing"))
+                        {
+                            weaponAnim.SetTrigger("Swing2");
+                            DataManager.NumberMeleeAttacksDone++;
+                        }
+                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerSwingBack"))
+                        {
+                            weaponAnim.SetTrigger("Swing3");
+                            DataManager.NumberMeleeAttacksDone++;
+                        }
                     }
                 }
                 //if (currentWeapon != null) currentWeapon.UseWeaponTrigger("Swing 1");
