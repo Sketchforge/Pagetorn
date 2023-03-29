@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private PlayerMovementScript _movementScript;
     [SerializeField] private PlayerActionManager _playerActionManager;
+    [SerializeField] public InventoryManager _playerInventory;
 
     [SerializeField, DrawSO] private Survival _survival;
 

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BookPickup : MoveTowards
 {
+
     // Start is called before the first frame update
     public override void ReachedTargetAction()
     {
-        Debug.Log("Add to Inventory");
+        _playerTarget.GetComponentInParent<PlayerManager>()._playerInventory.AddItemToInventory(_objectIntoInventory, 1);
         Destroy(gameObject);
     }
 }

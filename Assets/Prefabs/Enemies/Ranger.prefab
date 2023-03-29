@@ -597,7 +597,7 @@ MonoBehaviour:
   _children: []
   _randomRoamRange: {x: 10, y: 50}
   _randomFollowRange: {x: 2, y: 5}
-  _radiusSurroundTarget: 40
+  _radiusSurroundTarget: 20
   _chargeShotTime: 1
   _bulletOrigin: {fileID: 4469988661779134564}
   bulletObj: {fileID: 3748312194803887141, guid: 04002034af2a38d4db3b27dcc71c23ee, type: 3}

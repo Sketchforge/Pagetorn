@@ -378,13 +378,13 @@ public class EnemyTypeCrawler : EnemyBase
                 case "CrawlerAttackAnim":
                     attackLength = clip.length;
                     break;
-                case "Damage":
+                case "CrawlerDamagedAnim":
                     damageLength = clip.length;
                     break;
-                case "Dead":
+                case "CrawlerDieAnim":
                     deathLength = clip.length;
                     break;
-                case "Idle":
+                case "CrawlerIdleAnim":
                     idleLength = clip.length;
                     break;
             }

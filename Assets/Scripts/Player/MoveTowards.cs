@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MoveTowards : MonoBehaviour
 {
-    [SerializeField] private ScriptableObject _objectIntoInventory;
+    [SerializeField] public Item _objectIntoInventory;
     [SerializeField] private float _levitateRange = 10f;
     [SerializeField] private float _pickupRange = 1.5f;
     [SerializeField] private float _itemSpeed = 1f;
-    [SerializeField, ReadOnly] private Targetable _playerTarget;
+    [SerializeField] public Targetable _playerTarget;
     [SerializeField, ReadOnly] private float _distance;
     private float _sinSpeedThresh;
     private float _sinSpeed;

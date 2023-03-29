@@ -20,6 +20,7 @@ public class DataReactor : MonoBehaviour
     [SerializeField] PostProcessingEvent _darkenEvent;
     [SerializeField] InstantiateEvent _smallCrawlerSpawn;
     [SerializeField] InstantiateEvent _smallRangerSpawn;
+    [SerializeField] InstantiateEvent _librarianSpawn;
 
     private float spellCountTimer = 60f;
     private float monsterKillCountTimer = 3600f; // one hour
@@ -135,13 +136,29 @@ public class DataReactor : MonoBehaviour
             _smallCrawlerSpawn.ActivateEvent();
             monsterSpawnRate = 30f;
             calledSpawnEvent = true;
+            DataManager.bIsHostile = true;
+        } else
+        {
+            monsterSpawnRate = 140f;
+            DataManager.bIsHostile = false;
         }
         #endregion
 
-      
+        if (totalTimePassed >= 10000)
+        {
+            Debug.Log("Creepy time!!");
+
+            SpawnLibrarian();
+
+        }
 
     }
 
+    private void SpawnLibrarian()
+    {
+        _darkenEvent.ActivateEvent();
+        _librarianSpawn.ActivateEvent();
+    }
 
 
 }

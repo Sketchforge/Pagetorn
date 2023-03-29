@@ -34,6 +34,7 @@ public class DataManager_Debug : MonoBehaviour
     public bool bUsesSpellsOften; //set to true if Number spells done in last minute is higher than a set number, say 10; Set to false if plenty of time  {
     public bool bCollectsLotsofBooks; //set to true if BooksCollected within 30 minutes is higher than 100;     DataManager.NumberKnowledgePointsGathered = NumberKnowledgePointsGathered;
     public bool bExploresLotsOfRooms; //set to true if finds at least 30 different rooms.     DataManager.NumberDistanceWalked = NumberDistanceWalked;
+    public bool bIsHostile;
 
 
     private void Update()
@@ -65,6 +66,7 @@ public class DataManager_Debug : MonoBehaviour
             bUsesSpellsOften = DataManager.bUsesSpellsOften;
             bCollectsLotsofBooks = DataManager.bCollectsLotsofBooks;
             bExploresLotsOfRooms = DataManager.bExploresLotsOfRooms;
+            bIsHostile = DataManager.bIsHostile;
         }
         else
         {
@@ -90,6 +92,7 @@ public class DataManager_Debug : MonoBehaviour
             DataManager.bUsesSpellsOften = bUsesSpellsOften;
             DataManager.bCollectsLotsofBooks = bCollectsLotsofBooks;
             DataManager.bExploresLotsOfRooms = bExploresLotsOfRooms;
+            DataManager.bIsHostile = bIsHostile;
         }
         
     }

@@ -14,6 +14,8 @@ public static class DataManager
     static public int NumberBooksCollected;
     static public int NumberRoomsFound;
     static public int NumberMonstersKilled;
+
+
     
     //brainhealth center data
     static public float focusTime;
@@ -33,4 +35,5 @@ public static class DataManager
     static public bool bUsesSpellsOften; //set to true if Number spells done in last minute is higher than a set number, say 10; Set to false if plenty of time 
     static public bool bCollectsLotsofBooks; //set to true if BooksCollected within 30 minutes is higher than 100;
     static public bool bExploresLotsOfRooms; //set to true if finds at least 30 different rooms.
+    static public bool bIsHostile;
 }

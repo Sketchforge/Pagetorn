@@ -380,4 +380,27 @@ public class EnemyTypeRanger : EnemyBase
         }
     }
 
+    protected void UpdateClipLengths()
+    {
+        AnimationClip[] clips = _myAnimator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            switch (clip.name)
+            {
+                case "RangerAttackAnim":
+                    attackLength = clip.length;
+                    break;
+                case "RangerDamagedAnim":
+                    damageLength = clip.length;
+                    break;
+                case "RangerDiesAnim":
+                    deathLength = clip.length;
+                    break;
+                case "RangerIdleAnim":
+                    idleLength = clip.length;
+                    break;
+            }
+        }
+    }
+
 }

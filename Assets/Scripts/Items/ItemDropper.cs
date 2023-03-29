@@ -11,6 +11,7 @@ public class ItemDropper : PlayerInteractable
     [SerializeField] float throwForce;
     [SerializeField] Animator _animator;
     [SerializeField] Animation _dropAnimation;
+    public bool _collectedItem;
     Vector3 throwDirection;
 
     void Start()
@@ -26,11 +27,14 @@ public class ItemDropper : PlayerInteractable
 
     public override void Interact()
     {
-        DropItem();
+        //DropItems();
+        if (!_collectedItem)
+            DropRandomItem();
+        
     }
 
     [Button]
-    public void DropItem()
+    public void DropItems()
     {
         for (int i = 0; i <= _indexObjectToSpawn; i++)
         {
@@ -41,7 +45,25 @@ public class ItemDropper : PlayerInteractable
             //Animator lootAnim = lootDropped.GetComponent<Animator>();
             //lootAnim.animation
         }
-        
+    }
 
+    public void DropRandomItem()
+    {
+        int i = Random.Range(0, _myLoot.Count);
+        var lootDropped = Instantiate(_myLoot[i], _lootContainer, false);
+        Debug.Log("Instantiated " + lootDropped);
+        Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
+        _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+        _collectedItem = true;
+            //Animator lootAnim = lootDropped.GetComponent<Animator>();
+            //lootAnim.animation
+    
+
+
+    }
+
+    public void RefreshSelf()
+    {
+        _collectedItem = false;
     }
 }
