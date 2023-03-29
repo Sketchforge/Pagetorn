@@ -84,9 +84,8 @@ public class RoomDetails : MonoBehaviour
 		if (newDoors.Right)
 			openDoorLocations.Right = true;
 
-		fullRoomSize.x = fullRoomSize.y;
-		fullRoomSize.y = fullRoomSize.x;
-		
+		(fullRoomSize.x, fullRoomSize.y) = (fullRoomSize.y, fullRoomSize.x);
+
 		upDistanceToDoor = openDoorLocations.Up ? fullRoomSize.y * 0.5f : 0;
 		downDistanceToDoor = openDoorLocations.Down ? fullRoomSize.y * 0.5f : 0;
 		leftDistanceToDoor = openDoorLocations.Left ? fullRoomSize.x * 0.5f : 0;
