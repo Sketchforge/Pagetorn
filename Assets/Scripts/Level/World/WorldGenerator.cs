@@ -1,8 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 public class WorldGenerator : MonoBehaviour
 {
@@ -20,13 +21,21 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private RoomDetails[] hallways;
     [SerializeField] private RoomDetails[] deadEnds;
 
+    [SerializeField] private LayerMask RoomTriggerLayer = 1;
+    [SerializeField] private float halfLargeRoomSize;
+    [SerializeField] private RoomDetails[] largeRooms;
+    [SerializeField] private float halfMedRoomSize;
+    [SerializeField] private RoomDetails[] mediumRooms;
+    [SerializeField] private float halfSmallRoomSize;
+    [SerializeField] private RoomDetails[] smallRooms;
+
     private int lastRoomIndex = 0;
     private int roomIndex = 0;
     private RoomDetails randRoom;
     private int randRotate;
 
-    private List<RoomDetails> roomsGenerated = new List<RoomDetails>();
-    private List<RoomDetails> roomsStillOpen = new List<RoomDetails>();
+    [SerializeField] private List<RoomDetails> roomsGenerated = new List<RoomDetails>();
+    [SerializeField] private List<RoomDetails> roomsStillOpen = new List<RoomDetails>();
     //private List<RoomDetails> roomsMarkedDead = new List<RoomDetails>();
 
     // Check how far away from the hallway and how large an area to cover for checking potential collisions
@@ -36,78 +45,62 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private float twoRange = 105; // if sides hit something under this, limit to a 2 gen
     [SerializeField] private float deadRange = 125; // if forward hit something under this (max values may crash), kill the generation
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         roomIndex = 0;
+        
+        // First Room <3
+        RoomDetails firstRoom = Instantiate<GameObject>(initialRooms[roomIndex].gameObject, initialRooms[roomIndex].transform.position, Quaternion.identity, transform).GetComponent<RoomDetails>();
+        roomsGenerated.Add(firstRoom);
+
+        SpawnHallways(firstRoom);
+
+        lastRoomIndex = roomIndex;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private void OnJump() => GenerateRooms(); // temporarily using input system to set up
 
-    }
-
-    private void OnJump() // temporarily using input system to set up
+    [Button]
+    private void GenerateRooms()
 	{
-        if (roomsGenerated.Count <= 0) // if there aren't any rooms and we're at spawn, create the starting rooms. could use a new list just for these, or place them in the scene first??
+        Debug.Log("Generating More Rooms");
+
+        var openRooms = roomsStillOpen.Where(room => room.AnyDoorOpen).ToList();
+        roomsStillOpen.Clear();
+
+        foreach (var hallway in openRooms)
         {
-            RoomDetails firstRoom = Instantiate<GameObject>(initialRooms[roomIndex].gameObject, initialRooms[roomIndex].gameObject.transform.position, Quaternion.identity, transform).GetComponent<RoomDetails>();
-            roomsGenerated.Add(firstRoom);
-
-            SpawnHallways(firstRoom);
-
-            lastRoomIndex = roomIndex;
-        } else // otherwise do the maze generation
-		{
-            //Debug.Log("Previous room: " + roomsGenerated[roomsGenerated.Count - 1]);
-            GenerateRoom2();
-                //Debug.Log("Current room: " + roomsGenerated[roomsGenerated.Count - 1]);
-        }
-        //if (randRoom >= initialRoomsToInstantiate.Length) randRoom = 0;
-    }
-
-    private void GenerateRoom2()
-	{
-        Debug.Log("Starting room");
-        int upperBound = roomsStillOpen.Count;
-        Debug.Log("Upperbound: " + upperBound);
-
-        for (int i = 0; i < upperBound; i++)
-        {
-            Debug.Log("Loop " + i);
-            RoomDetails newRoom;
             RoomDetails[] roomList = new RoomDetails[0];
 
             // Check the rooms for potential collisions. Spawn a dead end and move on if so
-            int checkRoom = CheckNeighborRoom(roomsStillOpen[i]);
+            int checkRoom = CheckNeighborRoom(hallway);
 
             if (checkRoom == 0) // raycast marked room as dead
-			{
+            {
                 //newRoom = Instantiate<GameObject>(deadEnds[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
                 //SpawnRoom(newRoom, i);
                 roomList = deadEnds;
             }
             else if (checkRoom == 1) // raycast marked room as 2
-			{
+            {
                 roomList = twoRooms;
-			}
+            }
             
             // raycast didn't mark, but did find which area to instantiate from
             else if (checkRoom == 2) // initial area
-			{
+            {
                 roomList = initialRooms;
-			}
+            }
             else if (checkRoom == 3) // middle area
-			{
+            {
                 roomList = middleRooms;
-			}
+            }
             else if (checkRoom == 4) // final area
-			{
+            {
                 roomList = finalRooms;
-			}
+            }
             else if (checkRoom == 5) // past final area, where you spawn dead ends and the final room
-			{
+            {
                 if (roomsGenerated.Contains(winRoom[0]))
                 {
                     roomList = initialRooms;
@@ -116,7 +109,7 @@ public class WorldGenerator : MonoBehaviour
                 {
                     roomList = winRoom;
                 }
-			}
+            }
 
             // Randomly select a room from the given list. To prevent duplicate rooms, stick in a while loop to make sure you get a different room.
             while (roomIndex == lastRoomIndex)
@@ -126,7 +119,7 @@ public class WorldGenerator : MonoBehaviour
             Debug.Log("Room index: " + roomIndex);
 
 
-            newRoom = Instantiate<GameObject>(roomList[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
+            var newRoom = Instantiate(roomList[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
             Debug.Log(newRoom);
 
             // Rotate the room 0-3 times
@@ -134,12 +127,8 @@ public class WorldGenerator : MonoBehaviour
             //Debug.Log("Rotate amount: " + randRotate);
             //for (int j = 0; j < randRotate; j++) newRoom.RotateRoom();
 
-            SpawnRoom(newRoom, i);
+            SpawnRoom(newRoom, hallway);
             if (checkRoom != 0) SpawnHallways(newRoom);
-        }
-        for (int i = 0; i < upperBound; i++)
-        {
-            roomsStillOpen.RemoveAt(i);
         }
 	}
 
@@ -168,23 +157,23 @@ public class WorldGenerator : MonoBehaviour
             hitDirection = new Vector3(1, 0, 0);
         }
 
+        var pos = currentRoom.transform.position;
         // cache the position where the cast starts at (the end of the hallway)
-        Vector3 endPostion = new Vector3(currentRoom.gameObject.transform.position.x + hDistanceCheck, currentRoom.gameObject.transform.position.y, currentRoom.gameObject.transform.position.z + vDistanceCheck);
+        Vector3 endPosition = new Vector3(pos.x + hDistanceCheck, pos.y, pos.z + vDistanceCheck);
         // push out the left/right casts in their respective direction
         hDistanceCheck = hDistanceCheck > 0 ? hDistanceCheck + 4 : hDistanceCheck < 0 ? hDistanceCheck - 4 : 0;
         vDistanceCheck = vDistanceCheck > 0 ? vDistanceCheck + 4 : vDistanceCheck < 0 ? vDistanceCheck - 4 : 0;
-        Vector3 pushedPostion = new Vector3(currentRoom.gameObject.transform.position.x + hDistanceCheck, currentRoom.gameObject.transform.position.y, currentRoom.gameObject.transform.position.z + vDistanceCheck);
+        Vector3 pushedPosition = new Vector3(pos.x + hDistanceCheck, pos.y, pos.z + vDistanceCheck);
 
         Vector3 leftDirection = Quaternion.Euler(0, -90, 0) * hitDirection;
         Vector3 rightDirection = Quaternion.Euler(0, 90, 0) * hitDirection;
-        Vector3 leftPosition = pushedPostion + leftDirection;
-        Vector3 rightPosition = pushedPostion + rightDirection;
+        Vector3 leftPosition = pushedPosition + leftDirection;
+        Vector3 rightPosition = pushedPosition + rightDirection;
 
-        //Debug.Log("Normal: " + endPostion + hitDirection + "Left: " + leftOffset + "Right: " + rightOffset);
+        //Debug.Log("Normal: " + endPosition + hitDirection + "Left: " + leftOffset + "Right: " + rightOffset);
 
         // Cast a ray and check for a hit in front of the door, if the room needs to be dead
-        RaycastHit hitRay;
-        if (Physics.Raycast(endPostion, hitDirection, out hitRay))
+        if (Physics.Raycast(endPosition, hitDirection, out RaycastHit hitRay))
 		{
             // Check distance to object
             float distance = hitRay.distance;
@@ -231,7 +220,7 @@ public class WorldGenerator : MonoBehaviour
         }*/
 
         // grab the position of the point to see if it's within any circle
-        float distanceFromCenter = Vector3.Distance(new Vector3(0, 0, 0), endPostion);
+        float distanceFromCenter = Vector3.Distance(new Vector3(0, 0, 0), endPosition);
 
         // if the room is within the first area,
         if (distanceFromCenter < initialRoomDistance)
@@ -253,20 +242,18 @@ public class WorldGenerator : MonoBehaviour
         return 5;
     }
 
-    private void SpawnRoom(RoomDetails room, int index)
+    private void SpawnRoom(RoomDetails room, RoomDetails hallway)
     {
-        bool didMove = false;
-        didMove = MoveRoom(room, roomsStillOpen[index]);
+        bool didMove = MoveRoom(room, hallway);
 
         for (int j = 0; j < 4 && didMove == false; j++)
         {
             room.RotateRoom();
-            didMove = MoveRoom(room, roomsStillOpen[index]);
+            didMove = MoveRoom(room, hallway);
         }
         if (didMove == false)
         {
             Debug.LogError("Couldn't move room even after rotating!");
-            return;
         }
     }
 
@@ -274,13 +261,13 @@ public class WorldGenerator : MonoBehaviour
     private void SpawnHallways(RoomDetails currentRoom)
     {
         int hallIndex = Random.Range(0, hallways.Length);
-        Vector3 prevRoomLocation = currentRoom.gameObject.transform.position;
+        Vector3 prevRoomLocation = currentRoom.transform.position;
 
         if (currentRoom.openDoorLocations.Up)
         {
-            RoomDetails hallway = Instantiate<GameObject>(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
-            hallway.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x, hallway.gameObject.transform.position.y, prevRoomLocation.z + (currentRoom.upDistanceToDoor + hallway.downDistanceToDoor));
+            RoomDetails hallway = Instantiate(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.transform.position =
+                new Vector3(prevRoomLocation.x, hallway.transform.position.y, prevRoomLocation.z + (currentRoom.upDistanceToDoor + hallway.downDistanceToDoor));
             hallway.openDoorLocations.Down = false;
             currentRoom.openDoorLocations.Up = false;
             roomsGenerated.Add(hallway);
@@ -288,9 +275,9 @@ public class WorldGenerator : MonoBehaviour
         }
         if (currentRoom.openDoorLocations.Down)
         {
-            RoomDetails hallway = Instantiate<GameObject>(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
-            hallway.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x, hallway.gameObject.transform.position.y, prevRoomLocation.z - (currentRoom.downDistanceToDoor + hallway.upDistanceToDoor));
+            RoomDetails hallway = Instantiate(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
+            hallway.transform.position =
+                new Vector3(prevRoomLocation.x, hallway.transform.position.y, prevRoomLocation.z - (currentRoom.downDistanceToDoor + hallway.upDistanceToDoor));
             hallway.openDoorLocations.Up = false;
             currentRoom.openDoorLocations.Down = false;
             roomsGenerated.Add(hallway);
@@ -298,10 +285,10 @@ public class WorldGenerator : MonoBehaviour
         }
         if (currentRoom.openDoorLocations.Left)
         {
-            RoomDetails hallway = Instantiate<GameObject>(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
+            RoomDetails hallway = Instantiate(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
             hallway.RotateRoom();
-            hallway.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x - (currentRoom.leftDistanceToDoor + hallway.rightDistanceToDoor), hallway.gameObject.transform.position.y, prevRoomLocation.z);
+            hallway.transform.position =
+                new Vector3(prevRoomLocation.x - (currentRoom.leftDistanceToDoor + hallway.rightDistanceToDoor), hallway.transform.position.y, prevRoomLocation.z);
             hallway.openDoorLocations.Right = false;
             currentRoom.openDoorLocations.Left = false;
             roomsGenerated.Add(hallway);
@@ -309,10 +296,10 @@ public class WorldGenerator : MonoBehaviour
         }
         if (currentRoom.openDoorLocations.Right)
         {
-            RoomDetails hallway = Instantiate<GameObject>(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
+            RoomDetails hallway = Instantiate(hallways[hallIndex].gameObject, transform).GetComponent<RoomDetails>();
             hallway.RotateRoom();
-            hallway.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x + (currentRoom.rightDistanceToDoor + hallway.leftDistanceToDoor), hallway.gameObject.transform.position.y, prevRoomLocation.z);
+            hallway.transform.position =
+                new Vector3(prevRoomLocation.x + (currentRoom.rightDistanceToDoor + hallway.leftDistanceToDoor), hallway.transform.position.y, prevRoomLocation.z);
             hallway.openDoorLocations.Left = false;
             currentRoom.openDoorLocations.Right = false;
             roomsGenerated.Add(hallway);
@@ -322,37 +309,37 @@ public class WorldGenerator : MonoBehaviour
 
     private bool MoveRoom(RoomDetails currentRoom, RoomDetails prevRoom)
     {
-        Vector3 prevRoomLocation = prevRoom.gameObject.transform.position;
+        Vector3 prevRoomLocation = prevRoom.transform.position;
 
-        if (prevRoom.openDoorLocations.Up)
+        if (prevRoom.openDoorLocations.Up && currentRoom.openDoorLocations.Down)
         {
-            currentRoom.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
+            currentRoom.transform.position = new Vector3(prevRoomLocation.x, currentRoom.transform.position.y, prevRoomLocation.z + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
             roomsGenerated.Add(currentRoom);
+            prevRoom.openDoorLocations.Up = false;
             currentRoom.openDoorLocations.Down = false;
             return true;
         }
-        else if (prevRoom.openDoorLocations.Down)
+        if (prevRoom.openDoorLocations.Down && currentRoom.openDoorLocations.Up)
         {
-            currentRoom.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x, currentRoom.gameObject.transform.position.y, prevRoomLocation.z - (prevRoom.downDistanceToDoor + currentRoom.upDistanceToDoor));
+            currentRoom.transform.position = new Vector3(prevRoomLocation.x, currentRoom.transform.position.y, prevRoomLocation.z - (prevRoom.downDistanceToDoor + currentRoom.upDistanceToDoor));
             roomsGenerated.Add(currentRoom);
+            prevRoom.openDoorLocations.Down = false;
             currentRoom.openDoorLocations.Up = false;
             return true;
         }
-        else if (prevRoom.openDoorLocations.Left)
+        if (prevRoom.openDoorLocations.Left && currentRoom.openDoorLocations.Right)
         {
-            currentRoom.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x - (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
+            currentRoom.transform.position = new Vector3(prevRoomLocation.x - (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor), currentRoom.transform.position.y, prevRoomLocation.z);
             roomsGenerated.Add(currentRoom);
+            prevRoom.openDoorLocations.Left = false;
             currentRoom.openDoorLocations.Right = false;
             return true;
         }
-        else if (prevRoom.openDoorLocations.Right)
+        if (prevRoom.openDoorLocations.Right && currentRoom.openDoorLocations.Left)
         {
-            currentRoom.gameObject.transform.position =
-                new Vector3(prevRoomLocation.x + (prevRoom.rightDistanceToDoor + currentRoom.leftDistanceToDoor), currentRoom.gameObject.transform.position.y, prevRoomLocation.z);
+            currentRoom.transform.position = new Vector3(prevRoomLocation.x + (prevRoom.rightDistanceToDoor + currentRoom.leftDistanceToDoor), currentRoom.transform.position.y, prevRoomLocation.z);
             roomsGenerated.Add(currentRoom);
+            prevRoom.openDoorLocations.Right = false;
             currentRoom.openDoorLocations.Left = false;
             return true;
         }

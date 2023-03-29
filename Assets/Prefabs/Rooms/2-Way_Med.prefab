@@ -1,5 +1,83 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3635057282248470971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7637163851582950182}
+  m_Layer: 0
+  m_Name: Art
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7637163851582950182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635057282248470971}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8874060409219088323}
+  - {fileID: 8874060407546383600}
+  m_Father: {fileID: 8874060408456894069}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3711927867846890264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4711980560544232806}
+  - component: {fileID: 7149042330505262258}
+  m_Layer: 20
+  m_Name: RoomTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4711980560544232806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3711927867846890264}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8874060408456894069}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7149042330505262258
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3711927867846890264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 30, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8874060407541304394
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +295,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8874060407546383601}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.8304, y: 0, z: -4.8831997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -230,7 +308,7 @@ Transform:
   - {fileID: 8874060409400252058}
   - {fileID: 8874060407954554362}
   - {fileID: 8874060407645135599}
-  m_Father: {fileID: 8874060408456894069}
+  m_Father: {fileID: 7637163851582950182}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8874060407572126620
@@ -1110,8 +1188,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8874060409219088323}
-  - {fileID: 8874060407546383600}
+  - {fileID: 4711980560544232806}
+  - {fileID: 7637163851582950182}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1132,9 +1210,11 @@ MonoBehaviour:
     Down: 1
     Left: 0
     Right: 0
-  distanceObject: {fileID: 8874060409219088332}
-  upDistanceToDoor: 10.130602
-  downDistanceToDoor: 10.130602
+  roomCollider: {fileID: 7149042330505262258}
+  fullRoomSize: {x: 20, y: 20}
+  roomLocationBounds: {x: 0, y: 0, z: 0, w: 0}
+  upDistanceToDoor: 10
+  downDistanceToDoor: 10
   leftDistanceToDoor: 0
   rightDistanceToDoor: 0
 --- !u!1 &8874060408575105291
@@ -1653,7 +1733,7 @@ Transform:
   m_LocalScale: {x: 20.187296, y: 0.15307, z: 20.261204}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8874060408456894069}
+  m_Father: {fileID: 7637163851582950182}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8874060409219088320
