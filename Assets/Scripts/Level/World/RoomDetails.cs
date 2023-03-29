@@ -2,11 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RoomLevel
+{
+	NONE,
+	Start,
+	Middle,
+	End,
+	Final
+}
+
 public class RoomDetails : MonoBehaviour
 {
+	public RoomLevel roomLevel = RoomLevel.NONE;
+
     [Tooltip("With UP being the Z axis (blue) and RIGHT being X (red), mark which walls have an entrance.")]
     public OpenDoors openDoorLocations;
-	[SerializeField] private GameObject distanceObject;
+    public BoxCollider roomCollider;
 
 	[Tooltip("Amount of space taken up by the room prefab (set currently to openDoorLocation's scale). X is object's X value, Y is object's Z")]
     public Vector2 fullRoomSize;
@@ -19,11 +30,15 @@ public class RoomDetails : MonoBehaviour
 	public float leftDistanceToDoor;
 	public float rightDistanceToDoor;
 
+	public RoomDetails[] roomTransitions;
+
 	private int roomRotation = 0;
+
+	public bool AnyDoorOpen => openDoorLocations.Up || openDoorLocations.Down || openDoorLocations.Left || openDoorLocations.Right;
 
 	private void OnValidate()
 	{
-		UpdateSizes();
+		if (!roomCollider) roomCollider = GetComponentInChildren<BoxCollider>();
 	}
 
 	private void Update()
@@ -82,42 +97,25 @@ public class RoomDetails : MonoBehaviour
 		if (newDoors.Right)
 			openDoorLocations.Right = true;
 
-		UpdateSizes();
+		(fullRoomSize.x, fullRoomSize.y) = (fullRoomSize.y, fullRoomSize.x);
+
+		upDistanceToDoor = openDoorLocations.Up ? fullRoomSize.y * 0.5f : 0;
+		downDistanceToDoor = openDoorLocations.Down ? fullRoomSize.y * 0.5f : 0;
+		leftDistanceToDoor = openDoorLocations.Left ? fullRoomSize.x * 0.5f : 0;
+		rightDistanceToDoor = openDoorLocations.Right ? fullRoomSize.x * 0.5f : 0;
 	}
 
-	private void UpdateSizes()
+	[Button]
+	private void SetSizes()
 	{
-		if (roomRotation % 2 == 0)
-		{
-			fullRoomSize.x = distanceObject.transform.localScale.x;
-			fullRoomSize.y = distanceObject.transform.localScale.z;
-		}
-		else
-		{
-			fullRoomSize.x = distanceObject.transform.localScale.z;
-			fullRoomSize.y = distanceObject.transform.localScale.x;
-		}
+		var b = roomCollider.bounds;
+		fullRoomSize.x = b.size.x;
+		fullRoomSize.y = b.size.z;
+		
 
-		if (openDoorLocations.Up)
-		{
-			upDistanceToDoor = fullRoomSize.y / 2;
-		}
-		else upDistanceToDoor = 0;
-		if (openDoorLocations.Down)
-		{
-			downDistanceToDoor = fullRoomSize.y / 2;
-		}
-		else downDistanceToDoor = 0;
-		if (openDoorLocations.Left)
-		{
-			leftDistanceToDoor = fullRoomSize.x / 2;
-		}
-		else leftDistanceToDoor = 0;
-		if (openDoorLocations.Right)
-		{
-			rightDistanceToDoor = fullRoomSize.x / 2;
-		}
-		else rightDistanceToDoor = 0;
-
+		upDistanceToDoor = openDoorLocations.Up ? b.extents.z : 0;
+		downDistanceToDoor = openDoorLocations.Down ? b.extents.z : 0;
+		leftDistanceToDoor = openDoorLocations.Left ? b.extents.x : 0;
+		rightDistanceToDoor = openDoorLocations.Right ? b.extents.x : 0;
 	}
 }
