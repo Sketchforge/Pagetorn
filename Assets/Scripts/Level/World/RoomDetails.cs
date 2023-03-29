@@ -2,8 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RoomLevel
+{
+	NONE,
+	Start,
+	Middle,
+	End,
+	Final
+}
+
 public class RoomDetails : MonoBehaviour
 {
+	public RoomLevel roomLevel = RoomLevel.NONE;
+
     [Tooltip("With UP being the Z axis (blue) and RIGHT being X (red), mark which walls have an entrance.")]
     public OpenDoors openDoorLocations;
     public BoxCollider roomCollider;
@@ -18,6 +29,8 @@ public class RoomDetails : MonoBehaviour
 	public float downDistanceToDoor;
 	public float leftDistanceToDoor;
 	public float rightDistanceToDoor;
+
+	public RoomDetails[] roomTransitions;
 
 	private int roomRotation = 0;
 

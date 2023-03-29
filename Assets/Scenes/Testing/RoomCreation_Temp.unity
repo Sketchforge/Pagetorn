@@ -186,7 +186,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-17776
+  m_Name: pb_Mesh-3086
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -659,9 +659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff3dd56dd302854db1181b11592969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialRoomDistance: 500
-  middleRoomDistance: 1500
-  finalRoomDistance: 2500
+  initialRoomDistance: 200
+  middleRoomDistance: 400
+  finalRoomDistance: 600
   initialRooms:
   - {fileID: 862161989306240147, guid: 0e9a8f466f3b8eb4b8c99525bebad4e8, type: 3}
   - {fileID: 6880456771733896820, guid: 4a866bc1a695d154482bc2f05b01b4c9, type: 3}
@@ -691,21 +691,14 @@ MonoBehaviour:
   deadEnds:
   - {fileID: 2683184185283672014, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
   - {fileID: 8861739383441248497, guid: 4deb4f48925b7164896f7adc5db70953, type: 3}
-  RoomTriggerLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  halfLargeRoomSize: 0
-  largeRooms: []
-  halfMedRoomSize: 0
-  mediumRooms: []
-  halfSmallRoomSize: 0
-  smallRooms: []
-  roomsGenerated: []
-  roomsStillOpen: []
   checkOffset: {x: 0, y: 0}
   checkRadius: {x: 220, y: 190}
   twoRange: 105
   deadRange: 125
+  smallRange: 10
+  medRange: 20
+  largeRange: 40
+  largestRange: 60
 --- !u!4 &666685649
 Transform:
   m_ObjectHideFlags: 0
@@ -1179,7 +1172,7 @@ PrefabInstance:
       objectReference: {fileID: 260348475}
     - target: {fileID: 6203370121075108211, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}
       propertyPath: m_VersionIndex
-      value: 6677
+      value: 6686
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3f704237961dc47bc93a285de5fda3, type: 3}

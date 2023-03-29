@@ -37,6 +37,11 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private float twoRange = 105; // if sides hit something under this, limit to a 2 gen
     [SerializeField] private float deadRange = 125; // if forward hit something under this (max values may crash), kill the generation
 
+    [SerializeField] private float smallRange = 10; // if sides hit something under this, limit to a 2 gen
+    [SerializeField] private float medRange = 20; // if forward hit something under this (max values may crash), kill the generation
+    [SerializeField] private float largeRange = 40; // if sides hit something under this, limit to a 2 gen
+    [SerializeField] private float largestRange = 60; // if forward hit something under this (max values may crash), kill the generation
+
     private void Start()
     {
         roomIndex = 0;
@@ -60,70 +65,189 @@ public class WorldGenerator : MonoBehaviour
         var openRooms = roomsStillOpen.Where(room => room.AnyDoorOpen).ToList();
         roomsStillOpen.Clear();
 
-        foreach (var hallway in openRooms)
+        foreach (var lastRoom in openRooms)
         {
-            RoomDetails[] roomList = new RoomDetails[0];
+            RoomDetails[] roomList = FindRoomToCreate(lastRoom);
 
-            // Check the rooms for potential collisions. Spawn a dead end and move on if so
-            int checkRoom = CheckNeighborRoom(hallway);
-
-            if (checkRoom == 0) // raycast marked room as dead
-            {
-                //newRoom = Instantiate<GameObject>(deadEnds[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
-                //SpawnRoom(newRoom, i);
-                roomList = deadEnds;
-            }
-            else if (checkRoom == 1) // raycast marked room as 2
-            {
-                roomList = twoRooms;
-            }
-            
-            // raycast didn't mark, but did find which area to instantiate from
-            else if (checkRoom == 2) // initial area
-            {
-                roomList = initialRooms;
-            }
-            else if (checkRoom == 3) // middle area
-            {
-                roomList = middleRooms;
-            }
-            else if (checkRoom == 4) // final area
-            {
-                roomList = finalRooms;
-            }
-            else if (checkRoom == 5) // past final area, where you spawn dead ends and the final room
-            {
-                if (roomsGenerated.Contains(winRoom[0]))
-                {
-                    roomList = initialRooms;
-                }
-                else
-                {
-                    roomList = winRoom;
-                }
-            }
-
-            // Randomly select a room from the given list. To prevent duplicate rooms, stick in a while loop to make sure you get a different room.
-            while (roomIndex == lastRoomIndex)
-                roomIndex = Random.Range(0, roomList.Length);
-            lastRoomIndex = roomIndex;
-            if (roomIndex > roomList.Length-1) roomIndex = 0;
+            // Randomly select a room from the given list.
+            roomIndex = Random.Range(0, roomList.Length);
             Debug.Log("Room index: " + roomIndex);
-
+            Debug.Log("Room list: " + roomList.Length);
 
             var newRoom = Instantiate(roomList[roomIndex].gameObject, transform).GetComponent<RoomDetails>();
             Debug.Log(newRoom);
 
-            // Rotate the room 0-3 times
-            //randRotate = Random.Range((int)0, (int)3);
-            //Debug.Log("Rotate amount: " + randRotate);
-            //for (int j = 0; j < randRotate; j++) newRoom.RotateRoom();
-
-            SpawnRoom(newRoom, hallway);
-            if (checkRoom != 0) SpawnHallways(newRoom);
+            SpawnRoom(newRoom, lastRoom);
         }
 	}
 
+    private RoomDetails[] FindRoomToCreate(RoomDetails currentRoom)
+    {
+        Debug.Log("Finding rooms");
+        // Get the list of rooms to instantiate from
+        List<RoomDetails> roomsToUse = new List<RoomDetails>();
+        // Rooms that will actually be used
+        List<RoomDetails> roomsToInstantiate = new List<RoomDetails>();
+
+        float vDistanceCheck = 0;
+        float hDistanceCheck = 0;
+        Vector3 hitDirection = new Vector3(0, 0, 0);
+
+        // check where the open door is so you can offset the box on the correct side
+        if (currentRoom.openDoorLocations.Up)
+        {
+            vDistanceCheck = currentRoom.upDistanceToDoor + 1;
+            hitDirection = new Vector3(0, 0, 1);
+        }
+        else if (currentRoom.openDoorLocations.Down)
+        {
+            vDistanceCheck = -currentRoom.downDistanceToDoor - 1;
+            hitDirection = new Vector3(0, 0, -1);
+        }
+        else if (currentRoom.openDoorLocations.Left)
+        {
+            hDistanceCheck = -currentRoom.leftDistanceToDoor - 1;
+            hitDirection = new Vector3(-1, 0, 0);
+        }
+        else if (currentRoom.openDoorLocations.Right)
+        {
+            hDistanceCheck = currentRoom.rightDistanceToDoor + 1;
+            hitDirection = new Vector3(1, 0, 0);
+        }
+
+        var pos = currentRoom.transform.position;
+        // cache the position where the cast starts at (the end of the hallway)
+        Vector3 endPosition = new Vector3(pos.x + hDistanceCheck, pos.y, pos.z + vDistanceCheck);
+
+        //Debug.Log("Normal: " + endPosition + hitDirection + "Left: " + leftOffset + "Right: " + rightOffset);
+
+        if (Physics.Raycast(endPosition, hitDirection, out RaycastHit hitRay))
+        {
+            // Check distance to object
+            float distance = hitRay.distance;
+
+            if (distance < smallRange) // hit before small room (close door off)
+            {
+                Debug.Log("Checking small room");
+                foreach (RoomDetails room in currentRoom.roomTransitions)
+                {
+                    if (room.fullRoomSize.x < smallRange)
+                    {
+                        roomsToUse.Add(room);
+                        Debug.Log("Added small room");
+                    }
+                }
+            }
+            else if (distance < medRange) // hit before medium room (spawn small)
+            {
+                Debug.Log("Checking med room");
+                foreach (RoomDetails room in currentRoom.roomTransitions)
+                {
+                    if (room.fullRoomSize.x < medRange)
+                    {
+                        roomsToUse.Add(room);
+                        Debug.Log("Added med room");
+                    }
+                }
+            }
+            else if (distance < largeRange) // hit before large room (spawn medium)
+            {
+                Debug.Log("Checking large room");
+                foreach (RoomDetails room in currentRoom.roomTransitions)
+                {
+                    if (room.fullRoomSize.x < largeRange)
+                    {
+                        roomsToUse.Add(room);
+                        Debug.Log("Added large room");
+                    }
+                }
+            }
+            else if (distance < largestRange) // hit before large hallway (spawn room/small hallway?)
+            {
+                Debug.Log("Checking largest room");
+                foreach (RoomDetails room in currentRoom.roomTransitions)
+                {
+                    if (room.fullRoomSize.x < largestRange)
+                    {
+                        roomsToUse.Add(room);
+                        Debug.Log("Added largest room");
+                    }
+                }
+            }
+            else // full room to use
+            {
+                Debug.Log("Checking all room, hit too far");
+                foreach (RoomDetails room in currentRoom.roomTransitions)
+                {
+                    roomsToUse.Add(room);
+                    Debug.Log("Added all rooms, hit too far");
+                }
+            }
+        }
+        else // raycast doesn't hit
+		{
+            Debug.Log("Checking all room, no hit");
+            foreach (RoomDetails room in currentRoom.roomTransitions)
+            {
+                roomsToUse.Add(room);
+                Debug.Log("Added all room, no hit");
+            }
+        }
+
+
+        // grab the position of the point to see if it's within any circle
+        float checkRoomPosition = Vector3.Distance(new Vector3(0, 0, 0), endPosition);
+
+        // if the room is within the first area,
+        if (checkRoomPosition < initialRoomDistance)
+        {
+            Debug.Log("Checking start room");
+            foreach (RoomDetails room in roomsToUse)
+            {
+                if (room.roomLevel == RoomLevel.Start || room.roomLevel == RoomLevel.NONE)
+                {
+                    roomsToInstantiate.Add(room);
+                    Debug.Log("Added start room");
+                }
+            }
+        }
+        // if the room is within the middle area,
+        else if (checkRoomPosition >= initialRoomDistance && checkRoomPosition < middleRoomDistance)
+        {
+            Debug.Log("Checking middle room");
+            foreach (RoomDetails room in roomsToUse)
+            {
+                if (room.roomLevel == RoomLevel.Middle || room.roomLevel == RoomLevel.NONE)
+                {
+                    roomsToInstantiate.Add(room);
+                    Debug.Log("Added middle room");
+                }
+            }
+        }
+        // if the room is within the final area,
+        else if (checkRoomPosition >= middleRoomDistance && checkRoomPosition < finalRoomDistance)
+        {
+            Debug.Log("Checking final room");
+            foreach (RoomDetails room in roomsToUse)
+            {
+                if (room.roomLevel == RoomLevel.Final || room.roomLevel == RoomLevel.NONE)
+                {
+                    roomsToInstantiate.Add(room);
+                    Debug.Log("Added final room");
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Checking all room pos");
+            foreach (RoomDetails room in roomsToUse)
+            {
+                roomsToInstantiate.Add(room);
+                Debug.Log("Added all room pos");
+            }
+        }
+        return roomsToInstantiate.ToArray();
+    }
 
     private int CheckNeighborRoom(RoomDetails currentRoom)
     {
@@ -195,6 +319,21 @@ public class WorldGenerator : MonoBehaviour
             {
                 // mark for a 2 room
                 return 1;
+            }
+        }
+
+        foreach (RoomDetails potentialRoom in currentRoom.roomTransitions)
+		{
+            Collider[] hitRooms = Physics.OverlapBox(endPosition, new Vector3(checkRadius.x, 0, checkRadius.y));
+
+            // look into each room to grab data
+            foreach (Collider hitCollide in hitRooms)
+            {
+                RoomDetails room = hitCollide.GetComponent<RoomDetails>();
+                if (room != null && room != currentRoom)
+                {
+                    // grab vector3 values, compare them and find how much space you have to play with, and proceed (in other words, check if you can build lol)
+                }
             }
         }
 
@@ -307,6 +446,7 @@ public class WorldGenerator : MonoBehaviour
         {
             currentRoom.transform.position = new Vector3(prevRoomLocation.x, currentRoom.transform.position.y, prevRoomLocation.z + (prevRoom.upDistanceToDoor + currentRoom.downDistanceToDoor));
             roomsGenerated.Add(currentRoom);
+            roomsStillOpen.Add(currentRoom);
             prevRoom.openDoorLocations.Up = false;
             currentRoom.openDoorLocations.Down = false;
             return true;
@@ -315,6 +455,7 @@ public class WorldGenerator : MonoBehaviour
         {
             currentRoom.transform.position = new Vector3(prevRoomLocation.x, currentRoom.transform.position.y, prevRoomLocation.z - (prevRoom.downDistanceToDoor + currentRoom.upDistanceToDoor));
             roomsGenerated.Add(currentRoom);
+            roomsStillOpen.Add(currentRoom);
             prevRoom.openDoorLocations.Down = false;
             currentRoom.openDoorLocations.Up = false;
             return true;
@@ -323,6 +464,7 @@ public class WorldGenerator : MonoBehaviour
         {
             currentRoom.transform.position = new Vector3(prevRoomLocation.x - (prevRoom.leftDistanceToDoor + currentRoom.rightDistanceToDoor), currentRoom.transform.position.y, prevRoomLocation.z);
             roomsGenerated.Add(currentRoom);
+            roomsStillOpen.Add(currentRoom);
             prevRoom.openDoorLocations.Left = false;
             currentRoom.openDoorLocations.Right = false;
             return true;
@@ -331,6 +473,7 @@ public class WorldGenerator : MonoBehaviour
         {
             currentRoom.transform.position = new Vector3(prevRoomLocation.x + (prevRoom.rightDistanceToDoor + currentRoom.leftDistanceToDoor), currentRoom.transform.position.y, prevRoomLocation.z);
             roomsGenerated.Add(currentRoom);
+            roomsStillOpen.Add(currentRoom);
             prevRoom.openDoorLocations.Right = false;
             currentRoom.openDoorLocations.Left = false;
             return true;

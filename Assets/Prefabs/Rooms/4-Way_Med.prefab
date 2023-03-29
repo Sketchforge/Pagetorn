@@ -804,6 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4136b58dad7217c4a83f38531d989933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomLevel: 1
   openDoorLocations:
     Up: 1
     Down: 1
@@ -816,6 +817,9 @@ MonoBehaviour:
   downDistanceToDoor: 10
   leftDistanceToDoor: 10
   rightDistanceToDoor: 10
+  roomTransitions:
+  - {fileID: 8043599298417794459, guid: 76990bd935946794bab8f587102c0baf, type: 3}
+  - {fileID: 4335492736852265282, guid: 703673ec832416f4e823cca79a7438eb, type: 3}
 --- !u!1 &7306996986983258564
 GameObject:
   m_ObjectHideFlags: 0
