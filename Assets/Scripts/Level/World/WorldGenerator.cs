@@ -21,21 +21,13 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private RoomDetails[] hallways;
     [SerializeField] private RoomDetails[] deadEnds;
 
-    [SerializeField] private LayerMask RoomTriggerLayer = 1;
-    [SerializeField] private float halfLargeRoomSize;
-    [SerializeField] private RoomDetails[] largeRooms;
-    [SerializeField] private float halfMedRoomSize;
-    [SerializeField] private RoomDetails[] mediumRooms;
-    [SerializeField] private float halfSmallRoomSize;
-    [SerializeField] private RoomDetails[] smallRooms;
-
     private int lastRoomIndex = 0;
     private int roomIndex = 0;
     private RoomDetails randRoom;
     private int randRotate;
 
-    [SerializeField] private List<RoomDetails> roomsGenerated = new List<RoomDetails>();
-    [SerializeField] private List<RoomDetails> roomsStillOpen = new List<RoomDetails>();
+    private List<RoomDetails> roomsGenerated = new List<RoomDetails>();
+    private List<RoomDetails> roomsStillOpen = new List<RoomDetails>();
     //private List<RoomDetails> roomsMarkedDead = new List<RoomDetails>();
 
     // Check how far away from the hallway and how large an area to cover for checking potential collisions
