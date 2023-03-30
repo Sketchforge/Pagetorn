@@ -707,7 +707,6 @@ MonoBehaviour:
   _cube: {fileID: 242947606310922916, guid: 534f3c8a6a0a3fc4b8343bf247fdfd25, type: 3}
   _validNeighbors:
   - {fileID: 5879015845906246971, guid: 660ff4ec408357b4980515a04823d972, type: 3}
-  - {fileID: 6993452815552198409, guid: af411ded87cce3c42b870256757709a6, type: 3}
 --- !u!1 &2894654108989564042
 GameObject:
   m_ObjectHideFlags: 0

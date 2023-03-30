@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class Room : MonoBehaviour
     [SerializeField, ShowIf("_posXDoor")] private GameObject _posXDoorGeo;
     [SerializeField] private bool _negXDoor = true;
     [SerializeField, ShowIf("_negXDoor")] private GameObject _negXDoorGeo;
-    
+
     [Header("Connected Rooms")]
     [SerializeField, ShowIf("_posZDoor")] private Room _posZConnectedRoom;
     [SerializeField, ShowIf("_negZDoor")] private Room _negZConnectedRoom;
@@ -50,53 +52,57 @@ public class Room : MonoBehaviour
     public void OnPlayerLeave()
     {
     }
-
+    
     [Button]
     public void CheckGenerateNeighbors()
     {
         if (_posZDoor && !_posZConnectedRoom)
         {
-            var room = CheckCreateNeighbor(true, false);
+            (bool value, Room room) = CheckCreateNeighbor(true, false);
             if (room)
             {
                 _posZConnectedRoom = room;
                 room._negZConnectedRoom = this;
+                room._negZDoorGeo.SetActive(false);
             }
-            _posZDoorGeo.SetActive(!room);
+            _posZDoorGeo.SetActive(!room && !value);
         }
         if (_negZDoor && !_negZConnectedRoom)
         {
-            var room = CheckCreateNeighbor(true, true);
+            (bool value, Room room) = CheckCreateNeighbor(true, true);
             if (room)
             {
                 _negZConnectedRoom = room;
                 room._posZConnectedRoom = this;
+                room._posZDoorGeo.SetActive(false);
             }
-            _negZDoorGeo.SetActive(!room);
+            _negZDoorGeo.SetActive(!room && !value);
         }
         if (_posXDoor && !_posXConnectedRoom)
         {
-            var room = CheckCreateNeighbor(false, false);
+            (bool value, Room room) = CheckCreateNeighbor(false, false);
             if (room)
             {
                 _posXConnectedRoom = room;
                 room._negXConnectedRoom = this;
+                room._negXDoorGeo.SetActive(false);
             }
-            _posXDoorGeo.SetActive(!room);
+            _posXDoorGeo.SetActive(!room && !value);
         }
         if (_negXDoor && !_negXConnectedRoom)
         {
-            var room = CheckCreateNeighbor(false, true);
+            (bool value, Room room) = CheckCreateNeighbor(false, true);
             if (room)
             {
                 _negXConnectedRoom = room;
                 room._posXConnectedRoom = this;
+                room._posXDoorGeo.SetActive(false);
             }
-            _negXDoorGeo.SetActive(!room);
+            _negXDoorGeo.SetActive(!room && !value);
         }
     }
-    
-    private Room CheckCreateNeighbor(bool z, bool neg)
+
+    private (bool, Room) CheckCreateNeighbor(bool z, bool neg)
     {
         var m = neg ? -1 : 1;
         var prefab = GetValidRoom(z, neg);
@@ -104,16 +110,23 @@ public class Room : MonoBehaviour
         {
             var room = Instantiate(prefab, transform.parent);
             room.transform.position = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + room._halfRoomSize.x) * m, 0, z ? (_halfRoomSize.y + room._halfRoomSize.y) * m : 0);
-            return room;
+            return (false, room);
         }
-        var pos = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + 0.25f) * m, _doorHeight * 0.5f, z ? (_halfRoomSize.y + 0.25f) * m : 0); ;
-        var colliders = Physics.OverlapBox(pos, Vector3.one * 0.025f, Quaternion.identity, _roomBoundsLayerMask);
-        foreach (var col in colliders)
+        var pos = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + 1f) * m, -1, z ? (_halfRoomSize.y + 1f) * m : 0);
+        
+        if (!Physics.CheckBox(pos, Vector3.one * 0.5f, Quaternion.identity, _roomBoundsLayerMask, QueryTriggerInteraction.Collide))
         {
+            return (true, null);
+        }
+        /*
+        foreach (var hit in hitObjs)
+        {
+            var col = hit.collider;
+            Debug.Log("Collider" + col.transform.parent.gameObject.name, col.gameObject);
             var colRoom = col.transform.parent.GetComponent<Room>();
             if (colRoom && colRoom != this) return colRoom;
-        }
-        return null;
+        }*/
+        return (false, null);
     }
 
     private Room GetValidRoom(bool z, bool neg)
@@ -128,7 +141,7 @@ public class Room : MonoBehaviour
 
         var xDir = z ? 0 : (neg ? -1 : 1);
         var zDir = z ? (neg ? -1 : 1) : 0;
-        
+
         var c = _validNeighbors.Count;
         int start = Random.Range(0, c);
         for (var i = 0; i < c; i++)
@@ -148,9 +161,9 @@ public class Room : MonoBehaviour
     {
         pos += new Vector3(xDir * halfSize.x, 0, zDir * halfSize.z);
         halfSize -= Vector3.one * 0.1f;
-        return !Physics.CheckBox(pos, halfSize, Quaternion.identity, _roomBoundsLayerMask);
+        return !Physics.CheckBox(pos, halfSize, Quaternion.identity, _roomBoundsLayerMask, QueryTriggerInteraction.Collide);
     }
-    
+
 #if UNITY_EDITOR
     [Button(Spacing = 20)]
     private void RefreshRoom()
@@ -169,7 +182,7 @@ public class Room : MonoBehaviour
             _art = new GameObject("Art").transform;
             _art.SetParent(transform);
         }
-        
+
         _roomBounds.center = new Vector3(0, _roomHeight * 0.5f, 0);
         _roomBounds.size = new Vector3(_halfRoomSize.x * 2, _roomHeight, _halfRoomSize.y * 2);
 
@@ -209,7 +222,7 @@ public class Room : MonoBehaviour
                 centerWall.localPosition = pos;
                 centerWall.localScale = new Vector3(z ? _doorWidth : 0.1f, _roomHeight - _doorHeight, z ? 0.1f : _doorWidth);
                 _walls.Add(centerWall);
-                
+
                 var leftWall = Instantiate(_cube, _art);
                 var offset = z ? _halfRoomSize.x : _halfRoomSize.y;
                 offset -= (offset - _doorWidth * 0.5f) * 0.5f;
@@ -220,7 +233,7 @@ public class Room : MonoBehaviour
                 leftWall.localPosition = pos;
                 leftWall.localScale = new Vector3(z ? s : 0.1f, _roomHeight, z ? 0.1f : s);
                 _walls.Add(leftWall);
-                
+
                 var rightWall = Instantiate(_cube, _art);
                 if (z) pos.x += offset * 2;
                 else pos.z += offset * 2;
