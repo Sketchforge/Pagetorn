@@ -36,4 +36,6 @@ public static class DataManager
     static public bool bCollectsLotsofBooks; //set to true if BooksCollected within 30 minutes is higher than 100;
     static public bool bExploresLotsOfRooms; //set to true if finds at least 30 different rooms.
     static public bool bIsHostile;
+
+    static public Room currentRoom;
 }
