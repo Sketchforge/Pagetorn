@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
@@ -11,6 +12,7 @@ public class Room : MonoBehaviour
     [SerializeField] private LayerMask _roomBoundsLayerMask;
     [SerializeField] private float _roomHeight = 10;
     [SerializeField] private Vector2 _halfRoomSize = new Vector2(10, 10);
+    [SerializeField] private bool _randomRotateArt = true;
 
     [Header("Door Settings")]
     [SerializeField] private float _doorHeight = 4;
@@ -33,12 +35,16 @@ public class Room : MonoBehaviour
     [Header("References")]
     [SerializeField] private BoxCollider _roomBounds;
     [SerializeField] private Transform _art;
+    [SerializeField] private Transform _wallParent;
     [SerializeField] private Transform _floor;
     [SerializeField] private List<Transform> _walls = new List<Transform>();
 
     [Header("External References")]
     [SerializeField] private Transform _cube;
     [SerializeField] private List<Room> _validNeighbors = new List<Room>();
+
+    public float RoomHeight => _roomHeight;
+    public Vector2 HalfRoomSize => _halfRoomSize;
 
     public void OnPlayerEnter()
     {
@@ -52,7 +58,12 @@ public class Room : MonoBehaviour
     public void OnPlayerLeave()
     {
     }
-    
+
+    private void Start()
+    {
+        if (_randomRotateArt) _art.localRotation = Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
+    }
+
     [Button]
     public void CheckGenerateNeighbors()
     {
@@ -139,8 +150,8 @@ public class Room : MonoBehaviour
         }
         pos += transform.position;
 
-        var xDir = z ? 0 : (neg ? -1 : 1);
-        var zDir = z ? (neg ? -1 : 1) : 0;
+        var xDir = z ? 0 : neg ? -1 : 1;
+        var zDir = z ? neg ? -1 : 1 : 0;
 
         var c = _validNeighbors.Count;
         int start = Random.Range(0, c);
@@ -176,6 +187,12 @@ public class Room : MonoBehaviour
         }
         _roomBounds.isTrigger = true;
         _roomBounds.gameObject.layer = _roomBoundsLayer;
+        if (!_wallParent) _wallParent = transform.Find("WallParent");
+        if (!_wallParent)
+        {
+            _wallParent = new GameObject("WallParent").transform;
+            _wallParent.SetParent(transform);
+        }
         if (!_art) _art = transform.Find("Art");
         if (!_art)
         {
@@ -186,7 +203,7 @@ public class Room : MonoBehaviour
         _roomBounds.center = new Vector3(0, _roomHeight * 0.5f, 0);
         _roomBounds.size = new Vector3(_halfRoomSize.x * 2, _roomHeight, _halfRoomSize.y * 2);
 
-        if (!_floor) _floor = Instantiate(_cube, _art);
+        if (!_floor) _floor = Instantiate(_cube, _wallParent);
         _floor.localPosition = new Vector3(0, -0.05f, 0);
         _floor.localScale = new Vector3(_halfRoomSize.x * 2, 0.1f, _halfRoomSize.y * 2);
         foreach (Transform t in _walls.Where(t => t))
@@ -211,19 +228,19 @@ public class Room : MonoBehaviour
             }
             if (door)
             {
-                var doorWall = Instantiate(_cube, _art);
+                var doorWall = Instantiate(_cube, _wallParent);
                 pos.y = _doorHeight * 0.5f;
                 doorWall.localPosition = pos;
                 doorWall.localScale = new Vector3(z ? _doorWidth : 0.1f, _doorHeight, z ? 0.1f : _doorWidth);
                 _walls.Add(doorWall);
 
-                var centerWall = Instantiate(_cube, _art);
+                var centerWall = Instantiate(_cube, _wallParent);
                 pos.y = (_roomHeight + _doorHeight) * 0.5f;
                 centerWall.localPosition = pos;
                 centerWall.localScale = new Vector3(z ? _doorWidth : 0.1f, _roomHeight - _doorHeight, z ? 0.1f : _doorWidth);
                 _walls.Add(centerWall);
 
-                var leftWall = Instantiate(_cube, _art);
+                var leftWall = Instantiate(_cube, _wallParent);
                 var offset = z ? _halfRoomSize.x : _halfRoomSize.y;
                 offset -= (offset - _doorWidth * 0.5f) * 0.5f;
                 if (z) pos.x -= offset;
@@ -234,7 +251,7 @@ public class Room : MonoBehaviour
                 leftWall.localScale = new Vector3(z ? s : 0.1f, _roomHeight, z ? 0.1f : s);
                 _walls.Add(leftWall);
 
-                var rightWall = Instantiate(_cube, _art);
+                var rightWall = Instantiate(_cube, _wallParent);
                 if (z) pos.x += offset * 2;
                 else pos.z += offset * 2;
                 rightWall.localPosition = pos;
@@ -244,7 +261,7 @@ public class Room : MonoBehaviour
                 doorWall.gameObject.SetActive(false);
                 return doorWall.gameObject;
             }
-            var wall = Instantiate(_cube, _art);
+            var wall = Instantiate(_cube, _wallParent);
             wall.localPosition = pos;
             wall.localScale = new Vector3(z ? _halfRoomSize.x * 2 : 0.1f, _roomHeight, z ? 0.1f : _halfRoomSize.y * 2);
             _walls.Add(wall);
