@@ -51,6 +51,106 @@ public class Room : MonoBehaviour
     {
     }
 
+    [Button]
+    public void CheckGenerateNeighbors()
+    {
+        if (_posZDoor && !_posZConnectedRoom)
+        {
+            var room = CheckCreateNeighbor(true, false);
+            if (room)
+            {
+                _posZConnectedRoom = room;
+                room._negZConnectedRoom = this;
+            }
+            _posZDoorGeo.SetActive(!room);
+        }
+        if (_negZDoor && !_negZConnectedRoom)
+        {
+            var room = CheckCreateNeighbor(true, true);
+            if (room)
+            {
+                _negZConnectedRoom = room;
+                room._posZConnectedRoom = this;
+            }
+            _negZDoorGeo.SetActive(!room);
+        }
+        if (_posXDoor && !_posXConnectedRoom)
+        {
+            var room = CheckCreateNeighbor(false, false);
+            if (room)
+            {
+                _posXConnectedRoom = room;
+                room._negXConnectedRoom = this;
+            }
+            _posXDoorGeo.SetActive(!room);
+        }
+        if (_negXDoor && !_negXConnectedRoom)
+        {
+            var room = CheckCreateNeighbor(false, true);
+            if (room)
+            {
+                _negXConnectedRoom = room;
+                room._posXConnectedRoom = this;
+            }
+            _negXDoorGeo.SetActive(!room);
+        }
+    }
+    
+    private Room CheckCreateNeighbor(bool z, bool neg)
+    {
+        var m = neg ? -1 : 1;
+        var prefab = GetValidRoom(z, neg);
+        if (prefab)
+        {
+            var room = Instantiate(prefab, transform.parent);
+            room.transform.position = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + room._halfRoomSize.x) * m, 0, z ? (_halfRoomSize.y + room._halfRoomSize.y) * m : 0);
+            return room;
+        }
+        var pos = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + 0.25f) * m, _doorHeight * 0.5f, z ? (_halfRoomSize.y + 0.25f) * m : 0); ;
+        var colliders = Physics.OverlapBox(pos, Vector3.one * 0.025f, Quaternion.identity, _roomBoundsLayerMask);
+        foreach (var col in colliders)
+        {
+            var colRoom = col.transform.parent.GetComponent<Room>();
+            if (colRoom && colRoom != this) return colRoom;
+        }
+        return null;
+    }
+
+    private Room GetValidRoom(bool z, bool neg)
+    {
+        var pos = new Vector3(z ? 0 : _halfRoomSize.x, 0, z ? _halfRoomSize.y : 0);
+        if (neg)
+        {
+            pos.x = -pos.x;
+            pos.z = -pos.z;
+        }
+        pos += transform.position;
+
+        var xDir = z ? 0 : (neg ? -1 : 1);
+        var zDir = z ? (neg ? -1 : 1) : 0;
+        
+        var c = _validNeighbors.Count;
+        int start = Random.Range(0, c);
+        for (var i = 0; i < c; i++)
+        {
+            var index = (i + start) % c;
+            Room room = _validNeighbors[index];
+            if (z && neg && room._posZDoor || z && !neg && room._negZDoor || !z && neg && room._posXDoor || !z && !neg && room._negXDoor)
+            {
+                var halfSize = new Vector3(room._halfRoomSize.x, room._roomHeight * 0.5f, room._halfRoomSize.y);
+                if (CanGenerateRoom(pos + Vector3.up * room._roomHeight * 0.5f, xDir, zDir, halfSize)) return room;
+            }
+        }
+        return null;
+    }
+
+    private bool CanGenerateRoom(Vector3 pos, float xDir, float zDir, Vector3 halfSize)
+    {
+        pos += new Vector3(xDir * halfSize.x, 0, zDir * halfSize.z);
+        halfSize -= Vector3.one * 0.1f;
+        return !Physics.CheckBox(pos, halfSize, Quaternion.identity, _roomBoundsLayerMask);
+    }
+    
 #if UNITY_EDITOR
     [Button(Spacing = 20)]
     private void RefreshRoom()
@@ -139,95 +239,4 @@ public class Room : MonoBehaviour
         }
     }
 #endif
-
-    [Button]
-    public void CheckGenerateNeighbors()
-    {
-        if (_posZDoor && !_posZConnectedRoom)
-        {
-            var prefab = GetValidRoom(true, false);
-            if (prefab)
-            {
-                var room = Instantiate(prefab, transform.parent);
-                room.transform.position = transform.position + new Vector3(0, 0, _halfRoomSize.y + room._halfRoomSize.y);
-                _posZConnectedRoom = room;
-                room._negZConnectedRoom = this;
-            }
-            _posZDoorGeo.SetActive(!prefab);
-        }
-        
-        if (_negZDoor && !_negZConnectedRoom)
-        {
-            var prefab = GetValidRoom(true, true);
-            if (prefab)
-            {
-                var room = Instantiate(prefab, transform.parent);
-                room.transform.position = transform.position + new Vector3(0, 0, -_halfRoomSize.y - room._halfRoomSize.y);
-                _negZConnectedRoom = room;
-                room._posZConnectedRoom = this;
-            }
-            _negZDoorGeo.SetActive(!prefab);
-        }
-        
-        if (_posXDoor && !_posXConnectedRoom)
-        {
-            var prefab = GetValidRoom(false, false);
-            if (prefab)
-            {
-                var room = Instantiate(prefab, transform.parent);
-                room.transform.position = transform.position + new Vector3(_halfRoomSize.x + room._halfRoomSize.x, 0, 0);
-                _posXConnectedRoom = room;
-                room._negXConnectedRoom = this;
-            }
-            _posXDoorGeo.SetActive(!prefab);
-        }
-        
-        if (_negXDoor && !_negXConnectedRoom)
-        {
-            var prefab = GetValidRoom(false, true);
-            if (prefab)
-            {
-                var room = Instantiate(prefab, transform.parent);
-                room.transform.position = transform.position + new Vector3(-_halfRoomSize.x - room._halfRoomSize.x, 0, 0);
-                _negXConnectedRoom = room;
-                room._posXConnectedRoom = this;
-            }
-            _negXDoorGeo.SetActive(!prefab);
-        }
-    }
-
-    private Room GetValidRoom(bool z, bool neg)
-    {
-        var pos = new Vector3(z ? 0 : _halfRoomSize.x, 0, z ? _halfRoomSize.y : 0);
-        if (neg)
-        {
-            pos.x = -pos.x;
-            pos.z = -pos.z;
-        }
-        pos += transform.position;
-
-        var xDir = z ? 0 : (neg ? -1 : 1);
-        var zDir = z ? (neg ? -1 : 1) : 0;
-        
-        var c = _validNeighbors.Count;
-        int start = Random.Range(0, c);
-        for (var i = 0; i < c; i++)
-        {
-            var index = (i + start) % c;
-            Room room = _validNeighbors[index];
-            if (z && neg && room._posZDoor || z && !neg && room._negZDoor || !z && neg && room._posXDoor || !z && !neg && room._negXDoor)
-            {
-                var halfSize = new Vector3(room._halfRoomSize.x, room._roomHeight * 0.5f, room._halfRoomSize.y);
-                if (CanGenerateRoom(pos + Vector3.up * room._roomHeight * 0.5f, xDir, zDir, halfSize)) return room;
-            }
-        }
-        return null;
-    }
-
-    private bool CanGenerateRoom(Vector3 pos, float xDir, float zDir, Vector3 halfSize)
-    {
-        pos += new Vector3(xDir * halfSize.x, 0, zDir * halfSize.z);
-        halfSize -= Vector3.one * 0.1f;
-        return !Physics.CheckBox(pos, halfSize, Quaternion.identity, _roomBoundsLayerMask);
-    }
 }
