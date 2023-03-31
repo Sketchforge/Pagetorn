@@ -12,7 +12,7 @@ public class Room : MonoBehaviour
     [SerializeField] private LayerMask _roomBoundsLayerMask;
     [SerializeField] private float _roomHeight = 10;
     [SerializeField] private Vector2 _halfRoomSize = new Vector2(10, 10);
-    [SerializeField] private bool _randomRotateArt = true;
+    [SerializeField] private RandomRoomRotation _randomRotation = RandomRoomRotation.Any;
 
     [Header("Door Settings")]
     [SerializeField] private float _doorHeight = 4;
@@ -61,7 +61,15 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        if (_randomRotateArt) _art.localRotation = Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
+        switch (_randomRotation)
+        {
+            case RandomRoomRotation.Flip:
+                _art.localRotation *= Quaternion.Euler(0, Random.Range(0, 2) * 180f, 0);
+                break;
+            case RandomRoomRotation.Any:
+                _art.localRotation *= Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
+                break;
+        }
     }
 
     [Button]
@@ -183,7 +191,7 @@ public class Room : MonoBehaviour
         if (!_roomBounds)
         {
             _roomBounds = new GameObject("RoomBounds", typeof(BoxCollider)).GetComponent<BoxCollider>();
-            _roomBounds.transform.SetParent(transform);
+            _roomBounds.transform.SetParent(transform, false);
         }
         _roomBounds.isTrigger = true;
         _roomBounds.gameObject.layer = _roomBoundsLayer;
@@ -191,13 +199,13 @@ public class Room : MonoBehaviour
         if (!_wallParent)
         {
             _wallParent = new GameObject("WallParent").transform;
-            _wallParent.SetParent(transform);
+            _wallParent.SetParent(transform, false);
         }
         if (!_art) _art = transform.Find("Art");
         if (!_art)
         {
             _art = new GameObject("Art").transform;
-            _art.SetParent(transform);
+            _art.SetParent(transform, false);
         }
 
         _roomBounds.center = new Vector3(0, _roomHeight * 0.5f, 0);
@@ -269,4 +277,11 @@ public class Room : MonoBehaviour
         }
     }
 #endif
+}
+
+public enum RandomRoomRotation
+{
+    None,
+    Flip,
+    Any
 }
