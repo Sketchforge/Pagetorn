@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d00994884004ff4f9935cf130ff1c3c, type: 3}
   m_Name: Librarian
   m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _attackDamage: 1
-  _moveSpeed: 1
+  _maxHealth: 1000
+  _attackDamage: 10
+  _moveSpeed: 5
   _rateOfAttack: 4
   _rangeOfVision: 50
   _attackRange: 12
