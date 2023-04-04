@@ -46,6 +46,11 @@ public class Room : MonoBehaviour
     public float RoomHeight => _roomHeight;
     public Vector2 HalfRoomSize => _halfRoomSize;
 
+
+    private void Awake()
+    {
+        DataManager.currentRoom = this;
+    }
     public void OnPlayerEnter()
     {
         CheckGenerateNeighbors();

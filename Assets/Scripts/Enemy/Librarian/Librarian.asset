@@ -16,7 +16,7 @@ MonoBehaviour:
   _attackDamage: 10
   _moveSpeed: 5
   _rateOfAttack: 4
-  _rangeOfVision: 50
+  _rangeOfVision: 10
   _attackRange: 12
-  _memoryTimeout: 5
+  _memoryTimeout: 10
   _loot: []

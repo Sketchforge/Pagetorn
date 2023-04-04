@@ -36,6 +36,8 @@ public class DataManager_Debug : MonoBehaviour
     public bool bExploresLotsOfRooms; //set to true if finds at least 30 different rooms.     DataManager.NumberDistanceWalked = NumberDistanceWalked;
     public bool bIsHostile;
 
+    public Room currentRoom;
+
 
     private void Update()
     {
@@ -67,6 +69,8 @@ public class DataManager_Debug : MonoBehaviour
             bCollectsLotsofBooks = DataManager.bCollectsLotsofBooks;
             bExploresLotsOfRooms = DataManager.bExploresLotsOfRooms;
             bIsHostile = DataManager.bIsHostile;
+
+            currentRoom = DataManager.currentRoom;
         }
         else
         {

@@ -1667,17 +1667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56712cdaf11784f498d75fce4c7aa1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &67655971 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1738091263, guid: 9b0d7f2cf09601f4c878c1d259b49585, type: 3}
-  m_PrefabInstance: {fileID: 20543842}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0fba08258579144bb91b4cf8b627da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &70118735
 GameObject:
   m_ObjectHideFlags: 0
@@ -17034,7 +17023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be465a7cf297e14479ac36b871ccacdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showRealValues: 0
+  _showRealValues: 1
   NumberKnowledgePointsGathered: 0
   NumberDistanceWalked: 0
   AmountTimeStoodStill: 0
@@ -17058,6 +17047,7 @@ MonoBehaviour:
   bCollectsLotsofBooks: 0
   bExploresLotsOfRooms: 0
   bIsHostile: 0
+  currentRoom: {fileID: 0}
 --- !u!114 &1796935008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19826,7 +19816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3750776232526170646, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.952
+      value: -111.7
       objectReference: {fileID: 0}
     - target: {fileID: 3750776232526170646, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19834,7 +19824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3750776232526170646, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.05
+      value: -79.5
       objectReference: {fileID: 0}
     - target: {fileID: 3750776232526170646, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19871,7 +19861,11 @@ PrefabInstance:
     - target: {fileID: 9175279925594593121, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: _target
       value: 
-      objectReference: {fileID: 67655971}
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175279925594593121, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
+      propertyPath: cooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9175279925594593121, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
       propertyPath: _AlphaFace
       value: 
