@@ -126,7 +126,7 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
         if (_itemHealth < 0)
         {
             RemoveItem(1);
-            _itemHealth = _item.MaxHealth;
+            _itemHealth = _item ? _item.MaxHealth : 0;
         }
     }
 

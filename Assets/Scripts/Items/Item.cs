@@ -8,9 +8,9 @@ public class Item : ScriptableObject
     [SerializeField] private ItemType _type = ItemType.Basic;
     [SerializeField, TextArea] private string _description = "";
     [SerializeField] private Sprite _sprite;
-    [SerializeField, ReadOnly] private bool _canStack;
+    [SerializeField] private bool _canStack;
     [ShowIf("_canStack")] [SerializeField] private int _stackAmount = 99;
-    [SerializeField, ReadOnly] private bool _hasHealth;
+    [SerializeField] private bool _hasHealth;
     [ShowIf("_hasHealth")] [SerializeField] private int _maxHealth = 5;
     [SerializeField] public GameObject _prefabObject;
 
