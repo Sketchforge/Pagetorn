@@ -21,12 +21,12 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 1315244061a159140a0d87d2a4eb575d, type: 3}
   _canStack: 1
   _stackAmount: 99
-  _hasHealth: 0
-  _maxHealth: 5
+  _hasHealth: 1
+  _maxHealth: 4
   _prefabObject: {fileID: 5335949647275027712, guid: e42b6bd7c8918094abbc1e2ea22e0401, type: 3}
   _magicType: 0
   _knowledgePoints: 200
-  _pageAmount: 4
+  _pageAmount: 3
   _canAttack: 1
   _canDefend: 0
   _canInstruct: 0

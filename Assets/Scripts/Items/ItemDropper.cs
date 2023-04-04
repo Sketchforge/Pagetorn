@@ -11,6 +11,7 @@ public class ItemDropper : PlayerInteractable
     [SerializeField] float throwForce;
     [SerializeField] Animator _animator;
     [SerializeField] Animation _dropAnimation;
+    [SerializeField] GameObject _objectToStopRendering;
     public bool _collectedItem;
     Vector3 throwDirection;
 
@@ -55,6 +56,7 @@ public class ItemDropper : PlayerInteractable
         Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
         _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
         _collectedItem = true;
+        _objectToStopRendering.SetActive(false);
             //Animator lootAnim = lootDropped.GetComponent<Animator>();
             //lootAnim.animation
     
@@ -65,5 +67,6 @@ public class ItemDropper : PlayerInteractable
     public void RefreshSelf()
     {
         _collectedItem = false;
+        _objectToStopRendering.SetActive(true);
     }
 }

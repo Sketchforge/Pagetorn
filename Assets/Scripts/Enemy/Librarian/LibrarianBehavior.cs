@@ -97,7 +97,7 @@ public class LibrarianBehavior : EnemyBase
         }
         else
         {
-            transform.position = DataManager.currentRoom.transform.position - new Vector3(DataManager.currentRoom.HalfRoomSize.x - 3f, 0, DataManager.currentRoom.HalfRoomSize.y - 3f);
+            transform.position = DataManager.currentRoom.transform.position - new Vector3(DataManager.currentRoom.HalfRoomSize.x + 3f, 0, DataManager.currentRoom.HalfRoomSize.y + 3f);
         }
        
         cooldownSubtract = cooldown;
