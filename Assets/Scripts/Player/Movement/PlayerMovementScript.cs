@@ -70,6 +70,11 @@ public class PlayerMovementScript : MonoBehaviour
         isOnEnemy = Physics.CheckSphere(groundCheck.position, _groundDistance, enemyMask);
         //isHurt = Physics.CheckSphere(groundCheck.position, _groundDistance, hazardMask);
 
+
+    }
+
+    private void FixedUpdate()
+    {
         SimulateGravity();
 
         ResetVelocity();
