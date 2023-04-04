@@ -48,6 +48,7 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
             _amount = 0;
             if (_slot) _slot.gameObject.SetActive(false);
             if (_amountText) _amountText.gameObject.SetActive(false);
+            if (_healthPointsParent) _healthPointsParent.SetActive(false);
         }
         else
         {
@@ -67,6 +68,10 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
             _healthPointsParent.SetActive(healthActive);
             if (healthActive)
             {
+
+                _itemHealth = _item.MaxHealth;
+                //Debug.Log("Item New Health " + _itemHealth);
+
                 for (int i = 0; i < _healthPoints.Count; i++)
                 {
                     bool activeHealth = i < _itemHealth;
@@ -122,12 +127,26 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
             Debug.LogError($"Trying to damage item ({_item.ItemName}) that cannot take damage!", gameObject);
             return;
         }
-        _itemHealth--;
-        if (_itemHealth < 0)
+        else if (_item.HasHealth)
         {
-            RemoveItem(1);
-            _itemHealth = _item ? _item.MaxHealth : 0;
+
+            _itemHealth -= damage;
+            //TODO UPDATE HEALTH TICKS
+            for (int i = 0; i < _healthPoints.Count; i++)
+            {
+                bool activeHealth = i < _itemHealth;
+                _healthPoints[i].color = activeHealth ? Color.green : Color.gray;
+            }
+
+
+            if (_itemHealth <= 0)
+            {
+                RemoveItem(1);
+                _itemHealth = _item ? _item.MaxHealth : 0;
+            }
         }
+        OnItemUpdate?.Invoke();
+
     }
 
     public void RemoveItem(int amount)
@@ -138,6 +157,7 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
             return;
         }
         _amount -= amount;
+        OnItemUpdate?.Invoke();
     }
 
     public void ClearSlot()
@@ -145,6 +165,7 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
         _item = null;
         _amount = 0;
         UpdateItemSlot();
+        OnItemUpdate?.Invoke();
     }
 
     public void SetSelected(bool selected)

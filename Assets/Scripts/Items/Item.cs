@@ -19,7 +19,7 @@ public class Item : ScriptableObject
     public Sprite Sprite => _sprite;
     public int StackAmount => _canStack ? _stackAmount : 1;
     public bool HasHealth => _hasHealth;
-    public int MaxHealth => _hasHealth ? _maxHealth + 1 : 0;
+    public int MaxHealth => _hasHealth ? _maxHealth : 0;
     public bool Equals(Item item) => item != null && _itemName.Equals(item.ItemName);
     public bool IsArmor => _type is ItemType.Leggings or ItemType.Chestplate or ItemType.Helmet;
     public bool IsToolOrWeapon => _type is ItemType.Blade or ItemType.Hammer or ItemType.Tool;
