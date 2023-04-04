@@ -6,13 +6,19 @@ public class LibrarianBehavior : EnemyBase
 {
     [SerializeField] Transform _teleport;
     [SerializeField, ReadOnly] private LibrarianState _librarianState;
+    [SerializeField] float cooldown = 10f;
+
+    float cooldownSubtract;
 
 
     protected override void OnStart()
     {
-
+        cooldownSubtract = cooldown;
         _myAnimator = _AlphaFace.GetComponent<Animator>();
         _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
+        Teleport();
+        
+
     }
 
     protected override void OnUpdate()
@@ -33,6 +39,13 @@ public class LibrarianBehavior : EnemyBase
     private void OnStandingState()
     {
         //_teleport = DataManager.currentRoom.
+        if (_target.Type != TargetableType.Player)
+        {
+            if (cooldownSubtract - Time.deltaTime <= 0)
+            {
+                Teleport();
+            }
+        }
 
         if (_target.Type == TargetableType.Player)
         {
@@ -49,6 +62,12 @@ public class LibrarianBehavior : EnemyBase
         MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
     }
 
+    private void Teleport()
+    {
+        transform.position = DataManager.currentRoom.transform.position + (Vector3)DataManager.currentRoom.HalfRoomSize;
+        Debug.Log(transform.position);
+    }
+
 
     private bool TrySetState(LibrarianState newState, bool fromAlpha = false)
     {
@@ -57,12 +76,13 @@ public class LibrarianBehavior : EnemyBase
         Log($"State switched to {newState}");
         _librarianState = newState;
   
-        return true;
+        return true;//runInEditMode 
     }
 
     protected override void OnLoseTarget()
     {
         _target = null;
+        Teleport();
     }
 
 

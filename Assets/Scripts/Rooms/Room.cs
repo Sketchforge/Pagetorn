@@ -53,6 +53,10 @@ public class Room : MonoBehaviour
         if (_negZConnectedRoom) _negZConnectedRoom.CheckGenerateNeighbors();
         if (_posXConnectedRoom) _posXConnectedRoom.CheckGenerateNeighbors();
         if (_negXConnectedRoom) _negXConnectedRoom.CheckGenerateNeighbors();
+
+        DataManager.currentRoom = this;
+
+        
     }
 
     public void OnPlayerLeave()
