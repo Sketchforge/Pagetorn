@@ -245,7 +245,12 @@ public class EnemyTypeCrawler : EnemyBase
     
     private void OnFleeingState()
     {
-        float distance = Vector3.Distance(transform.position, _target.transform.position);
+        float distance = 1000;
+        if (_target)
+        {
+            distance = Vector3.Distance(transform.position, _target.transform.position);
+        }
+         
 
         if (distance < distanceToRun)
         {
