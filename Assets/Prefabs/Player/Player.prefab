@@ -819,7 +819,7 @@ MonoBehaviour:
   _groundDistance: -0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 1048584
+    m_Bits: 9
   loseClip: {fileID: 0}
   enemyMask:
     serializedVersion: 2

@@ -1077,13 +1077,13 @@ MonoBehaviour:
   _doorHeight: 2.5
   _doorWidth: 1.5
   _posZDoor: 1
-  _posZDoorGeo: {fileID: 0}
+  _posZDoorGeo: {fileID: 8081564656213327495}
   _negZDoor: 1
-  _negZDoorGeo: {fileID: 0}
+  _negZDoorGeo: {fileID: 8081564657556008775}
   _posXDoor: 1
-  _posXDoorGeo: {fileID: 0}
+  _posXDoorGeo: {fileID: 8081564656963371312}
   _negXDoor: 1
-  _negXDoorGeo: {fileID: 0}
+  _negXDoorGeo: {fileID: 8081564655858364510}
   _posZConnectedRoom: {fileID: 0}
   _negZConnectedRoom: {fileID: 0}
   _posXConnectedRoom: {fileID: 0}
@@ -1322,7 +1322,6 @@ GameObject:
   - component: {fileID: 8081564656760493727}
   - component: {fileID: 8081564656760493726}
   - component: {fileID: 6411592478402971579}
-  - component: {fileID: 1206341891386350382}
   - component: {fileID: 1866560667191534488}
   m_Layer: 0
   m_Name: Cube(Clone)
@@ -1438,36 +1437,6 @@ MonoBehaviour:
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: e55a6283b2e00194fbdb44b862b249bc, type: 2}
-  m_BuildHeightMesh: 0
---- !u!114 &1206341891386350382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8081564656760493724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 107663bcc3dcd5041adadd3789b43b33, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1866560667191534488
 MonoBehaviour:
@@ -2933,7 +2902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2941,7 +2910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.82
+      value: 19.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3251,7 +3220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.78
+      value: 19.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4171,7 +4140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.78
+      value: -19.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4291,7 +4260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.8
+      value: -19.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 24d0ba278edffd343b8069f491d2fc70, type: 3}
       propertyPath: m_LocalPosition.y
