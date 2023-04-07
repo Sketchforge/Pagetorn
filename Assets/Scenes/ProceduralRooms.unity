@@ -1633,7 +1633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8081564656308928467, guid: d6432b8249f0569458f3b7c8fd03f2f6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8081564656308928476, guid: d6432b8249f0569458f3b7c8fd03f2f6, type: 3}
       propertyPath: _negXDoorGeo
@@ -2870,63 +2870,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8081564656213327495, guid: d6432b8249f0569458f3b7c8fd03f2f6, type: 3}
   m_PrefabInstance: {fileID: 1206979675}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7074834711240246112
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_RootOrder
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081385, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637072188966081399, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
-      propertyPath: m_Name
-      value: ChildrenReadingRoom-L-NegZPosX
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ead360fbb54b13641943944efbd52cc0, type: 3}
 --- !u!1001 &9175279925195506339
 PrefabInstance:
   m_ObjectHideFlags: 0
