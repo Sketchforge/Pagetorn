@@ -76,7 +76,7 @@ public class LibrarianBehavior : EnemyBase
 
         if (_target.Type == TargetableType.Player)
         {
-            _musicPlayer.clip = _myTheme;
+            //_musicPlayer.clip = _myTheme;
             MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
         }
 
@@ -93,11 +93,11 @@ public class LibrarianBehavior : EnemyBase
         int randomCorner = Mathf.CeilToInt(Random.Range(0, 2));
         if (randomCorner == 1)
         {
-            transform.position = DataManager.currentRoom.transform.position + new Vector3(DataManager.currentRoom.HalfRoomSize.x - 3f, 0, DataManager.currentRoom.HalfRoomSize.y - 3f);
+            transform.position = DataManager.currentRoom.transform.position - new Vector3(DataManager.currentRoom.HalfRoomSize.x - 3f, 0, DataManager.currentRoom.HalfRoomSize.y - 3f);
         }
         else
         {
-            transform.position = DataManager.currentRoom.transform.position - new Vector3(DataManager.currentRoom.HalfRoomSize.x + 3f, 0, DataManager.currentRoom.HalfRoomSize.y + 3f);
+            transform.position = DataManager.currentRoom.transform.position + new Vector3(DataManager.currentRoom.HalfRoomSize.x + 3f, 0, DataManager.currentRoom.HalfRoomSize.y + 3f);
         }
        
         cooldownSubtract = cooldown;
@@ -121,7 +121,7 @@ public class LibrarianBehavior : EnemyBase
         var playerMovement = _target.GetComponent<PlayerMovementScript>();
         playerMovement._moveSpeed = playerMovement._defaultMoveSpeed;
         Debug.Log("Librarian lost target");
-        Teleport();
+        //Teleport();
     }
 
 

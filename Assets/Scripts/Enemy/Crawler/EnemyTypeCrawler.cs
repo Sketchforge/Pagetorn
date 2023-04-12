@@ -26,6 +26,7 @@ public class EnemyTypeCrawler : EnemyBase
     [SerializeField, ReadOnly] private float _memoryTime;
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField] private bool hasRoamPos = true;
+    private bool _themePlaying = false;
 
    
 
@@ -42,7 +43,7 @@ public class EnemyTypeCrawler : EnemyBase
         _myAnimator = _BetaFace.GetComponent<Animator>();
         UpdateClipLengths();
 
-        _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
+       // _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
     }
 
     protected override void OnUpdate()
@@ -149,11 +150,18 @@ public class EnemyTypeCrawler : EnemyBase
 
         if (_target.Type == TargetableType.Player)
         {
-            if (_musicPlayer.clip != _myTheme)
+            //if (_musicPlayer.clip != _myTheme)
+            //{
+            //    _musicPlayer.clip = _myTheme;
+            //    _musicPlayer.Play();
+            //}
+            if (!_themePlaying)
             {
-                _musicPlayer.clip = _myTheme;
-                _musicPlayer.Play();
+                _chaseMusic.ActivateEvent();
+                _themePlaying = true;
             }
+            
+
         }
 
         _attackTime = Time.time;

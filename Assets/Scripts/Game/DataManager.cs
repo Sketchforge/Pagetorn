@@ -7,6 +7,7 @@ public static class DataManager
     //data bank
     static public float NumberKnowledgePointsGathered;
     static public float NumberDistanceWalked;
+    static public float NumberDistanceRun;
     static public float AmountTimeStoodStill;
     static public int NumberMeleeAttacksDone;
     static public int NumberSpellsDone;

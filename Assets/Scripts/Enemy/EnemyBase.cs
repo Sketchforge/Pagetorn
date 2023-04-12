@@ -41,8 +41,10 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected AudioClip _impactSound;
     [SerializeField] protected AudioClip _attackSound;
 
-    [SerializeField] public AudioSource _musicPlayer;
-    [SerializeField] public AudioClip _myTheme;
+    [SerializeField] protected SoundEvent _chaseMusic;
+
+    // [SerializeField] public AudioSource _musicPlayer;
+    // [SerializeField] public AudioClip _myTheme;
 
 
     //ANIMATION

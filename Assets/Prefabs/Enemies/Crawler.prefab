@@ -433,8 +433,7 @@ MonoBehaviour:
   _spawnSound: {fileID: 0}
   _impactSound: {fileID: 8300000, guid: fbccf2ed8a5fc0a47a0acc2731b6cd09, type: 3}
   _attackSound: {fileID: 8300000, guid: b41fbff2647048d4ea5131648d5cc229, type: 3}
-  _musicPlayer: {fileID: 0}
-  _myTheme: {fileID: 8300000, guid: 20e7a10b7612bc5409cf170ded8c6eb6, type: 3}
+  _chaseMusic: {fileID: 11400000, guid: 73f46709a711a304ba0f6a71f159a125, type: 2}
   _alphaData: {fileID: 11400000, guid: 57db606b6bd2e7c448b95d56e4fad84e, type: 2}
   _isAlpha: 0
   _crawlerState: 0

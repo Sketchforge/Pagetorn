@@ -7,7 +7,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 100f;
+    [SerializeField] static public float monsterSpawnRate = 40f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
@@ -21,11 +21,20 @@ public class DataReactor : MonoBehaviour
     [SerializeField] InstantiateEvent _smallCrawlerSpawn;
     [SerializeField] InstantiateEvent _smallRangerSpawn;
     [SerializeField] InstantiateEvent _librarianSpawn;
+    [SerializeField] SoundEvent _calmMusic;
+    [SerializeField] SoundEvent _chaseMusic;
+    [SerializeField] SoundEvent _creepyNoise1;
 
     private float spellCountTimer = 60f;
     private float monsterKillCountTimer = 3600f; // one hour
     private float _resetTime = 10f;
     bool calledSpawnEvent = false;
+    bool calledLibrarianSpawnEvent = false;
+
+    private void Awake()
+    {
+        _calmMusic.ActivateEvent();
+    }
 
 
     // Update is called once per frame
@@ -144,7 +153,7 @@ public class DataReactor : MonoBehaviour
         }
         #endregion
 
-        if (totalTimePassed >= 10000)
+        if (totalTimePassed >= 10 && !calledLibrarianSpawnEvent)
         {
             Debug.Log("Creepy time!!");
 
@@ -158,6 +167,8 @@ public class DataReactor : MonoBehaviour
     {
         _darkenEvent.ActivateEvent();
         _librarianSpawn.ActivateEvent();
+        _creepyNoise1.ActivateEvent();
+        calledLibrarianSpawnEvent = true;
     }
 
 

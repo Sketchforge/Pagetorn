@@ -9,23 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6578a0d803e341a43b2dd01964f8704e, type: 3}
-  m_Name: FogEvent
+  m_Script: {fileID: 11500000, guid: beff67ee1f7168044991f62a29294814, type: 3}
+  m_Name: CalmMusic
   m_EditorClassIdentifier: 
-  _chainEvent: {fileID: 0}
-  _affectFog: 1
-  _fogDensity: 1.06
-  _fogColor: {r: 0.2264151, g: 0.16981132, b: 0.16981132, a: 0.5294118}
-  _switchPostProcessingVolume: 0
-  _profile: {fileID: 11400000, guid: eed1c8b76653bf64aaadf1d12f44b7a9, type: 2}
-  _fadeIn:
+  _track: {fileID: 8300000, guid: f6103950f708f39408caac5e853f9e40, type: 3}
+  _trackLength: 120.05878
+  _volume: 0.562
+  _mixerGroup: {fileID: 605995628737076039, guid: aa71c0a37631a4640ba212e772371453, type: 2}
+  _startTimeIfLooping: 0
+  _fromEndWhenToPlayNextSong: 0
+  _fromStartWhenToPlayNextSong: 120.05878
+  _volumeFadeAtStart: 0
+  _volumeFadeStartTime: 1
+  _volumeFadeStartCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0
+      outSlope: 1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -33,7 +36,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
+      inSlope: 1
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
@@ -42,15 +45,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _duration: 30
-  _fadeOut:
+  _volumeFadeAtEnd: 0
+  _volumeFadeEndTime: 1
+  _volumeFadeEndCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
       inSlope: 0
-      outSlope: 0
+      outSlope: -1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -58,7 +62,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
+      inSlope: -1
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
@@ -67,4 +71,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _currDuration: 18.865711
