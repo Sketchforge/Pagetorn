@@ -21,13 +21,13 @@ public class PostProcessingManager : MonoBehaviour
         _fogColor = RenderSettings.fogColor;
     }
 
-    public void SetFog(float fogDensity, Color fogColor, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
+    public void SetFog(float fogDensity, Color fogColor, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut, System.Action onFinished = null)
     {
         if (_fogRoutine != null) StopCoroutine(_fogRoutine);
-        _fogRoutine = StartCoroutine(SetFogRoutine(fogDensity, fogColor, fadeIn, duration, fadeOut));
+        _fogRoutine = StartCoroutine(SetFogRoutine(fogDensity, fogColor, fadeIn, duration, fadeOut, onFinished));
     }
 
-    private IEnumerator SetFogRoutine(float fogDensity, Color fogColor, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
+    private IEnumerator SetFogRoutine(float fogDensity, Color fogColor, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut, System.Action onFinished)
     {
         RenderSettings.fog = true;
         SetWeight(0);
@@ -49,6 +49,7 @@ public class PostProcessingManager : MonoBehaviour
         SetWeight(0);
         RenderSettings.fog = _fogEnabled;
         _fogRoutine = null;
+        onFinished?.Invoke();
 
         void SetWeight(float weight)
         {

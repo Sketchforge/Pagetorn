@@ -16,5 +16,5 @@ MonoBehaviour:
   _objToSpawn: {fileID: 7757203136396758726, guid: dd8fe135fb9e25e42ab466c0af0d877d, type: 3}
   _offsetFromPlayer: {x: 0, y: 0.5, z: 12}
   _randomDistFromPlayerAndOffset: 8
-  _instantiateCount: 2
+  _instantiateCount: 1
   _facePlayer: 1

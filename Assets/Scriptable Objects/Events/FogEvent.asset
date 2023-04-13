@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chainEvent: {fileID: 0}
   _affectFog: 1
-  _fogDensity: 1.06
+  _fogDensity: 0.2
   _fogColor: {r: 0.2264151, g: 0.16981132, b: 0.16981132, a: 0.5294118}
   _switchPostProcessingVolume: 0
   _profile: {fileID: 11400000, guid: eed1c8b76653bf64aaadf1d12f44b7a9, type: 2}
@@ -67,4 +67,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _currDuration: 18.865711

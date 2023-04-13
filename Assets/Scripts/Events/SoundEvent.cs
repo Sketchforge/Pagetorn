@@ -11,7 +11,7 @@ public class SoundEvent : Event
     [Header("Music")]
     [SerializeField] private MusicTrack _music;
 
-    public override void ActivateEvent()
+    public override void ActivateEvent(System.Action onFinished = null)
     {
         _sfx.Play();
         if (_music) _music.Play();

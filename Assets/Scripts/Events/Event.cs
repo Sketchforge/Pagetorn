@@ -8,12 +8,12 @@ public abstract class Event : ScriptableObject
 
     private Event ChainedEvent => _chainEvent;
 
-    public abstract void ActivateEvent();
+    public abstract void ActivateEvent(System.Action onFinished = null);
 
     protected void EventResponse()
     {
         Debug.Log($"Event ({name}) was activated");
-        if (_chainEvent) _chainEvent.ActivateEvent();
+        if (_chainEvent) _chainEvent.ActivateEvent(null);
     }
 
     private void OnValidate()

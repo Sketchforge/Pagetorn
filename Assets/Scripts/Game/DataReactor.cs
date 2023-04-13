@@ -16,7 +16,6 @@ public class DataReactor : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] PostProcessingEvent _fogEvent;
-    [SerializeField] private bool _inFog = false;
     [SerializeField] PostProcessingEvent _darkenEvent;
     [SerializeField] InstantiateEvent _smallCrawlerSpawn;
     [SerializeField] InstantiateEvent _smallRangerSpawn;
@@ -112,30 +111,19 @@ public class DataReactor : MonoBehaviour
         #region Behavior Reactor
 
         #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f) && !_inFog)
+        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
         {
             Debug.Log("Walked " + MAX_DISTANCE + " meters");
-            _fogEvent.ActivateEvent();
+            _fogEvent.ActivateEvent(ResetWalkDistance);
             DataManager.TimesWalkedLargeDistances++;
-
-
-
-            _inFog = true;
         }
-
-        if (_inFog)
-        {
-            Debug.Log(_fogEvent._currDuration -= Time.time);
-            DataManager.NumberDistanceWalked = 0;
-            _inFog = false;
-        }
+      
         #endregion
 
-        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS && !_inFog)
+        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
         {
-            _darkenEvent.ActivateEvent();
-            _inFog = true;
-            DataManager.NumberMeleeAttacksDone = 0;
+            _darkenEvent.ActivateEvent(ResetMeleeAttackNumber);
+
         }
 
         if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
@@ -169,6 +157,16 @@ public class DataReactor : MonoBehaviour
         _librarianSpawn.ActivateEvent();
         _creepyNoise1.ActivateEvent();
         calledLibrarianSpawnEvent = true;
+    }
+
+    private void ResetWalkDistance()
+    {
+        DataManager.NumberDistanceWalked = 0;
+    }
+
+    private void ResetMeleeAttackNumber()
+    {
+        DataManager.NumberMeleeAttacksDone = 0;
     }
 
 
