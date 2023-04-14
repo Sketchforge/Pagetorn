@@ -29,6 +29,7 @@ public class MusicTrack : ScriptableObject
 
     public AudioClip Clip => _track;
     public float StartTimeIfLooping => _startTimeIfLooping;
+    public float FromStartWhenToPlayNextSong => _fromStartWhenToPlayNextSong;
     public bool VolumeFadeAtStart => _volumeFadeAtStart;
     public bool VolumeFadeAtEnd => _volumeFadeAtEnd;
     public float VolumeFadeStartTime => _volumeFadeStartTime;

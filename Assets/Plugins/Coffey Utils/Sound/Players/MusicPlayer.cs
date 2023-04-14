@@ -11,6 +11,7 @@ namespace Game
         [SerializeField, ReadOnly] private MusicTrack _track;
         [SerializeField, ReadOnly] private float _clipVolume;
         [SerializeField, ReadOnly] private bool _active;
+        [SerializeField, ReadOnly] private bool _playedNextQueued;
 
         private Coroutine _fadeRoutine;
         private AudioSource _source;
@@ -36,6 +37,11 @@ namespace Game
 
         private void LateUpdate()
         {
+            if (!_playedNextQueued && _source.time > _track.FromStartWhenToPlayNextSong)
+            {
+                _playedNextQueued = true;
+                SoundManager.Music.PlayQueuedSong();
+            }
             if (!_source.isPlaying)
             {
                 Stop();
@@ -158,6 +164,7 @@ namespace Game
             source.loop = false;
             source.volume = 1;
             source.outputAudioMixerGroup = SoundManager.Music.MixerGroup;
+            _playedNextQueued = false;
         }
     }
 }
