@@ -36,6 +36,16 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private Vector3 lastPos;
     [SerializeField] private Vector3 currentPos;
 
+    [Header("Headbob and FootSteps")]
+    [SerializeField] private float _walkBobSpeed = 14f;
+    [SerializeField] private float _walkBobAmount = 0.05f;
+    [SerializeField] private float _sprintBobSpeed = 18f;
+    [SerializeField] private float _sprintBobAmount = .11f;
+    [SerializeField] private float _crouchBobSpeed = 8f;
+    [SerializeField] private float _crouchBobAmount = 0.02f;
+    private float _defaultYpos = 0;
+    private float _headbobTimer;
+
 
     private bool gamePaused;
     private bool isDead;
@@ -44,6 +54,11 @@ public class PlayerMovementScript : MonoBehaviour
     private bool _isSprinting;
     private bool _isCrouching;
     private bool _willJumpThisFrame;
+
+    private void Awake()
+    {
+        _defaultYpos = cam.transform.localPosition.y;
+    }
 
     private void OnEnable()
     {
@@ -111,6 +126,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (_isSprinting && !_isCrouching)
         {
             _moveSpeed = _sprintSpeed;
+
         }
 
         //If Crouch button is pressed, crouch down
@@ -138,7 +154,10 @@ public class PlayerMovementScript : MonoBehaviour
 
             controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
         }
-        
+
+
+ 
+
         //update DataManager
         currentPos = transform.position;
         DataManager.NumberDistanceWalked += Vector3.Distance(currentPos, lastPos);
@@ -148,14 +167,23 @@ public class PlayerMovementScript : MonoBehaviour
         //Vector3 _moveDirection = transform.right * x + transform.forward * z; //find the move direction based on axis buttons pressed times their respective transforms
 
         //Footstep code
-        if (controller.isGrounded && controller.velocity.magnitude > 1f)
+        if (Mathf.Abs(_moveDir.x) > 0.1f || Mathf.Abs(_moveDir.y) > 0.1f)
         {
-            if (slowSteps != null)
-            {
-                slowSteps.volume = Random.Range(0.8f, 1);
-                slowSteps.pitch = Random.Range(0.8f, 1);
-                slowSteps.Play();
-            }
+            //if (controller.isGrounded)
+            //{
+                //HEADBOB
+                _headbobTimer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting ? _sprintBobSpeed : _walkBobSpeed);
+                cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, _defaultYpos + Mathf.Sin(_headbobTimer) *
+                    (_isCrouching ? _crouchBobAmount : _isSprinting ? _sprintBobAmount : _walkBobAmount), cam.transform.localPosition.z);
+
+                if (slowSteps != null)
+                {
+                    slowSteps.volume = Random.Range(0.8f, 1);
+                    slowSteps.pitch = Random.Range(0.8f, 1);
+                    slowSteps.Play();
+                }
+            //}
+            
         }
     }
 
