@@ -1854,7 +1854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _track: {fileID: 0}
-  _clipVolume: 0.562
+  _clipVolume: 1
   _active: 0
   _playedNextQueued: 0
 --- !u!1 &654414463 stripped
@@ -2515,15 +2515,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossFade: 1
   _group: {fileID: 0}
-  _queuedTrack: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
+  _queuedTrack: {fileID: 11400000, guid: c53f30b05be2d2c4895ed205ec119738, type: 2}
   _pool:
+  - {fileID: 538898590}
+  - {fileID: 1331924596}
   - {fileID: 1352897193}
   - {fileID: 580813048}
-  - {fileID: 538898590}
   _activePlayers:
   - {fileID: 5751057}
   - {fileID: 407983753}
-  - {fileID: 1331924596}
 --- !u!4 &1331016269
 Transform:
   m_ObjectHideFlags: 0
@@ -2562,7 +2562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1331924594
 Transform:
   m_ObjectHideFlags: 0
@@ -2587,10 +2587,10 @@ AudioSource:
   m_GameObject: {fileID: 1331924593}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 605995628737076039, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  m_audioClip: {fileID: 8300000, guid: f6103950f708f39408caac5e853f9e40, type: 3}
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.562
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2686,9 +2686,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02146c9ff2fee24a99b1850f188d86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _track: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
+  _track: {fileID: 0}
   _clipVolume: 0.562
-  _active: 1
+  _active: 0
   _playedNextQueued: 0
 --- !u!1 &1352897190
 GameObject:
@@ -2832,7 +2832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _track: {fileID: 0}
-  _clipVolume: 0.562
+  _clipVolume: 1
   _active: 0
   _playedNextQueued: 0
 --- !u!1 &1388464944 stripped
@@ -3386,6 +3386,7 @@ MonoBehaviour:
   MAX_DISTANCE: 200
   MAX_TIME: 0
   MAX_MELEEATTACKS: 20
+  MAX_TIME_TIL_LIBRARIAN: 10
   _fogEvent: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
   _darkenEvent: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}
   _smallCrawlerSpawn: {fileID: 11400000, guid: 9e533699840eb534c96e0873c41b58fc, type: 2}

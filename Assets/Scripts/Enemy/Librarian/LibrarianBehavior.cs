@@ -6,7 +6,7 @@ public class LibrarianBehavior : EnemyBase
 {
     [SerializeField] Transform _teleport;
     [SerializeField, ReadOnly] private LibrarianState _librarianState;
-    [SerializeField] float cooldown = 40f;
+    [SerializeField] float cooldown = 10f;
 
     float cooldownSubtract;
 
@@ -56,14 +56,17 @@ public class LibrarianBehavior : EnemyBase
         cooldownSubtract -= Time.deltaTime;
         if (cooldownSubtract <= 0f)
         {
-            if (!CheckTarget())
+            if (_target == null)
             {
                 Teleport();
                 cooldownSubtract = cooldown;
+
                 return;
 
             }
+            
         }
+
 
     }
 
@@ -93,12 +96,14 @@ public class LibrarianBehavior : EnemyBase
     private void Teleport()
     {
         var room = DataManager.currentRoom;
-        float x = (room.HalfRoomSize.x - 4) * Random.value > 0.5f ? 1 : -1;
-        float z = (room.HalfRoomSize.y - 4) * Random.value > 0.5f ? 1 : -1;
-        transform.position = room.transform.position + new Vector3(x, 0, z);
-
-
-        Debug.Log(transform.position);
+        if ((room.HalfRoomSize.x * 2)> 15 && (room.HalfRoomSize.y * 2) > 15)
+        {
+            float x = (room.HalfRoomSize.x - 4) * (Random.value > 0.5f ? 1 : -1);
+            float z = (room.HalfRoomSize.y - 4) * (Random.value > 0.5f ? 1 : -1);
+            transform.position = room.transform.position + new Vector3(x, 0, z);
+            Debug.Log(transform.position);
+        }
+    
     }
 
 
@@ -133,34 +138,13 @@ public class LibrarianBehavior : EnemyBase
         int targetPriority = -1;
         foreach (Targetable t in targets)
         {
-            //if (targetPriority < 10 && t.Type == TargetableType.Witch)
-            //{
-            //    target = t; //target to run FROM librarian
-            //    targetPriority = 10;
-            //}
+            
             if (targetPriority < 5 && t.Type == TargetableType.Player)
             {
                 target = t;
                 targetPriority = 5;
             }
-            //if (t.Type == TargetableType.AlphaCrawler && t.transform != transform)
-            //{
-            //    if (!_isAlpha)
-            //    {
-            //        _alpha = t.GetComponent<EnemyTypeCrawler>();
-            //        if (HasAlpha) _alpha.AddFollower(this);
-            //    }
-            //    if (targetPriority < 1)
-            //    {
-            //        target = t;
-            //        targetPriority = 1;
-            //    }
-            //}
-            //if (targetPriority < 0 && t.Type == TargetableType.Gloop)
-            //{
-            //    target = t;
-            //    targetPriority = 0;
-            //}
+           
         }
         return target;
     }

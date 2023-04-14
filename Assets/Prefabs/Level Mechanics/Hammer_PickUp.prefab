@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3397787775818597377}
-  - component: {fileID: 3537967668178642899}
   - component: {fileID: 2087667023927151527}
+  - component: {fileID: -8052443164641990247}
   m_Layer: 0
   m_Name: Hammer_PickUp
   m_TagString: Untagged
@@ -34,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3537967668178642899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5216146828220515631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a9f081a4087904680db78c162e607b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectIntoInventory: {fileID: 11400000, guid: 2a0b7026c48eea64cacab922ed407d56, type: 2}
-  _levitateRange: 3
-  _pickupRange: 1.5
-  _itemSpeed: 1
-  _playerTarget: {fileID: 0}
-  _distance: 0
 --- !u!54 &2087667023927151527
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -68,6 +50,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8052443164641990247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5216146828220515631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1f7ef2d9811f34cbb94aace1ef636b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectIntoInventory: {fileID: 11400000, guid: 2a0b7026c48eea64cacab922ed407d56, type: 2}
+  _levitateRange: 3
+  _pickupRange: 1.5
+  _itemSpeed: 4
+  _playerTarget: {fileID: 0}
+  _distance: 0
 --- !u!1001 &219474053255958103
 PrefabInstance:
   m_ObjectHideFlags: 0

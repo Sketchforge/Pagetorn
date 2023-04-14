@@ -352,7 +352,7 @@ SphereCollider:
   m_GameObject: {fileID: 3750776232526170606}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -363,7 +363,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3750776232526170606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -553,11 +553,10 @@ MonoBehaviour:
   _spawnSound: {fileID: 0}
   _impactSound: {fileID: 0}
   _attackSound: {fileID: 0}
-  _musicPlayer: {fileID: 0}
-  _myTheme: {fileID: 0}
+  _chaseMusic: {fileID: 0}
   _teleport: {fileID: 0}
   _librarianState: 0
-  cooldown: 1
+  cooldown: 10
 --- !u!1 &6064832165350551844
 GameObject:
   m_ObjectHideFlags: 0

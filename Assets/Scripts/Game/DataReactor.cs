@@ -7,7 +7,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 10f;
+    [SerializeField] static public float monsterSpawnRate = 100f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
