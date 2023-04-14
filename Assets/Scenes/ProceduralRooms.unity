@@ -1985,12 +1985,15 @@ MonoBehaviour:
   MAX_DISTANCE: 200
   MAX_TIME: 0
   MAX_MELEEATTACKS: 0
+  MAX_TIME_TIL_LIBRARIAN: 0
   _fogEvent: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
-  _inFog: 0
   _darkenEvent: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}
   _smallCrawlerSpawn: {fileID: 11400000, guid: 9e533699840eb534c96e0873c41b58fc, type: 2}
   _smallRangerSpawn: {fileID: 0}
   _librarianSpawn: {fileID: 0}
+  _calmMusic: {fileID: 0}
+  _chaseMusic: {fileID: 0}
+  _creepyNoise1: {fileID: 0}
 --- !u!114 &1796935009
 MonoBehaviour:
   m_ObjectHideFlags: 0

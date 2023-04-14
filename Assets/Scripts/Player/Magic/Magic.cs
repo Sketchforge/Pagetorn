@@ -124,7 +124,7 @@ public class Magic : Item
 
             slot.DamageItem(1);
         }
-        else Debug.Log($"Whoops can't cast lol loser");
+        else Debug.Log($"Whoops can't cast lol loser (not enough KP to cast)");
 
         if (CanMitigate && !IsTimed)
             Debug.LogError($"Mitigation has to be timed to be used!");
