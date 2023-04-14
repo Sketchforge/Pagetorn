@@ -27,6 +27,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private float crouchBobAmount = 0.2f;
     private float defaultYpos = 0;
     private float headbobTimer;
+    private bool canAttack = false;
 
 
     public PlayerState State => _playerState;
@@ -81,6 +82,11 @@ public class PlayerActionManager : MonoBehaviour
         LogInput("Toggle Perspective");
     }
 
+    public void SetAttack(bool value)
+	{
+        canAttack = value;
+	}
+
     public void Attack()
     {
         switch (CanvasController.ToolbarManager.SelectedItemType)
@@ -97,19 +103,9 @@ public class PlayerActionManager : MonoBehaviour
                     var weaponAnim = _heldItemSocket.GetComponentInChildren<Animator>(); //temporary? might not be great to use animators on all prefabs
                     if (weaponAnim)
                     {
-                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerIdle"))
+                        if (canAttack)
                         {
                             weaponAnim.SetTrigger("Swing");
-                            DataManager.NumberMeleeAttacksDone++;
-                        }
-                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerSwing"))
-                        {
-                            weaponAnim.SetTrigger("Swing2");
-                            DataManager.NumberMeleeAttacksDone++;
-                        }
-                        if (weaponAnim.GetCurrentAnimatorStateInfo(0).IsName("HammerSwingBack"))
-                        {
-                            weaponAnim.SetTrigger("Swing3");
                             DataManager.NumberMeleeAttacksDone++;
                         }
                     }
