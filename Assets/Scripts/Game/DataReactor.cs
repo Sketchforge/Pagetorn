@@ -7,12 +7,13 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 40f;
+    [SerializeField] static public float monsterSpawnRate = 10f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
     [SerializeField] float MAX_TIME;
     [SerializeField] float MAX_MELEEATTACKS;
+    [SerializeField] float MAX_TIME_TIL_LIBRARIAN;
 
     [Header("Events")]
     [SerializeField] PostProcessingEvent _fogEvent;
@@ -113,7 +114,7 @@ public class DataReactor : MonoBehaviour
         #region Distance Walked Reaction
         if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
         {
-            Debug.Log("Walked " + MAX_DISTANCE + " meters");
+          //  Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _fogEvent.ActivateEvent(ResetWalkDistance);
             DataManager.TimesWalkedLargeDistances++;
         }
@@ -133,15 +134,15 @@ public class DataReactor : MonoBehaviour
             _smallCrawlerSpawn.ActivateEvent();
             monsterSpawnRate = 30f;
             calledSpawnEvent = true;
-            DataManager.bIsHostile = true;
-        } else
-        {
-            monsterSpawnRate = 140f;
-            DataManager.bIsHostile = false;
-        }
+            DataManager.bIsHostile = true; //TODO: Turn off hostility after certain amount of time
+        } //else
+        //{
+        //    monsterSpawnRate = 140f;
+        //    DataManager.bIsHostile = false;
+        //}
         #endregion
 
-        if (totalTimePassed >= 10 && !calledLibrarianSpawnEvent)
+        if (totalTimePassed >= MAX_TIME_TIL_LIBRARIAN && !calledLibrarianSpawnEvent)
         {
             Debug.Log("Creepy time!!");
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Pagetorn/Events/InstantiateEvent")]
 public class InstantiateEvent : Event
@@ -18,14 +19,34 @@ public class InstantiateEvent : Event
         var pos = player.TransformPoint(_offsetFromPlayer);
         for (int i = 0; i < _instantiateCount; i++)
         {
-            var offset = Random.insideUnitSphere * _randomDistFromPlayerAndOffset;
-            offset.y = 0;
-            Debug.Log(pos + " " + offset);
-            var obj = Instantiate(_objToSpawn, pos + offset, Quaternion.identity);
-            if (_facePlayer)
+
+            if (RandomPoint(player.position, _randomDistFromPlayerAndOffset, out var point))
             {
-                obj.transform.LookAt(player, Vector3.up);
+                var obj = Instantiate(_objToSpawn, point, Quaternion.identity);
+                if (_facePlayer)
+                {
+                    obj.transform.LookAt(player, Vector3.up);
+                }
             }
+            
         }
     }
+
+
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+    for (int i = 0; i < 30; i++)
+    {
+        Vector3 randomPoint = center + Random.insideUnitSphere * range;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            result = hit.position;
+            return true;
+        }
+    }
+    result = Vector3.zero;
+    return false;
+    }
+ 
 }

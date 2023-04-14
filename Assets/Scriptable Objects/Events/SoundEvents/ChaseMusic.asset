@@ -17,9 +17,9 @@ MonoBehaviour:
   _volume: 1
   _mixerGroup: {fileID: 605995628737076039, guid: aa71c0a37631a4640ba212e772371453, type: 2}
   _startTimeIfLooping: 0
-  _fromEndWhenToPlayNextSong: 0
-  _fromStartWhenToPlayNextSong: 114.860405
-  _volumeFadeAtStart: 0
+  _fromEndWhenToPlayNextSong: 1
+  _fromStartWhenToPlayNextSong: 113.860405
+  _volumeFadeAtStart: 1
   _volumeFadeStartTime: 1
   _volumeFadeStartCurve:
     serializedVersion: 2
@@ -45,7 +45,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _volumeFadeAtEnd: 0
+  _volumeFadeAtEnd: 1
   _volumeFadeEndTime: 1
   _volumeFadeEndCurve:
     serializedVersion: 2

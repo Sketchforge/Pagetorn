@@ -6,7 +6,7 @@ public class LibrarianBehavior : EnemyBase
 {
     [SerializeField] Transform _teleport;
     [SerializeField, ReadOnly] private LibrarianState _librarianState;
-    [SerializeField] float cooldown = 10f;
+    [SerializeField] float cooldown = 40f;
 
     float cooldownSubtract;
 
@@ -59,6 +59,7 @@ public class LibrarianBehavior : EnemyBase
             if (!CheckTarget())
             {
                 Teleport();
+                cooldownSubtract = cooldown;
                 return;
 
             }
@@ -69,7 +70,7 @@ public class LibrarianBehavior : EnemyBase
     private void OnChasingState()
     {
         if (!_target)
-        {
+        {   
             TrySetState(LibrarianState.Standing);
             return;
         }
@@ -84,23 +85,19 @@ public class LibrarianBehavior : EnemyBase
         {
             
                 TrySetState(LibrarianState.Standing);
+                OnLoseTarget();
                 return;
         }
     }
 
     private void Teleport()
     {
-        int randomCorner = Mathf.CeilToInt(Random.Range(0, 2));
-        if (randomCorner == 1)
-        {
-            transform.position = DataManager.currentRoom.transform.position - new Vector3(DataManager.currentRoom.HalfRoomSize.x - 3f, 0, DataManager.currentRoom.HalfRoomSize.y - 3f);
-        }
-        else
-        {
-            transform.position = DataManager.currentRoom.transform.position + new Vector3(DataManager.currentRoom.HalfRoomSize.x + 3f, 0, DataManager.currentRoom.HalfRoomSize.y + 3f);
-        }
-       
-        cooldownSubtract = cooldown;
+        var room = DataManager.currentRoom;
+        float x = (room.HalfRoomSize.x - 4) * Random.value > 0.5f ? 1 : -1;
+        float z = (room.HalfRoomSize.y - 4) * Random.value > 0.5f ? 1 : -1;
+        transform.position = room.transform.position + new Vector3(x, 0, z);
+
+
         Debug.Log(transform.position);
     }
 
@@ -117,9 +114,14 @@ public class LibrarianBehavior : EnemyBase
 
     protected override void OnLoseTarget()
     {
+        if (_target)
+        {
+            var playerMovement = _target.GetComponent<PlayerMovementScript>();
+            playerMovement._moveSpeed = playerMovement._defaultMoveSpeed;
+        }
+
         _target = null;
-        var playerMovement = _target.GetComponent<PlayerMovementScript>();
-        playerMovement._moveSpeed = playerMovement._defaultMoveSpeed;
+
         Debug.Log("Librarian lost target");
         //Teleport();
     }
