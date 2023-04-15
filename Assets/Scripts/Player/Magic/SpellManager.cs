@@ -56,7 +56,7 @@ public class SpellManager : MonoBehaviour
     public void Projectile(float speed) // BUG: Continues even after game is paused
     {
         if (speed > 0) transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        Object.Destroy(gameObject, 300/speed); // BUG: Will conflict with timer/duration, as the object can be destroyed when either hits their limit
+        Object.Destroy(gameObject, 100/speed); // BUG: Will conflict with timer/duration, as the object can be destroyed when either hits their limit
     }
 
     public void Mitigate(float mitigation)

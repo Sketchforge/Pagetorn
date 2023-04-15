@@ -71,6 +71,7 @@ public class InventoryManager : MonoBehaviour
         {
             MovingItem = false;
             if (_heldItemParent) _heldItemParent.gameObject.SetActive(false);
+            CanvasController.ToolbarManager.UpdateSlot();
         }
     }
 

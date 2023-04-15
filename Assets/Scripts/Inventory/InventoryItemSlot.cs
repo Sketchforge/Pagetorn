@@ -143,6 +143,7 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
             {
                 RemoveItem(1);
                 _itemHealth = _item ? _item.MaxHealth : 0;
+                CanvasController.ToolbarManager.UpdateSlot();
             }
         }
         OnItemUpdate?.Invoke();

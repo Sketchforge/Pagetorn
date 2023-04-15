@@ -86,4 +86,19 @@ public class ToolbarManager : MonoBehaviour
         }
         
     }
+
+    public void UpdateSlot()
+	{
+        if (objectSpawned)
+            Destroy(objectSpawned); // 1am lol
+        else
+		{
+            bool hasPrefabObject = SelectedItem && SelectedItem._prefabObject;
+            if (hasPrefabObject)
+            {
+                objectSpawned = Instantiate(SelectedItem._prefabObject, _playerObjectSocket);
+                //objectSpawned.transform.position = new Vector3(0, 0, 0);
+            }
+        }
+    }
 }

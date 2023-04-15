@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationEventSystem : MonoBehaviour
+public class AnimationEventManager : MonoBehaviour
 {
     private PlayerActionManager playerAttack;
 
