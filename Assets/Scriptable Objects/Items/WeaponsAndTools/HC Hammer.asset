@@ -20,5 +20,5 @@ MonoBehaviour:
   _canStack: 0
   _stackAmount: 99
   _hasHealth: 0
-  _maxHealth: 5
+  _maxHealth: 4
   _prefabObject: {fileID: 9102507294978855102, guid: 74a75aaac91880f4b8f695b86d1495a7, type: 3}

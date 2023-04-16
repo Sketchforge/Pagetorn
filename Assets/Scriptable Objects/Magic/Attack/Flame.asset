@@ -31,7 +31,7 @@ MonoBehaviour:
   _canDefend: 0
   _canInstruct: 0
   _canDamage: 1
-  _damage: 10
+  _damage: 60
   _isProjectile: 1
   _projectileSpeed: 20
   _hasKnockback: 0
