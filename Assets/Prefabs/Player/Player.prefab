@@ -828,10 +828,10 @@ MonoBehaviour:
   isOnEnemy: 0
   lastPos: {x: 0, y: 0, z: 0}
   currentPos: {x: 0, y: 0, z: 0}
-  _walkBobSpeed: 14
-  _walkBobAmount: 0.05
-  _sprintBobSpeed: 18
-  _sprintBobAmount: 0.11
+  _walkBobSpeed: 11
+  _walkBobAmount: 0.02
+  _sprintBobSpeed: 13
+  _sprintBobAmount: 0.022
   _crouchBobSpeed: 8
   _crouchBobAmount: 0.02
 --- !u!143 &1689774458834026589

@@ -167,8 +167,8 @@ public class PlayerMovementScript : MonoBehaviour
         //Footstep code
         if (Mathf.Abs(_moveDir.x) > 0.1f || Mathf.Abs(_moveDir.y) > 0.1f)
         {
-            //if (controller.isGrounded)
-            //{
+            if (isGrounded)
+            {
                 //HEADBOB
                 _headbobTimer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting ? _sprintBobSpeed : _walkBobSpeed);
                 cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, _defaultYpos + Mathf.Sin(_headbobTimer) *
@@ -180,8 +180,17 @@ public class PlayerMovementScript : MonoBehaviour
                     slowSteps.pitch = Random.Range(0.8f, 1);
                     slowSteps.Play();
                 }
-            //}
-            
+            }
+            else
+            {
+                cam.transform.localPosition = new Vector3(cam.localPosition.x, Mathf.Lerp(cam.localPosition.y, _defaultYpos, 8 * Time.deltaTime), cam.localPosition.z);
+                _headbobTimer = 0;
+            }
+        }
+        else
+        {
+            cam.transform.localPosition = new Vector3(cam.localPosition.x, Mathf.Lerp(cam.localPosition.y, _defaultYpos, 8 * Time.deltaTime), cam.localPosition.z);
+            _headbobTimer = 0;
         }
     }
 
