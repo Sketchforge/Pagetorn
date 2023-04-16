@@ -81,7 +81,15 @@ public class InventoryManager : MonoBehaviour
         var slot = _slots.FirstOrDefault(s => s.CanStackItem(item, amount));
         if (slot == null) slot = _slots.FirstOrDefault(s => s.CanPlaceItem(item, amount));
         if (slot == null) return false;
+
+        var isFirstItem = false;
+        if (!slot.HasItem) isFirstItem = true;
+
         slot.InsertItem(item, amount);
+
+        if (isFirstItem && slot == CanvasController.ToolbarManager.SelectedItemSlot)
+            CanvasController.ToolbarManager.UpdateSlot();
+
         return true;
     }
 
