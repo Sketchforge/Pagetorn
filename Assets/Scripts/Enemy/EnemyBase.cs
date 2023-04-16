@@ -232,27 +232,11 @@ public abstract class EnemyBase : MonoBehaviour
     //    }
     //}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
-        {
-            StartCoroutine(HitByHammer(other));
-        }
-    }
-
-    private IEnumerator HitByHammer(Collider other)
-    {
-        Debug.Log("Enemy Hit by " + other.gameObject);
-        GetComponent<Health>().Damage(other.gameObject.GetComponent<WeaponStats>().damage);
+    public void KnockBack(float amount, Vector3 direction)
+	{
         _agent.updatePosition = false;
-        _rb.AddForce(new Vector3(0, other.gameObject.GetComponent<WeaponStats>().knockback/2, other.gameObject.GetComponent<WeaponStats>().knockback), ForceMode.Impulse);
-        _myAudioSource.PlayOneShot(_impactSound);
-
-        yield return new WaitForSeconds(1);
-
+        _rb.AddForce(direction * amount, ForceMode.Impulse);
         _agent.updatePosition = true;
-
     }
-
     
 }

@@ -234,8 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 11
-  damage: 80
-  knockback: 4000
+  damage: 20
+  knockback: 5
+  hitSFX: {fileID: 11400000, guid: 80f2681816dd8d8418ddc2a379832690, type: 2}
 --- !u!65 &4307168804381140030
 BoxCollider:
   m_ObjectHideFlags: 0
