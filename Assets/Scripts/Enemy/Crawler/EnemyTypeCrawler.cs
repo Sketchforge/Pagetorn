@@ -404,4 +404,16 @@ public class EnemyTypeCrawler : EnemyBase
         }
     }
 
+  //  protected override void Die()
+  //  {
+  //      if (_isAlpha)
+  //      {
+  //          for (int i = 0; i < _children.Count; i++)
+  //          {
+  //              Destroy(_children[i].gameObject);
+  //          }
+  //          Destroy(this.gameObject);
+  //      }
+  //  }
+
 }

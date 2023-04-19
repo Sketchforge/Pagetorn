@@ -7,7 +7,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 100f;
+    [SerializeField] static public float monsterSpawnRate = 10f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
@@ -112,7 +112,7 @@ public class DataReactor : MonoBehaviour
         #region Behavior Reactor
 
         #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked > Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
+        if (DataManager.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
         {
           //  Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _fogEvent.ActivateEvent(ResetWalkDistance);

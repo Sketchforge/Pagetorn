@@ -26524,6 +26524,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6785381693945470272, guid: 07c6ede6e479fc145b0e760a3869c78a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -2313350777581200569, guid: e5f0d1fe947eac6489bb37ff35616043, type: 3}
     - target: {fileID: 919132149155446097, guid: 07c6ede6e479fc145b0e760a3869c78a, type: 3}
       propertyPath: m_Name
       value: Bookshelf_LP

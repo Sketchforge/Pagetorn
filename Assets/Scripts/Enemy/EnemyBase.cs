@@ -123,7 +123,7 @@ public abstract class EnemyBase : MonoBehaviour
                     var obj = Instantiate(_data.Loot[i], gameObject.transform.position, Quaternion.identity);
                     obj.name += " - " + name + " " + i;
                 }
-                Destroy(gameObject);
+                Die();
             }
         }
         
@@ -154,6 +154,12 @@ public abstract class EnemyBase : MonoBehaviour
                 _rb.constraints = RigidbodyConstraints.None;
         }
         // BUG: Sometimes this makes the enemy fall through the floor?
+    }
+
+    protected virtual void Die()
+    {
+        //this.gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     protected void FaceTarget()
