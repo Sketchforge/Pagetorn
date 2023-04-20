@@ -7,6 +7,8 @@ public class ItemDropper : PlayerInteractable
     [SerializeField] List<GameObject> _myLoot;
     [SerializeField] Transform _lootContainer;
     [SerializeField] public int _indexObjectToSpawn;
+    [SerializeField] public int _numberToSpawn;
+    [SerializeField] public bool _dropRandomItem;
     [SerializeField] float upwardsModifier;
     [SerializeField] float throwForce;
     [SerializeField] Animator _animator;
@@ -30,7 +32,37 @@ public class ItemDropper : PlayerInteractable
     {
         //DropItems();
         if (!_collectedItem)
-            DropRandomItem();
+        {
+            if (_numberToSpawn <= 1)
+            {
+                if (_dropRandomItem)
+                    DropRandomItem();
+                else
+                {
+                    DropItems();
+                }
+            }
+                
+
+            else if (_numberToSpawn > 1)
+            {
+                if (_dropRandomItem)
+                {
+                    for (int i = 0; i <= _numberToSpawn; i++)
+                    {
+                        DropRandomItem();
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i <= _numberToSpawn; i++)
+                    {
+                        DropItems();
+                    }
+                }
+            }
+        }
+
         
     }
 
@@ -43,8 +75,6 @@ public class ItemDropper : PlayerInteractable
             Debug.Log("Instantiated " + lootDropped);
             Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
             _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-            //Animator lootAnim = lootDropped.GetComponent<Animator>();
-            //lootAnim.animation
         }
     }
 
