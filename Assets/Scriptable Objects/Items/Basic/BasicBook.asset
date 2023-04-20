@@ -20,4 +20,4 @@ MonoBehaviour:
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
-  _prefabObject: {fileID: 0}
+  _prefabObject: {fileID: 5335949647275027712, guid: ac4c9e4864b3e8d4092720ed862af27e, type: 3}

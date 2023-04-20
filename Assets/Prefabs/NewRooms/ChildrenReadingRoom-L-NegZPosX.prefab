@@ -3030,6 +3030,10 @@ PrefabInstance:
       value: 0.991
       objectReference: {fileID: 0}
     - target: {fileID: 7799002962853875455, guid: fec0de4a3767cff48a1a4545661734fd, type: 3}
+      propertyPath: _numberToSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799002962853875455, guid: fec0de4a3767cff48a1a4545661734fd, type: 3}
       propertyPath: upwardsModifier
       value: 4
       objectReference: {fileID: 0}
@@ -3593,7 +3597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720806495516270254, guid: 0572026a2c53bcd45a269f3ba2567354, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.327
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 720806495516270254, guid: 0572026a2c53bcd45a269f3ba2567354, type: 3}
       propertyPath: m_LocalPosition.z
