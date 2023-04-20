@@ -36,7 +36,10 @@ public class ItemDropper : PlayerInteractable
             if (_numberToSpawn <= 1)
             {
                 if (_dropRandomItem)
+                {
                     DropRandomItem();
+                }
+                    
                 else
                 {
                     DropItems();
@@ -71,7 +74,7 @@ public class ItemDropper : PlayerInteractable
     {
         for (int i = 0; i <= _indexObjectToSpawn; i++)
         {
-            var lootDropped = Instantiate(_myLoot[i], _lootContainer, false);
+            var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1, 1), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
             Debug.Log("Instantiated " + lootDropped);
             Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
             _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
@@ -81,7 +84,7 @@ public class ItemDropper : PlayerInteractable
     public void DropRandomItem()
     {
         int i = Random.Range(0, _myLoot.Count);
-        var lootDropped = Instantiate(_myLoot[i], _lootContainer, false);
+        var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1, 1), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
         Debug.Log("Instantiated " + lootDropped);
         Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
         _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
