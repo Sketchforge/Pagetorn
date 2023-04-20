@@ -314,7 +314,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3750776232526170646}
   - component: {fileID: 3750776232526170641}
-  - component: {fileID: 3750776232526170642}
   - component: {fileID: 3750776232526170643}
   - component: {fileID: 2534787475052487780}
   - component: {fileID: 3750776232526170604}
@@ -356,28 +355,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &3750776232526170642
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3750776232526170606}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &3750776232526170643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -534,7 +511,7 @@ MonoBehaviour:
   onlyRotateY: 1
   useStaticBillboard: 0
   _rb: {fileID: 3750776232526170643}
-  _agent: {fileID: 3750776232526170642}
+  _agent: {fileID: 0}
   _health: {fileID: 3750776232526170604}
   _data: {fileID: 11400000, guid: 55ad4d47296f47d46979a46be8dde1d1, type: 2}
   _numberGloopsEaten: 0
@@ -557,6 +534,7 @@ MonoBehaviour:
   _teleport: {fileID: 0}
   _librarianState: 0
   cooldown: 10
+  librarianChaser: {fileID: 4951553025373685104, guid: 7eb0a4d849f8095478efc10b3710a105, type: 3}
 --- !u!1 &6064832165350551844
 GameObject:
   m_ObjectHideFlags: 0

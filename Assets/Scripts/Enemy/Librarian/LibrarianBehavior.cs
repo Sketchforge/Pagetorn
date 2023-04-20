@@ -7,6 +7,7 @@ public class LibrarianBehavior : EnemyBase
     [SerializeField] Transform _teleport;
     [SerializeField, ReadOnly] private LibrarianState _librarianState;
     [SerializeField] float cooldown = 10f;
+    [SerializeField] GameObject librarianChaser;
 
     float cooldownSubtract;
 
@@ -81,7 +82,8 @@ public class LibrarianBehavior : EnemyBase
         if (_target.Type == TargetableType.Player)
         {
             //_musicPlayer.clip = _myTheme;
-            MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
+            //MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
+            if (librarianChaser) Instantiate(librarianChaser, this.transform, true);
         }
 
         if ((Time.time - cooldown) > Data.MemoryTimeout)

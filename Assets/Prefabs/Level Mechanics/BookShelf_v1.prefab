@@ -11413,7 +11413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11427,6 +11427,38 @@ PrefabInstance:
       propertyPath: _myLoot.Array.data[1]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[2]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[3]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[4]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[5]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[6]
+      value: 
+      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[7]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[8]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _objectToStopRendering
       value: 
@@ -11564,7 +11596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11578,6 +11610,38 @@ PrefabInstance:
       propertyPath: _myLoot.Array.data[1]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[2]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[3]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[4]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[5]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[6]
+      value: 
+      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[7]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[8]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _objectToStopRendering
       value: 
@@ -11715,7 +11779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11729,6 +11793,38 @@ PrefabInstance:
       propertyPath: _myLoot.Array.data[1]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[2]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[3]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[4]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[5]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[6]
+      value: 
+      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[7]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[8]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _objectToStopRendering
       value: 
@@ -11932,7 +12028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11946,6 +12042,38 @@ PrefabInstance:
       propertyPath: _myLoot.Array.data[1]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[2]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[3]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[4]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[5]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[6]
+      value: 
+      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[7]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[8]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _objectToStopRendering
       value: 

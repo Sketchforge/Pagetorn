@@ -58,10 +58,9 @@ public class ItemDropper : PlayerInteractable
                 }
                 else
                 {
-                    for (int i = 0; i <= _numberToSpawn; i++)
-                    {
+
                         DropItems();
-                    }
+
                 }
             }
         }
@@ -72,9 +71,9 @@ public class ItemDropper : PlayerInteractable
     [Button]
     public void DropItems()
     {
-        for (int i = 0; i <= _indexObjectToSpawn; i++)
+        for (int i = 0; i <= _numberToSpawn; i++)
         {
-            var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1, 1), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
+            var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
             Debug.Log("Instantiated " + lootDropped);
             Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
             _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
@@ -84,7 +83,7 @@ public class ItemDropper : PlayerInteractable
     public void DropRandomItem()
     {
         int i = Random.Range(0, _myLoot.Count);
-        var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1, 1), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
+        var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
         Debug.Log("Instantiated " + lootDropped);
         Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
         _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
