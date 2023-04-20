@@ -24,7 +24,7 @@ public class MeshCombiner : MonoBehaviour
 		}
 
         targetMeshFilter.mesh = new Mesh();
-        targetMeshFilter.mesh.CombineMeshes(combine);
+        targetMeshFilter.sharedMesh.CombineMeshes(combine);
 
         transform.rotation = Quaternion.identity;
         transform.localScale = new Vector3(1, 0.87f, 1.22f);
