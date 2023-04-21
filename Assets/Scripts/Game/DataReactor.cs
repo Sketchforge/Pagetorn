@@ -7,7 +7,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 10f;
+    [SerializeField] static public float monsterSpawnRate = 40f;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
@@ -132,7 +132,7 @@ public class DataReactor : MonoBehaviour
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
             _darkenEvent.ActivateEvent();
             _smallCrawlerSpawn.ActivateEvent();
-            monsterSpawnRate = 30f;
+            monsterSpawnRate = 10f;
             calledSpawnEvent = true;
             DataManager.bIsHostile = true; //TODO: Turn off hostility after certain amount of time
         } //else
