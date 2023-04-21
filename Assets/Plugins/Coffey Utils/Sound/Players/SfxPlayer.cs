@@ -132,6 +132,10 @@ namespace Game.SoundSystem
             _clipVolume = prop2d.Volume;
             _reset = false;
             
+            if (prop2d.ClipStartOffset > 0)
+            {
+                source.time = prop2d.ClipStartOffset;
+            }
             source.Play();
         }
 

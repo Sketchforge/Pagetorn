@@ -310,8 +310,8 @@ AudioSource:
   m_GameObject: {fileID: 104306775}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
+  m_audioClip: {fileID: 8300000, guid: b41fbff2647048d4ea5131648d5cc229, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2514,8 +2514,8 @@ AudioSource:
   m_GameObject: {fileID: 762956874}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
+  m_audioClip: {fileID: 8300000, guid: b41fbff2647048d4ea5131648d5cc229, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3751,6 +3751,10 @@ MonoBehaviour:
   _interactDistance: 4
   _myAnimator: {fileID: 0}
   _heldItemSocket: {fileID: 1159658022}
+  _hammerSwingSfx:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
   walkBobSpeed: 7
   walkBobAmount: 0.05
   sprintBobSpeed: 9
@@ -4384,12 +4388,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _group: {fileID: 0}
   _pool:
-  - {fileID: 104306778}
-  - {fileID: 762956877}
   - {fileID: 1724610392}
   - {fileID: 1879446159}
   _activePlayers:
   - {fileID: 1181055104}
+  - {fileID: 104306778}
+  - {fileID: 762956877}
 --- !u!4 &2066341437
 Transform:
   m_ObjectHideFlags: 0

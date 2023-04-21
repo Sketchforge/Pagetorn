@@ -34,12 +34,11 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected ParticleSystem _spawnParticles;
     [SerializeField] protected ParticleSystem _impactParticles;
     [SerializeField] protected ParticleSystem _attackParticles;
-    [SerializeField] protected AudioSource _myAudioSource;
-    [SerializeField] protected AudioClip _moveSound;
-    [SerializeField] protected AudioClip _idleSound;
-    [SerializeField] protected AudioClip _spawnSound;
-    [SerializeField] protected AudioClip _impactSound;
-    [SerializeField] protected AudioClip _attackSound;
+    [SerializeField] protected SfxReference _moveSound;
+    [SerializeField] protected SfxReference _idleSound;
+    [SerializeField] protected SfxReference _spawnSound;
+    [SerializeField] protected SfxReference _impactSound;
+    [SerializeField] protected SfxReference _attackSound;
 
     [SerializeField] protected SoundEvent _chaseMusic;
 
@@ -66,7 +65,6 @@ public abstract class EnemyBase : MonoBehaviour
     {
         //AIManager.Instance.Units.Add(this);
         _health.SetHealth(_data.MaxHealth);
-        _myAudioSource = GetComponent<AudioSource>();
         theCam = Camera.main;
     }
 

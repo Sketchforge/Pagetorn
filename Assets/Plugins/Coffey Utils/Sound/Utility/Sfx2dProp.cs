@@ -16,6 +16,7 @@ namespace Game.SoundSystem
         
         public bool Null;
         public AudioClip Clip;
+        public float ClipStartOffset;
         public AudioMixerGroup MixerGroup;
 
         public float Volume;
@@ -33,7 +34,11 @@ namespace Game.SoundSystem
 
         public Sfx2dProp AddProperties(Sfx2dProp other)
         {
-            if (Clip == null) Clip = other.Clip;
+            if (Clip == null)
+            {
+                Clip = other.Clip;
+                ClipStartOffset = other.ClipStartOffset;
+            }
             Null = Clip == null;
             
             Volume *= other.Volume;
@@ -60,6 +65,7 @@ namespace Game.SoundSystem
         {
             Null = invalid;
             Clip = null;
+            ClipStartOffset = 0;
             MixerGroup = null;
             
             Volume = DefaultVolume;
@@ -79,6 +85,7 @@ namespace Game.SoundSystem
         public Sfx2dProp(AudioClip clip)
         {
             Clip = clip;
+            ClipStartOffset = 0;
             Null = Clip == null;
             MixerGroup = null;
             
@@ -100,6 +107,7 @@ namespace Game.SoundSystem
         {
             Null = true;
             Clip = null;
+            ClipStartOffset = 0;
             MixerGroup = mixerGroup;
             
             Volume = volume;

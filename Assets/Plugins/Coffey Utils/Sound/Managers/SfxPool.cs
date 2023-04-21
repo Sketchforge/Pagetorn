@@ -71,7 +71,6 @@ namespace Game.SoundSystem
             if (properties2d.Null) return null;
             var player = GetPlayer();
             player.SetPropertiesAndPlay(properties2d);
-            player.Play();
             return player;
         }
 

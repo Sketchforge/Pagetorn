@@ -197,7 +197,7 @@ public class EnemyTypeCrawler : EnemyBase
                         {
                             if (_collider.GetComponent<PlayerMovementScript>() != null)
                             {
-                                _myAudioSource.PlayOneShot(_attackSound);
+                                _attackSound.PlayAtPosition(transform.position);
                                 PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
                                 Debug.Log("Hit Player");
                                 _attackTime = Time.time;

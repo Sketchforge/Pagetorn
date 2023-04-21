@@ -8,6 +8,7 @@ namespace Game.SoundSystem
     {
         [Header("Audio Clip")]
         [SerializeField] private SfxReference _clip = new SfxReference(true);
+        [SerializeField] private float _clipStartOffset;
         [SerializeField] private AudioMixerGroup _mixerGroup;
         
         [Header("Volume Settings")]
@@ -63,7 +64,9 @@ namespace Game.SoundSystem
             if (_clip.UseClip)
             {
                 myProperties.Clip = _clip.Clip;
-                myProperties.Null = myProperties.Clip == null;
+                bool clip = myProperties.Clip != null;
+                myProperties.ClipStartOffset = clip ? _clipStartOffset : 0;
+                myProperties.Null = !clip;
                 return myProperties;
             }
 

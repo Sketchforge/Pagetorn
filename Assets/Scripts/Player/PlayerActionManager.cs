@@ -15,8 +15,11 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private MouseRotation _lookBodyRotation;
     [SerializeField] private Transform _lookDir;
     [SerializeField] private float _interactDistance = 4;
+    
+    [Header("Feedback")]
     [SerializeField] private Animator _myAnimator;
     [SerializeField] private GameObject _heldItemSocket;
+    [SerializeField] private SfxReference _hammerSwingSfx;
 
     [Header("Headbob and FootSteps")]
     [SerializeField] private float walkBobSpeed = 14f;
@@ -105,6 +108,7 @@ public class PlayerActionManager : MonoBehaviour
                     {
                         if (canAttack)
                         {
+                            _hammerSwingSfx.Play();
                             weaponAnim.SetTrigger("Swing");
                             DataManager.NumberMeleeAttacksDone++;
                         }
