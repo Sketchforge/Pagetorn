@@ -3034,6 +3034,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7799002962853875455, guid: fec0de4a3767cff48a1a4545661734fd, type: 3}
+      propertyPath: _dropRandomItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799002962853875455, guid: fec0de4a3767cff48a1a4545661734fd, type: 3}
       propertyPath: upwardsModifier
       value: 4
       objectReference: {fileID: 0}

@@ -104,6 +104,11 @@ public class SpellManager : MonoBehaviour
             other.GetComponent<EnemyBase>().GetComponent<Health>().Damage(_data.Damage);
             Destroy(gameObject);
         }
+
+        if (other.gameObject.layer == 0)
+        {
+            Destroy(gameObject);
+        }
         //if (_data.CanDamage && other.CompareTag("enemy")) DamageEnemy(_data.Damage);
        
     }

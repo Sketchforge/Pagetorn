@@ -398,7 +398,7 @@ MonoBehaviour:
   _moveSound:
     UseClip: 0
     Clip: {fileID: 0}
-    Base: {fileID: 0}
+    Base: {fileID: 11400000, guid: fc14a408179210640b206dc3f604de84, type: 2}
   _idleSound:
     UseClip: 0
     Clip: {fileID: 0}

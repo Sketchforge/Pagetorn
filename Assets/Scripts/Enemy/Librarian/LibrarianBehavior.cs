@@ -17,6 +17,7 @@ public class LibrarianBehavior : EnemyBase
     {
         cooldownSubtract = cooldown;
         _myAnimator = _AlphaFace.GetComponent<Animator>();
+        _spawnSound.Play();
         Teleport();
         CheckTarget();
         

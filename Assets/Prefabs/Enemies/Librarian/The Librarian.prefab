@@ -524,17 +524,32 @@ MonoBehaviour:
   _spawnParticles: {fileID: 0}
   _impactParticles: {fileID: 0}
   _attackParticles: {fileID: 0}
-  _myAudioSource: {fileID: 0}
-  _moveSound: {fileID: 0}
-  _idleSound: {fileID: 0}
-  _spawnSound: {fileID: 0}
-  _impactSound: {fileID: 0}
-  _attackSound: {fileID: 0}
+  _moveSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
+  _idleSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
+  _spawnSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 11400000, guid: 21c5016771ce1454cb37e9ba2b64fad9, type: 2}
+  _impactSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
+  _attackSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
   _chaseMusic: {fileID: 0}
   _teleport: {fileID: 0}
   _librarianState: 0
   cooldown: 10
   librarianChaser: {fileID: 4951553025373685104, guid: 7eb0a4d849f8095478efc10b3710a105, type: 3}
+  _currentRoom: {fileID: 0}
 --- !u!1 &6064832165350551844
 GameObject:
   m_ObjectHideFlags: 0

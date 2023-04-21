@@ -104,6 +104,8 @@ public class EnemyTypeCrawler : EnemyBase
         }
         FacePosition(_roamPosition);
         MoveTo(_roamPosition);
+        //if (_moveSound.Clip.length - Time.deltaTime > 0)
+        _moveSound.PlayAtParentAndFollow(this.transform);
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
             //Debug.Log("RoamStateIsBeingGlitchy");
@@ -135,6 +137,7 @@ public class EnemyTypeCrawler : EnemyBase
         }
 
         MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
+        _moveSound.PlayAtParentAndFollow(this.transform);
         if (_isAlpha)
             makeFollowersCircleTarget();
 
