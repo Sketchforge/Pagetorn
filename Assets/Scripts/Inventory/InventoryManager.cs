@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _container;
+	[SerializeField] private Canvas _canvas;
     [SerializeField] private Transform _heldItemParent;
     [SerializeField] private Image _heldItemImage;
     [SerializeField] private TextMeshProUGUI _heldItemAmountText;
@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        if (!_container) Debug.LogWarning($"Missing Inventory Container (GameObject) for {name}", gameObject);
+        if (!_canvas) Debug.LogWarning($"Missing Inventory Container (GameObject) for {name}", gameObject);
         if (!_heldItemParent) Debug.LogWarning($"Missing Held Item Container (GameObject) for {name}", gameObject);
         if (!_heldItemImage) Debug.LogWarning($"Missing Held Item Icon (Image) for {name}", gameObject);
         if (!_heldItemAmountText) Debug.LogWarning($"Missing Held Item Amount (Text) for {name}", gameObject);
@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
             }
             UpdateHeldItem();
         }
-        if (_container) _container.SetActive(active);
+	    if (_canvas) _canvas.enabled = active;
     }
 
     private void UpdateHeldItem()
