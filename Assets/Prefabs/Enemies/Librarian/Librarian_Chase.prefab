@@ -217,8 +217,8 @@ GameObject:
   - component: {fileID: 6023357685104601338}
   - component: {fileID: 4951553025373685106}
   - component: {fileID: 1448521221880587837}
-  - component: {fileID: 7842651788957490950}
   - component: {fileID: 7512096372224045071}
+  - component: {fileID: -3344787347856979101}
   m_Layer: 0
   m_Name: Librarian_Chase
   m_TagString: Witch
@@ -393,7 +393,46 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!195 &7842651788957490950
+--- !u!114 &7512096372224045071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951553025373685104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab5e0a7f8530a44d9ca67b2b4b88ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logState: 0
+  _active: 0
+  _target: {fileID: 0}
+  onlyRotateY: 1
+  useStaticBillboard: 0
+  _rb: {fileID: 4951553025373685389}
+  _agent: {fileID: -3344787347856979101}
+  _health: {fileID: 4951553025373685106}
+  _data: {fileID: 11400000, guid: 55ad4d47296f47d46979a46be8dde1d1, type: 2}
+  _numberGloopsEaten: 0
+  _BetaFace: {fileID: 2634747177272786362}
+  _AlphaFace: {fileID: 2634747177272786362}
+  theCam: {fileID: 0}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _spawnParticles: {fileID: 0}
+  _impactParticles: {fileID: 0}
+  _attackParticles: {fileID: 0}
+  _myAudioSource: {fileID: 0}
+  _moveSound: {fileID: 0}
+  _idleSound: {fileID: 0}
+  _spawnSound: {fileID: 0}
+  _impactSound: {fileID: 0}
+  _attackSound: {fileID: 0}
+  _chaseMusic: {fileID: 11400000, guid: 73f46709a711a304ba0f6a71f159a125, type: 2}
+  librarian: {fileID: 3750776232526170606, guid: 6c57fd30e3148b74c93a16b3a068ec6a, type: 3}
+--- !u!195 &-3344787347856979101
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -411,22 +450,10 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 1
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7512096372224045071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4951553025373685104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eab5e0a7f8530a44d9ca67b2b4b88ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5905393832487650800
 GameObject:
   m_ObjectHideFlags: 0

@@ -67,6 +67,7 @@ public abstract class EnemyBase : MonoBehaviour
         //AIManager.Instance.Units.Add(this);
         _health.SetHealth(_data.MaxHealth);
         _myAudioSource = GetComponent<AudioSource>();
+        theCam = Camera.main;
     }
 
     private void OnEnable()
@@ -91,7 +92,7 @@ public abstract class EnemyBase : MonoBehaviour
         //_playerTarget = PlayerManager.Instance.Player; //later make RANGED a possible target
         OnPause(false);
         _agent.speed = _data.MoveSpeed;
-        theCam = Camera.main;
+        
         OnStart();      
     }
 

@@ -4,17 +4,49 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Collections;
 
-public class LibrarianChase : MonoBehaviour
+public class LibrarianChase : EnemyBase
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject librarian;
+
+    protected override Targetable GetPotentialTarget(IEnumerable<Targetable> potentialTargets)
     {
+        Targetable target = null;
+        int targetPriority = -1;
+        foreach (Targetable t in potentialTargets)
+        {
+
+            if (targetPriority < 5 && t.Type == TargetableType.Player)
+            {
+                target = t;
+                targetPriority = 5;
+            }
+
+        }
+        return target;
+    }
+
+    protected override void OnLoseTarget()
+    {
+        if (librarian) Instantiate(librarian, this.transform, true);
+        //Destroy(this.gameObject);
+    }
+
+    protected override void OnStart()
+    {
+        Debug.Log("Spawned Evil Guy");
+        CheckTarget();
+        throw new NotImplementedException();
+    }
+
+    protected override void OnUpdate()
+    {
+        if (CheckTarget()) ;
+        {
+            if (_target.Type == TargetableType.Player)
+                MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }

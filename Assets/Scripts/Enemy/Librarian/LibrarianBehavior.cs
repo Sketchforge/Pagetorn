@@ -8,6 +8,7 @@ public class LibrarianBehavior : EnemyBase
     [SerializeField, ReadOnly] private LibrarianState _librarianState;
     [SerializeField] float cooldown = 10f;
     [SerializeField] GameObject librarianChaser;
+    [SerializeField] private Room _currentRoom;
 
     float cooldownSubtract;
 
@@ -54,6 +55,11 @@ public class LibrarianBehavior : EnemyBase
             }
         }
 
+        if (_currentRoom != DataManager.currentRoom)
+        {
+            Teleport();
+        }
+
         cooldownSubtract -= Time.deltaTime;
         if (cooldownSubtract <= 0f)
         {
@@ -61,11 +67,8 @@ public class LibrarianBehavior : EnemyBase
             {
                 Teleport();
                 cooldownSubtract = cooldown;
-
                 return;
-
             }
-            
         }
 
 
@@ -83,7 +86,8 @@ public class LibrarianBehavior : EnemyBase
         {
             //_musicPlayer.clip = _myTheme;
             //MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
-            if (librarianChaser) Instantiate(librarianChaser, this.transform, true);
+            if (librarianChaser) Instantiate(librarianChaser, this.transform, false);
+            Destroy(this.gameObject);
         }
 
         if ((Time.time - cooldown) > Data.MemoryTimeout)
@@ -97,6 +101,7 @@ public class LibrarianBehavior : EnemyBase
 
     private void Teleport()
     {
+        _currentRoom = DataManager.currentRoom;
         var room = DataManager.currentRoom;
         if ((room.HalfRoomSize.x * 2)> 15 && (room.HalfRoomSize.y * 2) > 15)
         {
