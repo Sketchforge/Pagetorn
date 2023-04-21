@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
+	private static List<Room> _rooms = new List<Room>();
+	
     [Header("Room Settings")]
     [SerializeField, Range(0, 31)] private int _roomBoundsLayer;
     [SerializeField] private LayerMask _roomBoundsLayerMask;
@@ -49,8 +51,15 @@ public class Room : MonoBehaviour
 
     private void Awake()
     {
-        DataManager.currentRoom = this;
+	    DataManager.currentRoom = this;
+	    if (!_rooms.Contains(this)) _rooms.Add(this);
     }
+	
+	private void OnDestroy()
+	{
+		_rooms.Remove(this);
+	}
+    
     public void OnPlayerEnter()
     {
         CheckGenerateNeighbors();
@@ -61,8 +70,55 @@ public class Room : MonoBehaviour
 
         DataManager.currentRoom = this;
 
-        
+	    foreach(var room in _rooms)
+	    {
+	    	room.gameObject.SetActive(false);
+	    }
+	    gameObject.SetActive(true);
+	    if (_posZConnectedRoom)
+	    {
+	    	_posZConnectedRoom.gameObject.SetActive(true);
+	    	_posZConnectedRoom.SetDoorActive(1, false);
+	    }
+	    if (_negZConnectedRoom)
+	    {
+	    	_negZConnectedRoom.gameObject.SetActive(true);
+	    	_negZConnectedRoom.SetDoorActive(0, false);
+	    }
+	    if (_posXConnectedRoom)
+	    {
+	    	_posXConnectedRoom.gameObject.SetActive(true);
+	    	_posXConnectedRoom.SetDoorActive(3, false);
+	    }
+	    if (_negXConnectedRoom)
+	    {
+	    	_negXConnectedRoom.gameObject.SetActive(true);
+	    	_negXConnectedRoom.SetDoorActive(2, false);
+	    }
+	    SetDoorActive(0, !_posZConnectedRoom);
+	    SetDoorActive(1, !_negZConnectedRoom);
+	    SetDoorActive(2, !_posXConnectedRoom);
+	    SetDoorActive(3, !_negXConnectedRoom);
     }
+	
+	private void SetDoorActive(int door, bool active)
+	{
+		switch (door)
+		{
+		case 0:
+			if (_posZDoorGeo) _posZDoorGeo.SetActive(active);
+			break;
+		case 1:
+			if (_negZDoorGeo) _negZDoorGeo.SetActive(active);
+			break;
+		case 2:
+			if (_posXDoorGeo) _posXDoorGeo.SetActive(active);
+			break;
+		case 3:
+			if (_negXDoorGeo) _negXDoorGeo.SetActive(active);
+			break;
+		}
+	}
 
     public void OnPlayerLeave()
     {
@@ -83,7 +139,11 @@ public class Room : MonoBehaviour
 
     [Button]
     public void CheckGenerateNeighbors()
-    {
+	{
+		SetDoorActive(0, true);
+		SetDoorActive(1, true);
+		SetDoorActive(2, true);
+		SetDoorActive(3, true);
         if (_posZDoor && !_posZConnectedRoom)
         {
             (bool value, Room room) = CheckCreateNeighbor(true, false);
@@ -91,9 +151,7 @@ public class Room : MonoBehaviour
             {
                 _posZConnectedRoom = room;
                 room._negZConnectedRoom = this;
-                room._negZDoorGeo.SetActive(false);
             }
-            _posZDoorGeo.SetActive(!room && !value);
         }
         if (_negZDoor && !_negZConnectedRoom)
         {
@@ -102,9 +160,7 @@ public class Room : MonoBehaviour
             {
                 _negZConnectedRoom = room;
                 room._posZConnectedRoom = this;
-                room._posZDoorGeo.SetActive(false);
             }
-            _negZDoorGeo.SetActive(!room && !value);
         }
         if (_posXDoor && !_posXConnectedRoom)
         {
@@ -113,9 +169,7 @@ public class Room : MonoBehaviour
             {
                 _posXConnectedRoom = room;
                 room._negXConnectedRoom = this;
-                room._negXDoorGeo.SetActive(false);
             }
-            _posXDoorGeo.SetActive(!room && !value);
         }
         if (_negXDoor && !_negXConnectedRoom)
         {
@@ -124,9 +178,7 @@ public class Room : MonoBehaviour
             {
                 _negXConnectedRoom = room;
                 room._posXConnectedRoom = this;
-                room._posXDoorGeo.SetActive(false);
             }
-            _negXDoorGeo.SetActive(!room && !value);
         }
     }
 
