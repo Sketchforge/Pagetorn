@@ -63,6 +63,7 @@ namespace Game.SoundSystem
             if (_clip.UseClip)
             {
                 myProperties.Clip = _clip.Clip;
+                myProperties.Null = myProperties.Clip == null;
                 return myProperties;
             }
 

@@ -8,6 +8,8 @@ public abstract class Event : ScriptableObject
 
     private Event ChainedEvent => _chainEvent;
 
+    [Button]
+    protected void DebugActivateEvent() => ActivateEvent();
     public abstract void ActivateEvent(System.Action onFinished = null);
 
     protected void EventResponse()
