@@ -17,60 +17,47 @@ public class ItemDropper : PlayerInteractable
     public bool _collectedItem;
     Vector3 throwDirection;
 
-    void Start()
-    {
-        throwDirection = transform.forward + Vector3.up * upwardsModifier;
-
-    }
-
-    void Update()
+    private void Start()
     {
         throwDirection = transform.forward + Vector3.up * upwardsModifier;
     }
-
+    
     public override void Interact()
     {
         //DropItems();
-        if (!_collectedItem)
+        if (_collectedItem) return;
+        
+        if (_numberToSpawn <= 1)
         {
-            if (_numberToSpawn <= 1)
+            if (_dropRandomItem)
             {
-                if (_dropRandomItem)
+                DropRandomItem();
+            }
+            else
+            {
+                DropItems();
+            }
+        }
+        else if (_numberToSpawn > 1)
+        {
+            if (_dropRandomItem)
+            {
+                for (int i = 0; i <= _numberToSpawn; i++)
                 {
                     DropRandomItem();
                 }
-                    
-                else
-                {
-                    DropItems();
-                }
             }
-                
-
-            else if (_numberToSpawn > 1)
+            else
             {
-                if (_dropRandomItem)
-                {
-                    for (int i = 0; i <= _numberToSpawn; i++)
-                    {
-                        DropRandomItem();
-                    }
-                }
-                else
-                {
-
-                        DropItems();
-
-                }
+                DropItems();
             }
         }
-
-        
     }
 
     [Button]
     public void DropItems()
     {
+        throwDirection = transform.forward + Vector3.up * upwardsModifier;
         for (int i = 0; i <= _numberToSpawn; i++)
         {
             var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
@@ -82,6 +69,7 @@ public class ItemDropper : PlayerInteractable
 
     public void DropRandomItem()
     {
+        throwDirection = transform.forward + Vector3.up * upwardsModifier;
         int i = Random.Range(0, _myLoot.Count);
         var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
         Debug.Log("Instantiated " + lootDropped);
@@ -91,9 +79,6 @@ public class ItemDropper : PlayerInteractable
         _objectToStopRendering.SetActive(false);
             //Animator lootAnim = lootDropped.GetComponent<Animator>();
             //lootAnim.animation
-    
-
-
     }
 
     public void RefreshSelf()

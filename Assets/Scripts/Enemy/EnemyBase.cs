@@ -214,6 +214,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected void BillboardFace(Transform myFace)
     {
+        if (!theCam) return;
         if (!useStaticBillboard)
         {
             transform.LookAt(theCam.transform);

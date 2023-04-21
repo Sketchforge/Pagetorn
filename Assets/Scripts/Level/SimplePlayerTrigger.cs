@@ -10,7 +10,7 @@ public class SimplePlayerTrigger : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerMovementScript>())
+        if (!_playerInside && other.GetComponent<PlayerMovementScript>())
         {
             _playerInside = true;
             _onPlayerEnter.Invoke();
@@ -19,7 +19,7 @@ public class SimplePlayerTrigger : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerMovementScript>())
+        if (_playerInside && other.GetComponent<PlayerMovementScript>())
         {
             _playerInside = false;
             _onPlayerLeave.Invoke();
