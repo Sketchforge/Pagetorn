@@ -6979,7 +6979,7 @@ GameObject:
   - component: {fileID: 8598112469557100527}
   - component: {fileID: 9212469849883231710}
   m_Layer: 0
-  m_Name: Books1_MidShelf1_Book14
+  m_Name: Books_Mid1_LOWPOLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7007,7 +7007,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5818412323361551788}
-  m_Mesh: {fileID: -4318455670636577271, guid: f40d59995be8b08468b5cf2cb5722d57, type: 3}
+  m_Mesh: {fileID: 2025160960644268468, guid: a0546d605d30fb84a837d13b0864bfd8, type: 3}
 --- !u!23 &9212469849883231710
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7892,7 +7892,7 @@ GameObject:
   - component: {fileID: 8819979987768677939}
   - component: {fileID: 8033414335925766018}
   m_Layer: 0
-  m_Name: Books1_Midshelf2_Book28
+  m_Name: Books_Mid2_LOWPOLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7920,7 +7920,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6304495665200887974}
-  m_Mesh: {fileID: -9055556554494294661, guid: f6578e999c925e54eac48f4a9a2d923c, type: 3}
+  m_Mesh: {fileID: -5868291500813038837, guid: 40ee38a7caeee754ea9c187e058db14c, type: 3}
 --- !u!23 &8033414335925766018
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8307,7 +8307,7 @@ GameObject:
   - component: {fileID: 8528793284135602205}
   - component: {fileID: 4790678065062784744}
   m_Layer: 0
-  m_Name: Books1_TopShelf_Book146
+  m_Name: Books_TopShelf_LOWPOLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8335,7 +8335,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6706749427761140983}
-  m_Mesh: {fileID: 6100879471821967457, guid: 73e03c629aafddf44859f3fedab0035d, type: 3}
+  m_Mesh: {fileID: -5446299626078993730, guid: f74b8b0785fd5a94ab4b860fc9c08cde, type: 3}
 --- !u!23 &4790678065062784744
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11321,7 +11321,7 @@ GameObject:
   - component: {fileID: 1984358784522746767}
   - component: {fileID: 923407991475190627}
   m_Layer: 0
-  m_Name: Books1_BotShelf_Book159
+  m_Name: Books_BottomShelf_LOWPOLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11349,7 +11349,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9165205865741689967}
-  m_Mesh: {fileID: -2314440099681198432, guid: b43c18e25d3f5db4f8733c9bda818bf1, type: 3}
+  m_Mesh: {fileID: 8798612559021560494, guid: 222209aca99b78f40a70159bfc63ba99, type: 3}
 --- !u!23 &923407991475190627
 MeshRenderer:
   m_ObjectHideFlags: 0
