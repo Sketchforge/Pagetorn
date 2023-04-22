@@ -34,6 +34,19 @@ public class DataReactor : MonoBehaviour
     private void Awake()
     {
         _calmMusic.ActivateEvent();
+
+        SessionLicense sessionLicense = new SessionLicense("a34e698a-e959-4f23-9c6d-f9e92f23aa16", "gcpkIKqvJJJPpfZal3vdPPIucbx5OVlpgYzzM1ZG4XSPEEZ2U26mSHRKJkKv29xs", LicensingModel.Rev_Share, Application.isEditor);
+
+        m_isConnected = false;
+        Debug.Log("Connecting to service");
+        m_connectTask = Task.Run( () =>
+        {
+            m_gliaClient = new Glia("UnityClient", sessionLicense);
+            m_gliaValCache = new GliaValueCache(m_gliaClient.Connection);
+            Debug.Log("Connected To Omnicept Runtime");
+        }
+        );
+
     }
 
 
