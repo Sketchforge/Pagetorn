@@ -121,6 +121,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Move()
     {
+        if ((_moveDir != new Vector2(0,0)) || !_isSprinting || !_isCrouching)
+        {
+            DataManager.AmountTimeStoodStill += Time.deltaTime;
+            
+        }
         
         //If Sprint button is pressed, sprint!
         if (_isSprinting && !_isCrouching)

@@ -45,13 +45,13 @@ public class PlayerActionManager : MonoBehaviour
     private void Update()
     {
         DataManager.totalTime += Time.deltaTime;
-        DataManager.AmountTimeStoodStill += Time.deltaTime;
+        //DataManager.AmountTimeStoodStill += Time.deltaTime;
     }
 
     public void Move(Vector2 moveDir)
     {
         if (_logMovement) Debug.Log("Move: " + moveDir, gameObject);
-        DataManager.AmountTimeStoodStill = 0;
+        //DataManager.AmountTimeStoodStill = 0;
         _movement.SetMoveDir(moveDir);
     }
 

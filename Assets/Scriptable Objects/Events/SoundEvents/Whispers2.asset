@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: CreepyNoise1
+  m_Name: Whispers2
   m_EditorClassIdentifier: 
   _clip:
     UseClip: 1
-    Clip: {fileID: 8300000, guid: 2fefe78f10f0be84499bccdfe4e52bdd, type: 3}
+    Clip: {fileID: 8300000, guid: 812cf35516f550c49a067f3d1315af00, type: 3}
     Base: {fileID: 0}
+  _clipStartOffset: 0
   _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 1
-  _pitch: 1
+  _volume: 0.454
+  _pitch: 0.71
   _stereoPan: 0
   _reverbZoneMix: 1
   _priority: 128
@@ -26,7 +27,7 @@ MonoBehaviour:
   _bypassListenerEffects: 0
   _bypassReverbZones: 0
   _spatial: 1
-  _spatialBlend: 1
+  _spatialBlend: 0
   _dopplerLevel: 1
   _spread: 0
   _rolloffMode: 0

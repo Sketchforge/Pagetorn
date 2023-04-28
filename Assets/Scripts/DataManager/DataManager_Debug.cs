@@ -35,6 +35,7 @@ public class DataManager_Debug : MonoBehaviour
     public bool bCollectsLotsofBooks; //set to true if BooksCollected within 30 minutes is higher than 100;     DataManager.NumberKnowledgePointsGathered = NumberKnowledgePointsGathered;
     public bool bExploresLotsOfRooms; //set to true if finds at least 30 different rooms.     DataManager.NumberDistanceWalked = NumberDistanceWalked;
     public bool bIsHostile;
+    public bool bStandsStillALot;
 
     public Room currentRoom;
 
@@ -69,6 +70,7 @@ public class DataManager_Debug : MonoBehaviour
             bCollectsLotsofBooks = DataManager.bCollectsLotsofBooks;
             bExploresLotsOfRooms = DataManager.bExploresLotsOfRooms;
             bIsHostile = DataManager.bIsHostile;
+            bStandsStillALot = DataManager.bStandsStillALot;
 
             currentRoom = DataManager.currentRoom;
         }
@@ -97,6 +99,9 @@ public class DataManager_Debug : MonoBehaviour
             DataManager.bCollectsLotsofBooks = bCollectsLotsofBooks;
             DataManager.bExploresLotsOfRooms = bExploresLotsOfRooms;
             DataManager.bIsHostile = bIsHostile;
+            DataManager.bStandsStillALot = bStandsStillALot;
+
+
         }
         
     }

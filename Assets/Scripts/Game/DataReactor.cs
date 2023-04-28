@@ -7,50 +7,70 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 20f;
+    [SerializeField] static public float monsterSpawnRate = 30f;
+
+    [SerializeField] Survival _playerStats;
 
     [Header("Max Fields")]
     [SerializeField] float MAX_DISTANCE;
     [SerializeField] float MAX_TIME;
+    [SerializeField] float MAX_TIME_STOOD_STILL;
     [SerializeField] float MAX_MELEEATTACKS;
+    [SerializeField] float MAX_ROOMS_FOUND;
     [SerializeField] float MAX_TIME_TIL_LIBRARIAN;
 
     [Header("Events")]
-    [SerializeField] PostProcessingEvent _fogEvent;
-    [SerializeField] PostProcessingEvent _darkenEvent;
-    [SerializeField] InstantiateEvent _smallCrawlerSpawn;
-    [SerializeField] InstantiateEvent _smallRangerSpawn;
-    [SerializeField] InstantiateEvent _librarianSpawn;
-    [SerializeField] SoundEvent _calmMusic;
-    [SerializeField] SoundEvent _chaseMusic;
-    [SerializeField] SoundEvent _creepyNoise1;
+    [SerializeField] PostProcessingEvent _eventFog;
+    [SerializeField] PostProcessingEvent _eventDarken;
+    [SerializeField] PostProcessingEvent _eventHarshDarken;
+    [SerializeField] PostProcessingEvent _eventHurtVignette;
+    [SerializeField] InstantiateEvent _spawnSmallCrawler;
+    [SerializeField] InstantiateEvent _spawnSmallRanger;
+    [SerializeField] InstantiateEvent _spawnLibrarian;
+
+    [Header("Music")]
+    [SerializeField] SoundEvent _musicCalm;
+    [SerializeField] SoundEvent _musicChase;
+
+    [Header("SFX")]
+    [SerializeField] SoundEvent _noiseHeartbeat;
+    [SerializeField] SfxReference _noiseClose1;
+    [SerializeField] SfxReference _noiseLowBoom;
+    [SerializeField] SfxReference _noiseWhispers1;
+    [SerializeField] SfxReference _noiseWhispers2;
+    [SerializeField] SfxReference _noiseWhispers3;
 
     private float spellCountTimer = 60f;
     private float monsterKillCountTimer = 3600f; // one hour
     private float _resetTime = 10f;
+    bool _heartbeatIsPlaying = false;
     bool calledSpawnEvent = false;
     bool calledLibrarianSpawnEvent = false;
+    bool calledScare1 = false;
+    bool calledScare2 = false;
+    bool calledWhispers1 = false;
+    int amountTimesScare1 = 0;
 
     private void Awake()
     {
-        _calmMusic.ActivateEvent();
+        _musicCalm.ActivateEvent();
 
-        SessionLicense sessionLicense = new SessionLicense("a34e698a-e959-4f23-9c6d-f9e92f23aa16", "gcpkIKqvJJJPpfZal3vdPPIucbx5OVlpgYzzM1ZG4XSPEEZ2U26mSHRKJkKv29xs", LicensingModel.Rev_Share, Application.isEditor);
+        if (!_playerStats) _playerStats = FindObjectOfType<Survival>();
 
-        m_isConnected = false;
-        Debug.Log("Connecting to service");
-        m_connectTask = Task.Run( () =>
-        {
-            m_gliaClient = new Glia("UnityClient", sessionLicense);
-            m_gliaValCache = new GliaValueCache(m_gliaClient.Connection);
-            Debug.Log("Connected To Omnicept Runtime");
-        }
-        );
+        //SessionLicense sessionLicense = new SessionLicense("a34e698a-e959-4f23-9c6d-f9e92f23aa16", "gcpkIKqvJJJPpfZal3vdPPIucbx5OVlpgYzzM1ZG4XSPEEZ2U26mSHRKJkKv29xs", LicensingModel.Rev_Share, Application.isEditor);
+        //
+        //m_isConnected = false;
+        //Debug.Log("Connecting to service");
+        //m_connectTask = Task.Run( () =>
+        //{
+        //    m_gliaClient = new Glia("UnityClient", sessionLicense);
+        //    m_gliaValCache = new GliaValueCache(m_gliaClient.Connection);
+        //    Debug.Log("Connected To Omnicept Runtime");
+        //}
+        //);
 
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         //DEBUG - Delete before final build
@@ -75,27 +95,22 @@ public class DataReactor : MonoBehaviour
             monsterKillCountTimer -= Time.deltaTime;
         else if (DataManager.bKillsLotsOfMonsters)
             _resetTime -= Time.deltaTime;
-
         if (monsterKillCountTimer <= 0f) //if greater than a minute
         {
             DataManager.NumberMonstersKilledLastHour = 0; //resets to 0;
             monsterKillCountTimer = 3600f;
         }
-
         if (DataManager.NumberMonstersKilledLastHour >= averageMonstersKilledPerHour)
             DataManager.bKillsLotsOfMonsters = true;
-
         if (DataManager.NumberMonstersKilledLastHour > 15f)
         {
-            _smallCrawlerSpawn.ActivateEvent();
-            _smallCrawlerSpawn.ActivateEvent();
+            _spawnSmallCrawler.ActivateEvent();
+            _spawnSmallCrawler.ActivateEvent();
         }
-
         if (DataManager.NumberMonstersKilledLastHour > 30f)
         {
-            _smallRangerSpawn.ActivateEvent();
+            _spawnSmallRanger.ActivateEvent();
         }
-
         if (_resetTime <= 0f)
         {
             DataManager.NumberMonstersKilledLastHour = 0;
@@ -103,7 +118,11 @@ public class DataReactor : MonoBehaviour
             _resetTime = 10f;
         }
 
-        //DataManager.bKillsLotsOfMonsters;
+        //STANDS STILL A LOT//
+        if (DataManager.AmountTimeStoodStill >= MAX_TIME_STOOD_STILL)
+        {
+            DataManager.bStandsStillALot = true;
+        }
 
         //USES SPELLS OFTEN//
         if (!DataManager.bUsesSpellsOften)
@@ -114,10 +133,15 @@ public class DataReactor : MonoBehaviour
             DataManager.NumberSpellsDoneLastMinute = 0; //resets to 0;
             spellCountTimer = 60f;
         }
-
         if (DataManager.NumberSpellsDoneLastMinute >= 10)
         {
             DataManager.bUsesSpellsOften = true;
+        }
+        
+        //EXPLORES A LOT OF ROOMS//
+        if (DataManager.NumberRoomsFound > MAX_ROOMS_FOUND)
+        {
+            DataManager.bExploresLotsOfRooms = true;
         }
 
         #endregion
@@ -128,7 +152,7 @@ public class DataReactor : MonoBehaviour
         if (DataManager.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
         {
           //  Debug.Log("Walked " + MAX_DISTANCE + " meters");
-            _fogEvent.ActivateEvent(ResetWalkDistance);
+            _eventFog.ActivateEvent(ResetWalkDistance);
             DataManager.TimesWalkedLargeDistances++;
         }
       
@@ -136,40 +160,94 @@ public class DataReactor : MonoBehaviour
 
         if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
         {
-            _darkenEvent.ActivateEvent(ResetMeleeAttackNumber);
+            DataManager.bUsesMeleeALot = true;
+            _eventDarken.ActivateEvent(ResetMeleeAttackNumber);
 
         }
 
         if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
         {
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
-            _darkenEvent.ActivateEvent();
-            _smallCrawlerSpawn.ActivateEvent();
+            _eventDarken.ActivateEvent();
+            _spawnSmallCrawler.ActivateEvent();
             monsterSpawnRate = 10f;
             calledSpawnEvent = true;
             DataManager.bIsHostile = true; //TODO: Turn off hostility after certain amount of time
         } //else
-        //{
-        //    monsterSpawnRate = 140f;
-        //    DataManager.bIsHostile = false;
-        //}
-        #endregion
+          //{
+          //    monsterSpawnRate = 140f;
+          //    DataManager.bIsHostile = false;
+          //}
 
         if (totalTimePassed >= MAX_TIME_TIL_LIBRARIAN && !calledLibrarianSpawnEvent)
         {
-            Debug.Log("Creepy time!!");
+            Debug.Log("Spawned Librarian");
 
             SpawnLibrarian();
 
         }
 
+        //SCARE 1//
+        if ((DataManager.bStandsStillALot || DataManager.bKillsLotsOfMonsters) && !calledScare1)
+        {
+            _eventHarshDarken.ActivateEvent();
+            StartCoroutine(CloseScare());
+            calledScare1 = true;
+
+            //Reset Values
+            float max_time_addon = MAX_TIME_STOOD_STILL * amountTimesScare1;
+            amountTimesScare1++;
+            MAX_TIME_STOOD_STILL += max_time_addon;
+            DataManager.bStandsStillALot = false;
+        }
+
+        //SCARE 2//
+        if ((DataManager.bExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/4 || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN - 3) && !calledScare2)
+        {
+            _eventFog.ActivateEvent(ResetScare2);
+            _noiseLowBoom.Play();
+            calledScare2 = true;
+        }
+
+        //SCARE 3//
+        if (((DataManager.currentRoom.HalfRoomSize.x * 2 >= 30f && DataManager.currentRoom.HalfRoomSize.y * 2 >= 20f) && !calledWhispers1) && DataManager.totalTime > 1000)
+        {
+            _noiseWhispers1.Play();
+            calledWhispers1 = true;
+        }
+
+
+
+
+
+        #endregion
+
+        #region Stat Responses
+
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Health))
+        {
+            Debug.Log("Health Low!");
+            if (!_heartbeatIsPlaying)
+            {
+                _noiseHeartbeat.ActivateEvent();
+                _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+                _heartbeatIsPlaying = true;
+            }
+        }
+
+
+
+
+        #endregion
+
+
     }
 
     private void SpawnLibrarian()
     {
-        _darkenEvent.ActivateEvent();
-        _librarianSpawn.ActivateEvent();
-        _creepyNoise1.ActivateEvent();
+        _eventDarken.ActivateEvent();
+        _spawnLibrarian.ActivateEvent();
+        _noiseHeartbeat.ActivateEvent();
         calledLibrarianSpawnEvent = true;
     }
 
@@ -181,6 +259,34 @@ public class DataReactor : MonoBehaviour
     private void ResetMeleeAttackNumber()
     {
         DataManager.NumberMeleeAttacksDone = 0;
+    }
+
+    private void ResetScare2()
+    {
+        calledScare2 = false;
+        DataManager.bExploresLotsOfRooms = false;
+    }
+
+    private void ResetHeartbeat()
+    {
+        _heartbeatIsPlaying = false;
+    }
+
+    private IEnumerator CloseScare()
+    {
+        //Debug.Log("monster sounds nearby");
+
+        //_eventDarken.ActivateEvent();
+
+        yield return new WaitForSeconds(2f);
+
+        PlayerMovementScript _player = FindObjectOfType<PlayerMovementScript>();
+        if (_player)
+            _noiseClose1.PlayAtParentAndFollow(_player.transform);
+
+        yield return new WaitForSeconds(2f);
+
+        DataManager.AmountTimeStoodStill = 0;
     }
 
 

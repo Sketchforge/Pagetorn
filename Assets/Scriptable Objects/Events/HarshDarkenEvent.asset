@@ -9,32 +9,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: Scuttle
+  m_Script: {fileID: 11500000, guid: 6578a0d803e341a43b2dd01964f8704e, type: 3}
+  m_Name: HarshDarkenEvent
   m_EditorClassIdentifier: 
-  _clip:
-    UseClip: 1
-    Clip: {fileID: 8300000, guid: 8b0149321d3a5eb469433c80184ceb50, type: 3}
-    Base: {fileID: 0}
-  _clipStartOffset: 0
-  _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 0.382
-  _pitch: 0.36
-  _stereoPan: 0
-  _reverbZoneMix: 1
-  _priority: 55
-  _bypassEffects: 0
-  _bypassListenerEffects: 0
-  _bypassReverbZones: 0
-  _spatial: 1
-  _spatialBlend: 1
-  _dopplerLevel: 1.21
-  _spread: 0
-  _rolloffMode: 0
-  _minDistance: 1
-  _maxDistance: 11.68
-  _customRolloff: 0
-  _rolloffCurve:
+  _chainEvent: {fileID: 0}
+  _affectFog: 0
+  _fogDensity: 0.02
+  _fogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _switchPostProcessingVolume: 1
+  _profile: {fileID: 11400000, guid: 158f4eec621599246a022fd0a310883d, type: 2}
+  _fadeIn:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 50
+  _fadeOut:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -55,42 +64,6 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _panLevelCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _spreadCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _reverbZoneMixCurve:
-    serializedVersion: 2
-    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

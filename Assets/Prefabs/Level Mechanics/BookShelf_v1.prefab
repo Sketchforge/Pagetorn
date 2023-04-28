@@ -11088,6 +11088,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _collectionSound.Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 499f7a52ef947c74986ba1e2d77d127e, type: 2}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
       objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
@@ -11114,7 +11118,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[6]
       value: 
-      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      objectReference: {fileID: 7680721275283247618, guid: c8be8a52146861740a3eebaee0463bb9, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[7]
       value: 
@@ -11333,6 +11337,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _collectionSound.Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 499f7a52ef947c74986ba1e2d77d127e, type: 2}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
       objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
@@ -11359,7 +11367,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[6]
       value: 
-      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      objectReference: {fileID: 7680721275283247618, guid: c8be8a52146861740a3eebaee0463bb9, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[7]
       value: 
@@ -11516,6 +11524,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _collectionSound.Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 499f7a52ef947c74986ba1e2d77d127e, type: 2}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
       objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
@@ -11542,7 +11554,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[6]
       value: 
-      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      objectReference: {fileID: 7680721275283247618, guid: c8be8a52146861740a3eebaee0463bb9, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[7]
       value: 
@@ -11889,6 +11901,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _collectionSound.Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 499f7a52ef947c74986ba1e2d77d127e, type: 2}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
       objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
@@ -11915,7 +11931,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[6]
       value: 
-      objectReference: {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
+      objectReference: {fileID: 7680721275283247618, guid: c8be8a52146861740a3eebaee0463bb9, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[7]
       value: 

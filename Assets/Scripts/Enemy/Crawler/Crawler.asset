@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crawler
   m_EditorClassIdentifier: 
   _maxHealth: 50
-  _attackDamage: 4
+  _attackDamage: 12
   _moveSpeed: 5
   _rateOfAttack: 2
   _rangeOfVision: 2

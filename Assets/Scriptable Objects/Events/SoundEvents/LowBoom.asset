@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: Scuttle
+  m_Name: LowBoom
   m_EditorClassIdentifier: 
   _clip:
     UseClip: 1
-    Clip: {fileID: 8300000, guid: 8b0149321d3a5eb469433c80184ceb50, type: 3}
+    Clip: {fileID: 8300000, guid: 4fd0fb09beab7874180bf29459035273, type: 3}
     Base: {fileID: 0}
   _clipStartOffset: 0
   _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 0.382
-  _pitch: 0.36
+  _volume: 0.542
+  _pitch: 1
   _stereoPan: 0
   _reverbZoneMix: 1
-  _priority: 55
+  _priority: 161
   _bypassEffects: 0
   _bypassListenerEffects: 0
   _bypassReverbZones: 0
   _spatial: 1
-  _spatialBlend: 1
-  _dopplerLevel: 1.21
+  _spatialBlend: 0
+  _dopplerLevel: 1
   _spread: 0
   _rolloffMode: 0
   _minDistance: 1
-  _maxDistance: 11.68
+  _maxDistance: 10
   _customRolloff: 0
   _rolloffCurve:
     serializedVersion: 2

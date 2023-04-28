@@ -14,6 +14,7 @@ public class ItemDropper : PlayerInteractable
     [SerializeField] Animator _animator;
     [SerializeField] Animation _dropAnimation;
     [SerializeField] GameObject _objectToStopRendering;
+    [SerializeField] SfxReference _collectionSound;
     public bool _collectedItem;
     Vector3 throwDirection;
 
@@ -26,7 +27,9 @@ public class ItemDropper : PlayerInteractable
     {
         //DropItems();
         if (_collectedItem) return;
-        
+
+        if (_collectionSound != null) _collectionSound.Play();
+
         if (_numberToSpawn <= 1)
         {
             if (_dropRandomItem)

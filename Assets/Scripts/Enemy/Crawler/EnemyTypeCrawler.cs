@@ -27,6 +27,8 @@ public class EnemyTypeCrawler : EnemyBase
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField] private bool hasRoamPos = true;
     private bool _themePlaying = false;
+    private bool _playedWalkingSound = false;
+  //  private float _moveSoundLength;
 
    
 
@@ -42,6 +44,7 @@ public class EnemyTypeCrawler : EnemyBase
 
         _myAnimator = _BetaFace.GetComponent<Animator>();
         UpdateClipLengths();
+      //  _moveSoundLength = _moveSound.Clip.length;
 
        // _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
     }
@@ -98,19 +101,35 @@ public class EnemyTypeCrawler : EnemyBase
     {
         //Debug.Log("RoamState");
         _memoryTime = Time.time;
+         
         if (Vector3.Distance(transform.position, _roamPosition) < 20f)
         {
             _roamPosition = GetRoamingPosition();
         }
         FacePosition(_roamPosition);
         MoveTo(_roamPosition);
-        //if (_moveSound.Clip.length - Time.deltaTime > 0)
-        _moveSound.PlayAtParentAndFollow(this.transform);
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
             //Debug.Log("RoamStateIsBeingGlitchy");
             _roamPosition = GetRoamingPosition();
         }
+
+        if (!_playedWalkingSound)
+        {
+            _moveSound.PlayAtParentAndFollow(this.transform);
+            _playedWalkingSound = true;
+
+        }
+        //else if (_playedWalkingSound)
+        //{
+        //    _moveSoundLength -= Time.time;
+        //    if (_moveSoundLength <= 0)
+        //    {
+        //        _playedWalkingSound = false;
+        //        _moveSoundLength = _moveSound.Clip.length;
+        //    }
+        //        
+        //}
 
         if (CheckTarget()) TrySetState(CrawlerState.Chasing);
     }
@@ -137,7 +156,15 @@ public class EnemyTypeCrawler : EnemyBase
         }
 
         MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
-        _moveSound.PlayAtParentAndFollow(this.transform);
+
+        if (!_playedWalkingSound)
+        {
+            _moveSound.PlayAtParentAndFollow(this.transform);
+            _playedWalkingSound = true;
+
+        }
+
+
         if (_isAlpha)
             makeFollowersCircleTarget();
 
@@ -158,10 +185,11 @@ public class EnemyTypeCrawler : EnemyBase
             //    _musicPlayer.clip = _myTheme;
             //    _musicPlayer.Play();
             //}
-            if (!_themePlaying)
+            if (!_themePlaying && !DataManager._chaseSongPlaying)
             {
                 _chaseMusic.ActivateEvent();
                 _themePlaying = true;
+                DataManager._chaseSongPlaying = true;
             }
             
 
