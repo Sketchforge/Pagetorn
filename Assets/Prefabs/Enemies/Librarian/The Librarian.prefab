@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 7250850659108727459}
   - component: {fileID: 9175279925594593121}
   - component: {fileID: 2847658025794327796}
+  - component: {fileID: 8985169200946699760}
   m_Layer: 0
   m_Name: The Librarian
   m_TagString: Witch
@@ -647,6 +648,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8985169200946699760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750776232526170606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757fa67d56b98ad40b03e6ffba4f39f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &6064832165350551844
 GameObject:
   m_ObjectHideFlags: 0

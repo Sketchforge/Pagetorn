@@ -12,7 +12,6 @@ public class LibrarianBehavior : EnemyBase
 
     float cooldownSubtract;
 
-
     protected override void OnStart()
     {
         cooldownSubtract = cooldown;
@@ -100,7 +99,7 @@ public class LibrarianBehavior : EnemyBase
         }
     }
 
-    private void Teleport()
+    public void Teleport()
     {
         _currentRoom = DataManager.currentRoom;
         var room = DataManager.currentRoom;

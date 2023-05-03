@@ -9,6 +9,8 @@ public class DataReactor : MonoBehaviour
     public float averageMonstersKilledPerHour = 30;
     [SerializeField] static public float monsterSpawnRate = 30f;
 
+    [SerializeField] LibrarianBehavior _librarianRef;
+
     [SerializeField] Survival _playerStats;
 
     [Header("Max Fields")]
@@ -18,6 +20,7 @@ public class DataReactor : MonoBehaviour
     [SerializeField] float MAX_MELEEATTACKS;
     [SerializeField] float MAX_ROOMS_FOUND;
     [SerializeField] float MAX_TIME_TIL_LIBRARIAN;
+    [SerializeField] float MAX_FOCUS_LIBRARIAN_AGGRO = 1;
 
     [Header("Events")]
     [SerializeField] PostProcessingEvent _eventFog;
@@ -216,7 +219,14 @@ public class DataReactor : MonoBehaviour
             calledWhispers1 = true;
         }
 
-
+        if (DataManager.focusTime > MAX_FOCUS_LIBRARIAN_AGGRO)
+        {
+            _noiseHeartbeat.ActivateEvent();
+            _librarianRef.Teleport();
+            _eventHurtVignette.ActivateEvent();
+            _spawnSmallCrawler.ActivateEvent();
+            DataManager.focusTime = 0;
+        }
 
 
 
@@ -247,6 +257,7 @@ public class DataReactor : MonoBehaviour
     {
         _eventDarken.ActivateEvent();
         _spawnLibrarian.ActivateEvent();
+        _librarianRef = FindObjectOfType<LibrarianBehavior>();
         _noiseHeartbeat.ActivateEvent();
         calledLibrarianSpawnEvent = true;
     }

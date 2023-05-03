@@ -4657,6 +4657,7 @@ GameObject:
   - component: {fileID: 1490324407}
   - component: {fileID: 1490324406}
   - component: {fileID: 1490324405}
+  - component: {fileID: 1490324408}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -4734,6 +4735,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1490324408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490324404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38d4e48e3a8ad340b3a227959d3f4e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505592443
 GameObject:
   m_ObjectHideFlags: 0
@@ -5397,13 +5410,15 @@ MonoBehaviour:
   numDistanceWalked: 0.48000014
   totalTimePassed: 10.773872
   averageMonstersKilledPerHour: 3
+  _librarianRef: {fileID: 0}
   _playerStats: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
   MAX_DISTANCE: 200
   MAX_TIME: 0
   MAX_TIME_STOOD_STILL: 100
   MAX_MELEEATTACKS: 20
   MAX_ROOMS_FOUND: 10
-  MAX_TIME_TIL_LIBRARIAN: 30
+  MAX_TIME_TIL_LIBRARIAN: 5
+  MAX_FOCUS_LIBRARIAN_AGGRO: 1
   _eventFog: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
   _eventDarken: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}
   _eventHarshDarken: {fileID: 11400000, guid: d957b98230a37ee41a4145b231ccbed0, type: 2}
