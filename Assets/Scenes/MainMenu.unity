@@ -872,6 +872,7 @@ MonoBehaviour:
   _track: {fileID: 0}
   _clipVolume: 0.562
   _active: 0
+  _playedNextQueued: 0
 --- !u!1 &206183596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1271175013, guid: 2cf09edd537cfa143b84d85ae397d411, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3174,6 +3175,7 @@ MonoBehaviour:
   _track: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
   _clipVolume: 0.562
   _active: 1
+  _playedNextQueued: 0
 --- !u!82 &799518033
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4789,7 +4791,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1271175013, guid: 2cf09edd537cfa143b84d85ae397d411, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8207,7 +8209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1271175013, guid: 2cf09edd537cfa143b84d85ae397d411, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
