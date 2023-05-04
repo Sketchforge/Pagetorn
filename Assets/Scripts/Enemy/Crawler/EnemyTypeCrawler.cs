@@ -36,13 +36,18 @@ public class EnemyTypeCrawler : EnemyBase
 
     public bool HasAlpha => _alpha != null;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         _startingPosition = transform.position;
         _roamPosition = GetRoamingPosition();
         UpdateAlphaStatus();
 
         _myAnimator = _BetaFace.GetComponent<Animator>();
+    }
+
+    protected override void OnStart()
+    {
+
         UpdateClipLengths();
       //  _moveSoundLength = _moveSound.Clip.length;
 

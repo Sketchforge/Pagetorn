@@ -15,7 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
     
     [Header("References")]
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] protected NavMeshAgent _agent;
     [SerializeField] private Health _health;
     [SerializeField] private EnemyData _data;
     [SerializeField] protected int _numberGloopsEaten = 0;
@@ -69,6 +69,8 @@ public abstract class EnemyBase : MonoBehaviour
         theCam = Camera.main;
         _aiManager = FindObjectOfType<AIManager>();
         _aiManager.Units.Add(this);
+
+        OnAwake();
     }
 
     private void OnEnable()
@@ -141,6 +143,7 @@ public abstract class EnemyBase : MonoBehaviour
     #endregion
 
     protected abstract void OnLoseTarget();
+    protected abstract void OnAwake();
     protected abstract void OnStart();
     protected abstract void OnUpdate();
 

@@ -37,6 +37,11 @@ public class EnemyTypeRanger : EnemyBase
 
     public bool HasAlpha => _alpha != null;
 
+    protected override void OnAwake()
+    {
+        throw new System.NotImplementedException();
+    }
+
     protected override void OnStart()
     {
         _startingPosition = transform.position;

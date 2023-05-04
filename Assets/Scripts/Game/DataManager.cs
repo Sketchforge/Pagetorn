@@ -15,6 +15,7 @@ public static class DataManager
     static public int NumberBooksCollected;
     static public int NumberRoomsFound;
     static public int NumberMonstersKilled;
+    static public int NumberTimesHitLibrarian;
 
 
     

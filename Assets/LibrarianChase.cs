@@ -31,6 +31,11 @@ public class LibrarianChase : EnemyBase
         //Destroy(this.gameObject);
     }
 
+    protected override void OnAwake()
+    {
+        throw new System.NotImplementedException();
+    }
+
     protected override void OnStart()
     {
         Debug.Log("Spawned Evil Guy");

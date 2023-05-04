@@ -5,7 +5,7 @@ using UnityEngine;
 public class FacingObject : MonoBehaviour
 {
     [SerializeField] PlayerMovementScript player;
-    [SerializeField] float focus;
+    [SerializeField] float angle = 10;
     // Update is called once per frame
     private void Awake()
     {
@@ -18,11 +18,9 @@ public class FacingObject : MonoBehaviour
 
     void Update()
     {
-        float angle = 10;
         if (Vector3.Angle(player.transform.forward, transform.position - player.transform.position) < angle)
         {
-            focus+= Time.deltaTime;
-            DataManager.focusTime = focus;
+            DataManager.focusTime += Time.deltaTime;
         }
     }
 }
