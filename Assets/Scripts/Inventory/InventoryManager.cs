@@ -71,7 +71,6 @@ public class InventoryManager : MonoBehaviour
         {
             MovingItem = false;
             if (_heldItemParent) _heldItemParent.gameObject.SetActive(false);
-            CanvasController.ToolbarManager.UpdateSlot();
         }
     }
 
@@ -91,6 +90,19 @@ public class InventoryManager : MonoBehaviour
             CanvasController.ToolbarManager.UpdateSlot();
 
         return true;
+    }
+
+    public void TryDetailItem(InventoryItemSlot slot)
+    {
+        //Debug.Log("Detailing item test");
+        if (!slot.HasItem)
+        {
+            CanvasController.Singleton.CloseDetails();
+            return;
+        }
+        //Debug.Log("Can detail");
+        CanvasController.Singleton.OpenDetails(slot.Item.ItemName, slot.Item.ItemDescription);
+
     }
 
     // Pickup item from Inventory UI
@@ -127,6 +139,9 @@ public class InventoryManager : MonoBehaviour
             slot.ClearSlot();
         }
         UpdateHeldItem();
+
+        if (slot == CanvasController.ToolbarManager.SelectedItemSlot)
+            CanvasController.ToolbarManager.UpdateSlot();
     }
 
     // Swap item from Inventory UI
@@ -135,6 +150,8 @@ public class InventoryManager : MonoBehaviour
         if (!slot.AllowsItem(_heldItem)) return;
         (_heldItem, _heldItemAmount) = slot.SwapItem(_heldItem, _heldItemAmount);
         UpdateHeldItem();
+        if (slot == CanvasController.ToolbarManager.SelectedItemSlot)
+            CanvasController.ToolbarManager.UpdateSlot();
     }
     
     // Place item from Inventory UI
@@ -154,5 +171,7 @@ public class InventoryManager : MonoBehaviour
         _heldItemAmount -= onlyOne ? 1 : _heldItemAmount;
         if (_heldItemAmount <= 0) _heldItem = null;
         UpdateHeldItem();
+        if (slot == CanvasController.ToolbarManager.SelectedItemSlot)
+            CanvasController.ToolbarManager.UpdateSlot();
     }
 }

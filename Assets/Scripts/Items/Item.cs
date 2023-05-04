@@ -15,6 +15,7 @@ public class Item : ScriptableObject
     [SerializeField] public GameObject _prefabObject;
 
     public string ItemName => _itemName;
+    public string ItemDescription => _description;
     public ItemType Type => _type;
     public Sprite Sprite => _sprite;
     public int StackAmount => _canStack ? _stackAmount : 1;
@@ -26,7 +27,7 @@ public class Item : ScriptableObject
 
     protected virtual void OnValidate()
     {
-        _itemName = name.Replace("SC", "SoftCover").Replace("HC", "HardCover").Replace(" ", "");
+        _itemName = name.Replace("SC", "Soft Cover").Replace("HC", "Hard Cover");
         _canStack = !(IsArmor || IsToolOrWeapon);
     }
 

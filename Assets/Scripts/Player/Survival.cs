@@ -25,7 +25,7 @@ public class Survival : ScriptableObject
     //[SerializeField] private float _magicLevel; // possibly shows as a number every time kp passes max slider amount, or could signify level up passsive buffs
     [SerializeField] private float _knowledgePoints;
     [SerializeField] private float _maxKnowledge = 100;
-    [SerializeField] private List<float> LevelCaps = new List<float>();
+    [SerializeField] public List<float> LevelCaps = new List<float>();
 
     public float Mitigation = 1.0f;
 

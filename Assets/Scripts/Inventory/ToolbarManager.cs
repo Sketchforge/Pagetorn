@@ -91,14 +91,11 @@ public class ToolbarManager : MonoBehaviour
 	{
         if (objectSpawned)
             Destroy(objectSpawned); // 1am lol
-        else
-		{
-            bool hasPrefabObject = SelectedItem && SelectedItem._prefabObject;
-            if (hasPrefabObject)
-            {
-                objectSpawned = Instantiate(SelectedItem._prefabObject, _playerObjectSocket);
-                //objectSpawned.transform.position = new Vector3(0, 0, 0);
-            }
+        bool hasPrefabObject = SelectedItem && SelectedItem._prefabObject;
+        if (hasPrefabObject)
+        {
+            objectSpawned = Instantiate(SelectedItem._prefabObject, _playerObjectSocket);
+            //objectSpawned.transform.position = new Vector3(0, 0, 0);
         }
     }
 }

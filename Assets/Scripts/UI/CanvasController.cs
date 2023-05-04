@@ -7,6 +7,9 @@ public class CanvasController : MonoBehaviour
     
 	[SerializeField] private Canvas _pauseMenu;
     [SerializeField] private Canvas _hud;
+    [SerializeField] private GameObject _detailsMenu;
+    [SerializeField] private TMPro.TMP_Text _nameText;
+    [SerializeField] private TMPro.TMP_Text _descriptionText;
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private CraftingManager _craftingManager;
     [SerializeField] private ToolbarManager _toolbarManager;
@@ -45,6 +48,18 @@ public class CanvasController : MonoBehaviour
 	    _hud.enabled = false;
         InventoryOpen = true;
         PlayerManager.Actions.CheckState();
+    }
+
+    public void OpenDetails(string name, string details)
+	{
+        _detailsMenu.SetActive(true);
+        _nameText.text = name;
+        _descriptionText.text = details;
+
+	}
+    public void CloseDetails()
+	{
+        _detailsMenu.SetActive(false);
     }
 
     public void OpenCrafting()

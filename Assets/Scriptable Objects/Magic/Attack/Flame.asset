@@ -17,7 +17,9 @@ MonoBehaviour:
   _description: 'A book on pyrotechnics.
 
     Shoots a fireball at a target dealing
-    60 damage. 200kp, 4 pages.'
+    60 damage.
+
+    Level 2 spell.'
   _sprite: {fileID: 21300000, guid: 1315244061a159140a0d87d2a4eb575d, type: 3}
   _canStack: 1
   _stackAmount: 99

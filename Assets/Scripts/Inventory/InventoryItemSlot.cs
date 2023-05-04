@@ -176,9 +176,16 @@ public class InventoryItemSlot : MonoBehaviour, IPointerClickHandler, IDragHandl
         OnSelected?.Invoke(selected);
     }
 
-    public void OnPointerClick(PointerEventData data)
+	public void OnSelect(BaseEventData eventData)
+	{
+        Debug.Log("Mouse over");
+        CanvasController.InventoryManager.TryDetailItem(this);
+    }
+
+	public void OnPointerClick(PointerEventData data)
     {
         bool left = data.button == PointerEventData.InputButton.Left;
+        CanvasController.InventoryManager.TryDetailItem(this);
         if (_item == null)
         {
             CanvasController.InventoryManager.TryPlaceItem(this, left);
