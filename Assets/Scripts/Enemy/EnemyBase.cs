@@ -22,6 +22,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected GameObject _BetaFace;
     [SerializeField] protected GameObject _AlphaFace;
     [SerializeField] private Camera theCam;
+    [SerializeField] private AIManager _aiManager;
 
     [SerializeField] LayerMask hitMask;
 
@@ -66,6 +67,8 @@ public abstract class EnemyBase : MonoBehaviour
         //AIManager.Instance.Units.Add(this);
         _health.SetHealth(_data.MaxHealth);
         theCam = Camera.main;
+        _aiManager = FindObjectOfType<AIManager>();
+        _aiManager.Units.Add(this);
     }
 
     private void OnEnable()

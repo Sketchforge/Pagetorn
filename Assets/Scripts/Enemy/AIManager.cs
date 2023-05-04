@@ -34,15 +34,15 @@ public class AIManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(20,20,200,50), "Move to Target"))
-        {
-            makeAgentsCircleTarget();
-        }
-    }
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(20,20,200,50), "Move to Target"))
+    //    {
+    //        makeAgentsCircleTarget();
+    //    }
+    //}
 
-    private void makeAgentsCircleTarget()
+    public void makeAgentsCircleTarget()
     {
         for (int i = 0; i < Units.Count; i++)
         {

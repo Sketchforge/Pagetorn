@@ -6,10 +6,11 @@ public class DataReactor : MonoBehaviour
 {
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
-    public float averageMonstersKilledPerHour = 30;
-    [SerializeField] static public float monsterSpawnRate = 30f;
+    public float averageMonstersKilledPerHour = 15;
+    [SerializeField] static public float monsterSpawnRate = 90f;
 
     [SerializeField] LibrarianBehavior _librarianRef;
+    [SerializeField] AIManager _aiManager;
 
     [SerializeField] Survival _playerStats;
 
@@ -20,7 +21,7 @@ public class DataReactor : MonoBehaviour
     [SerializeField] float MAX_MELEEATTACKS;
     [SerializeField] float MAX_ROOMS_FOUND;
     [SerializeField] float MAX_TIME_TIL_LIBRARIAN;
-    [SerializeField] float MAX_FOCUS_LIBRARIAN_AGGRO = 1;
+    [SerializeField] float MAX_FOCUS_LIBRARIAN_AGGRO = 30;
 
     [Header("Events")]
     [SerializeField] PostProcessingEvent _eventFog;
@@ -165,6 +166,7 @@ public class DataReactor : MonoBehaviour
         {
             DataManager.bUsesMeleeALot = true;
             _eventDarken.ActivateEvent(ResetMeleeAttackNumber);
+            _aiManager.makeAgentsCircleTarget();
 
         }
 
@@ -222,8 +224,9 @@ public class DataReactor : MonoBehaviour
         if (DataManager.focusTime > MAX_FOCUS_LIBRARIAN_AGGRO)
         {
             _noiseHeartbeat.ActivateEvent();
+            _heartbeatIsPlaying = true;
             _librarianRef.Teleport();
-            _eventHurtVignette.ActivateEvent();
+            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
             _spawnSmallCrawler.ActivateEvent();
             DataManager.focusTime = 0;
         }
