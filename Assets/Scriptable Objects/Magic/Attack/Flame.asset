@@ -25,7 +25,7 @@ MonoBehaviour:
   _maxHealth: 4
   _prefabObject: {fileID: 5335949647275027712, guid: c33aedf9082d5c94faf220961b89daac, type: 3}
   _magicType: 0
-  _knowledgePoints: 200
+  _knowledgePoints: 300
   _pageAmount: 3
   _canAttack: 1
   _canDefend: 0

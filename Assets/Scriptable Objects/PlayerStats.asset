@@ -23,4 +23,10 @@ MonoBehaviour:
   _maxHydration: 100
   _knowledgePoints: 6.85
   _maxKnowledge: 3000
+  _levelCaps:
+  - 150
+  - 300
+  - 600
+  - 1000
+  - 3000
   Mitigation: 0.82

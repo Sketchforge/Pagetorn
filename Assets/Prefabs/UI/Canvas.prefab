@@ -6861,6 +6861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8630891292015065735}
   - component: {fileID: 8630891292015065728}
+  - component: {fileID: 1175078589234815249}
   m_Layer: 5
   m_Name: Magic
   m_TagString: Untagged
@@ -6898,7 +6899,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8630891292015065734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc5bccc0793f0c247b422a099ee1e956, type: 3}
   m_Name: 
@@ -6906,6 +6907,23 @@ MonoBehaviour:
   _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
   _stat: 3
   _displayText: {fileID: 0}
+  _slider: {fileID: 8630891292344637625}
+  _circleSlider: {fileID: 0}
+--- !u!114 &1175078589234815249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630891292015065734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3eb700db6a904f8c8ab82a659662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _survival: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
+  _magicStat: 3
+  _displayText: {fileID: 8142411736793173580}
   _slider: {fileID: 8630891292344637625}
   _circleSlider: {fileID: 0}
 --- !u!1 &8630891292049813572
@@ -9637,7 +9655,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8630891292727392823}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
