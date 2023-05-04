@@ -30,7 +30,7 @@ public class AIManager : MonoBehaviour
             Instance = this;
             return;
         }
-
+        _target = FindObjectOfType<PlayerActionManager>().GetComponent<Transform>();
         Destroy(gameObject);
     }
 

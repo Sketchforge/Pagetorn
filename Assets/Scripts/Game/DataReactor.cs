@@ -47,6 +47,7 @@ public class DataReactor : MonoBehaviour
     private float spellCountTimer = 60f;
     private float monsterKillCountTimer = 3600f; // one hour
     private float _resetTime = 10f;
+    bool walkCounted = false;
     bool _heartbeatIsPlaying = false;
     bool calledSpawnEvent = false;
     bool calledLibrarianSpawnEvent = false;
@@ -153,11 +154,12 @@ public class DataReactor : MonoBehaviour
         #region Behavior Reactor
 
         #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f))
+        if (DataManager.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f) && !walkCounted)
         {
           //  Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _eventFog.ActivateEvent(ResetWalkDistance);
             DataManager.TimesWalkedLargeDistances++;
+            walkCounted = true;
         }
       
         #endregion
@@ -221,14 +223,10 @@ public class DataReactor : MonoBehaviour
             calledWhispers1 = true;
         }
 
-        if (DataManager.focusTime > MAX_FOCUS_LIBRARIAN_AGGRO)
+        if (DataManager.focusTime >= MAX_FOCUS_LIBRARIAN_AGGRO)
         {
-            _noiseHeartbeat.ActivateEvent();
-            _heartbeatIsPlaying = true;
-            _librarianRef.Teleport();
-            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
-            _spawnSmallCrawler.ActivateEvent();
             DataManager.focusTime = 0;
+            ForceTeleportLibrarian(false);
         }
 
 
@@ -240,10 +238,10 @@ public class DataReactor : MonoBehaviour
         if (_playerStats.IsStatLow(SurvivalStatEnum.Health))
         {
             Debug.Log("Health Low!");
+            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
             if (!_heartbeatIsPlaying)
             {
-                _noiseHeartbeat.ActivateEvent();
-                _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+                _noiseHeartbeat.ActivateEvent(ResetHeartbeat);
                 _heartbeatIsPlaying = true;
             }
         }
@@ -265,9 +263,32 @@ public class DataReactor : MonoBehaviour
         calledLibrarianSpawnEvent = true;
     }
 
+    public void ForceTeleportLibrarian(bool wasForced)
+    {
+ 
+        if (!_heartbeatIsPlaying)
+        {
+        _noiseHeartbeat.ActivateEvent(ResetHeartbeat);
+        _heartbeatIsPlaying = true;
+        }
+        
+        _librarianRef.Teleport();
+        _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+        
+        if (wasForced) DataManager.NumberTimesHitLibrarian += 1;
+        if (DataManager.NumberTimesHitLibrarian >= 3)
+        {
+            DataManager.bIsHostile = true;
+            _spawnSmallCrawler.ActivateEvent();
+            DataManager.NumberTimesHitLibrarian = 0;
+        }
+       
+    }
+
     private void ResetWalkDistance()
     {
         DataManager.NumberDistanceWalked = 0;
+        walkCounted = false;
     }
 
     private void ResetMeleeAttackNumber()
