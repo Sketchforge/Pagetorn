@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using CoffeyUtils.Sound;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+	[SerializeField] private MusicTrack _mainMenuMusic;
 	[SerializeField] private Canvas _mainMenuCanvas;
 	[SerializeField] private Canvas _optionsCanvas;
 	
@@ -17,6 +19,7 @@ public class MainMenuController : MonoBehaviour
 		SetSelected(_mainMenuFirstSelected);
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
+		_mainMenuMusic.Play();
 	}
 	
 	public void QuitGame()

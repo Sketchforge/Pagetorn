@@ -3102,6 +3102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e2cb0e6a3ded041b5f1c00d91d8bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuMusic: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
   _mainMenuCanvas: {fileID: 1029582068}
   _optionsCanvas: {fileID: 1415091613}
   _mainMenuFirstSelected: {fileID: 1455943627}
@@ -7224,7 +7225,6 @@ GameObject:
   - component: {fileID: 1416868855}
   - component: {fileID: 1416868854}
   - component: {fileID: 1416868853}
-  - component: {fileID: 1416868856}
   m_Layer: 5
   m_Name: Title (1)
   m_TagString: Untagged
@@ -7399,35 +7399,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416868851}
   m_CullTransparentMesh: 1
---- !u!114 &1416868856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416868851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
-          m_TargetAssemblyTypeName: MusicTrack, Assembly-CSharp-firstpass
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1418611031
 GameObject:
   m_ObjectHideFlags: 0
