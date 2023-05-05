@@ -20,6 +20,7 @@ public class MainMenuController : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
 		_mainMenuMusic.Play();
+		_mainMenuMusic.Queue();
 	}
 	
 	public void QuitGame()

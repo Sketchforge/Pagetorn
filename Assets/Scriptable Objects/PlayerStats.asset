@@ -18,7 +18,7 @@ MonoBehaviour:
   _hunger: 100
   _hungerLowThreshold: 20
   _maxHunger: 100
-  _hydration: 99.99437
+  _hydration: 100
   _hydrationLowThreshold: 20
   _maxHydration: 100
   _knowledgePoints: 0

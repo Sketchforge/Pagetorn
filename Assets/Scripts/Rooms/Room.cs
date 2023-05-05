@@ -74,11 +74,26 @@ public class Room : MonoBehaviour
             bool active = room == this || room == _posZConnectedRoom || room == _negZConnectedRoom || room == _posXConnectedRoom || room == _negXConnectedRoom;
 	    	room.gameObject.SetActive(active);
         }
-	    gameObject.SetActive(true);
-	    if (_posZConnectedRoom) _posZConnectedRoom.SetDoorActive(1, false);
-	    if (_negZConnectedRoom) _negZConnectedRoom.SetDoorActive(0, false);
-	    if (_posXConnectedRoom) _posXConnectedRoom.SetDoorActive(3, false);
-	    if (_negXConnectedRoom) _negXConnectedRoom.SetDoorActive(2, false);
+        if (_posZConnectedRoom)
+        {
+            _posZConnectedRoom.gameObject.SetActive(true);
+            _posZConnectedRoom.SetDoorActive(1, false);
+        }
+        if (_negZConnectedRoom)
+        {
+            _negZConnectedRoom.gameObject.SetActive(true);
+            _negZConnectedRoom.SetDoorActive(0, false);
+        }
+        if (_posXConnectedRoom)
+        {
+            _posXConnectedRoom.gameObject.SetActive(true);
+            _posXConnectedRoom.SetDoorActive(3, false);
+        }
+        if (_negXConnectedRoom)
+        {
+            _negXConnectedRoom.gameObject.SetActive(true);
+            _negXConnectedRoom.SetDoorActive(2, false);
+        }
 	    SetDoorActive(0, _posZConnectedRoom == null);
 	    SetDoorActive(1, _negZConnectedRoom == null);
 	    SetDoorActive(2, _posXConnectedRoom == null);
