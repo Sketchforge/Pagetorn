@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CoffeyUtils;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyTypeCrawler : EnemyBase
 {
@@ -29,6 +31,7 @@ public class EnemyTypeCrawler : EnemyBase
     [SerializeField] private bool hasRoamPos = true;
     private bool _themePlaying = false;
     private bool _playedWalkingSound = false;
+    [SerializeField, ReadOnly] private float _losePlayerDelayTimer;
 
   //  private float _moveSoundLength;
 
@@ -56,6 +59,11 @@ public class EnemyTypeCrawler : EnemyBase
        // _musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
     }
 
+    private void OnDestroy()
+    {
+        GameManager.Data.RemoveMonsterSeePlayer(this);
+    }
+
     protected override void OnUpdate()
     {
         if (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 55f)
@@ -72,6 +80,7 @@ public class EnemyTypeCrawler : EnemyBase
             default:
             case CrawlerState.Roaming:
                 OnRoamingState();
+                if (_hasAddedSelfToViewList) _losePlayerDelayTimer -= Time.deltaTime;
                 break;
             case CrawlerState.Chasing:
                 OnChasingState();
@@ -86,13 +95,18 @@ public class EnemyTypeCrawler : EnemyBase
                 OnFleeingState();
                 break;
         }
+        if (_hasAddedSelfToViewList && _losePlayerDelayTimer <= 0)
+        {
+            _losePlayerDelayTimer = 0;
+            _hasAddedSelfToViewList = false;
+            GameManager.Data.RemoveMonsterSeePlayer(this);
+            _themePlaying = false;
+        }
     }
 
     protected override void OnLoseTarget()
     {
-        GameManager.Data.MonstersWatchingPlayer.Remove(this);
-        _hasAddedSelfToViewList = false;
-        _crawlerState = CrawlerState.Roaming;
+        TrySetState(CrawlerState.Roaming);
     }
 
     [Button]
@@ -148,7 +162,6 @@ public class EnemyTypeCrawler : EnemyBase
         //Debug.Log("ChaseState");
         if (!_target)
         {
-            GameManager.Data.MonstersWatchingPlayer.Remove(this);
             TrySetState(CrawlerState.Roaming);
             return;
         }
@@ -183,8 +196,6 @@ public class EnemyTypeCrawler : EnemyBase
         {
             if (!CheckTarget())
             {
-                GameManager.Data.MonstersWatchingPlayer.Remove(this);
-                _hasAddedSelfToViewList = false;
                 Debug.Log("AttemptedToRemove");
                 TrySetState(CrawlerState.Roaming);
                 return;
@@ -199,9 +210,10 @@ public class EnemyTypeCrawler : EnemyBase
             //    _musicPlayer.clip = _myTheme;
             //    _musicPlayer.Play();
             //}
+            _losePlayerDelayTimer = Data.MemoryTimeout;
             if (!_hasAddedSelfToViewList)
             {
-                GameManager.Data.MonstersWatchingPlayer?.Add(this);
+                GameManager.Data.AddMonsterSeePlayer(this);
                 _hasAddedSelfToViewList = true;
             }
             
@@ -331,6 +343,10 @@ public class EnemyTypeCrawler : EnemyBase
     // ReSharper disable Unity.PerformanceAnalysis
     private bool TrySetState(CrawlerState newState, bool fromAlpha = false)
     {
+        if (newState == CrawlerState.Roaming)
+        {
+            _losePlayerDelayTimer = Data.MemoryTimeout;
+        }
         if (HasAlpha && !fromAlpha)
         {
             // Brute force to fix bugs

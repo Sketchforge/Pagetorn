@@ -45,6 +45,15 @@ public class GameData : ScriptableObject
     [field: SerializeField] public bool ChaseThemePlaying { get; set; }
     [field: SerializeField] public List<EnemyBase> MonstersWatchingPlayer { get; private set; } = new List<EnemyBase>();
 
+    public void AddMonsterSeePlayer(EnemyBase enemy)
+    {
+        if (!MonstersWatchingPlayer.Contains(enemy)) MonstersWatchingPlayer.Add(enemy);
+    }
+    
+    public void RemoveMonsterSeePlayer(EnemyBase enemy)
+    {
+        if (MonstersWatchingPlayer.Contains(enemy)) MonstersWatchingPlayer.Remove(enemy);
+    }
     
     [Button]
     public void ResetAll()

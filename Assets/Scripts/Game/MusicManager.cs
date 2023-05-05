@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CoffeyUtils;
 using CoffeyUtils.Sound;
 using UnityEngine;
 
@@ -7,26 +8,22 @@ namespace Game.SoundSystem
 {
     public class MusicManager : MonoBehaviour
     {
-        public float timeBetweenSongs = 60f; // The amount of time to wait before changing songs
+        public Vector2 timeBetweenSongs = new Vector2(10f, 40f); // The amount of time to wait before changing songs
         [SerializeField] public List<MusicTrack> _peacefulTracks;
         //SoundManager _soundManager;
 
-        private int currentSongIndex = 0; // The index of the currently playing song
-        private bool changingSong = false;
+        [SerializeField, ReadOnly] private int currentSongIndex = 0; // The index of the currently playing song
+        [SerializeField, ReadOnly] private bool changingSong = false;
 
         private void Update()
         {
-            if ((GameManager.Data.ChaseThemePlaying == true && GameManager.Data.MonstersWatchingPlayer?.Count <= 0))
+            if (GameManager.Data.ChaseThemePlaying && GameManager.Data.MonstersWatchingPlayer?.Count <= 0)
             {
-                if (!changingSong)
-                {
-                    SoundManager.StopAllMusic();
-                    GameManager.Data.ChaseThemePlaying = false;
-                    StartCoroutine(ChangeSongs());
-                }
-                   
+                SoundManager.StopAllMusic();
+                GameManager.Data.ChaseThemePlaying = false;
+                StopAllCoroutines();
+                StartCoroutine(ChangeSongs());
             }
-
             else
             {
                 if (!changingSong)
@@ -39,7 +36,7 @@ namespace Game.SoundSystem
             Debug.Log("ChangeSongsActivated");
             // Wait for the specified amount of time
             changingSong = true;
-            yield return new WaitForSeconds(timeBetweenSongs);
+            yield return new WaitForSeconds(Random.Range(timeBetweenSongs.x, timeBetweenSongs.y));
 
             // Set the next song to play if no monster watching - these are peaceful songs
             

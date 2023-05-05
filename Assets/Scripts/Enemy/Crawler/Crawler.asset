@@ -18,6 +18,6 @@ MonoBehaviour:
   _rateOfAttack: 2
   _rangeOfVision: 2
   _attackRange: 2.5
-  _memoryTimeout: 5
+  _memoryTimeout: 6
   _loot:
   - {fileID: 7680721275283247618, guid: ed3db488ce00f5d498ff2caeb231f414, type: 3}
