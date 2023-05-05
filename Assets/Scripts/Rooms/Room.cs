@@ -52,7 +52,6 @@ public class Room : MonoBehaviour
 
     private void Awake()
     {
-	    DataManager.currentRoom = this;
 	    if (!_rooms.Contains(this)) _rooms.Add(this);
     }
 	
@@ -69,7 +68,7 @@ public class Room : MonoBehaviour
         if (_posXConnectedRoom) _posXConnectedRoom.CheckGenerateNeighbors();
         if (_negXConnectedRoom) _negXConnectedRoom.CheckGenerateNeighbors();
 
-        DataManager.currentRoom = this;
+        GameManager.Data.CurrentRoom = this;
 
 	    foreach(var room in _rooms)
         {

@@ -16,12 +16,12 @@ namespace Game.SoundSystem
 
         private void Update()
         {
-            if ((DataManager._chaseThemePlaying == true && DataManager._monstersWatchingPlayer?.Count <= 0))
+            if ((GameManager.Data.ChaseThemePlaying == true && GameManager.Data.MonstersWatchingPlayer?.Count <= 0))
             {
                 if (!changingSong)
                 {
                     SoundManager.StopAllMusic();
-                    DataManager._chaseThemePlaying = false;
+                    GameManager.Data.ChaseThemePlaying = false;
                     StartCoroutine(ChangeSongs());
                 }
                    
@@ -33,7 +33,7 @@ namespace Game.SoundSystem
                     StartCoroutine(ChangeSongs());
             }
         }
-        //(DataManager.currentRoom.HalfRoomSize.x <= 15 || DataManager.currentRoom.HalfRoomSize.y <= 15) ||
+        //(GameManager.Data.currentRoom.HalfRoomSize.x <= 15 || GameManager.Data.currentRoom.HalfRoomSize.y <= 15) ||
         public IEnumerator ChangeSongs()
         {
             Debug.Log("ChangeSongsActivated");

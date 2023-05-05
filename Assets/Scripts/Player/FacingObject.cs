@@ -20,7 +20,7 @@ public class FacingObject : MonoBehaviour
     {
         if (Vector3.Angle(player.transform.forward, transform.position - player.transform.position) < angle)
         {
-            DataManager.focusTime += Time.deltaTime;
+            GameManager.Data.FocusTime += Time.deltaTime;
         }
     }
 }

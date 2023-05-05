@@ -90,7 +90,7 @@ public class EnemyTypeCrawler : EnemyBase
 
     protected override void OnLoseTarget()
     {
-        DataManager._monstersWatchingPlayer.Remove(this);
+        GameManager.Data.MonstersWatchingPlayer.Remove(this);
         _hasAddedSelfToViewList = false;
         _crawlerState = CrawlerState.Roaming;
     }
@@ -148,6 +148,7 @@ public class EnemyTypeCrawler : EnemyBase
         //Debug.Log("ChaseState");
         if (!_target)
         {
+            GameManager.Data.MonstersWatchingPlayer.Remove(this);
             TrySetState(CrawlerState.Roaming);
             return;
         }
@@ -182,7 +183,7 @@ public class EnemyTypeCrawler : EnemyBase
         {
             if (!CheckTarget())
             {
-                DataManager._monstersWatchingPlayer.Remove(this);
+                GameManager.Data.MonstersWatchingPlayer.Remove(this);
                 _hasAddedSelfToViewList = false;
                 Debug.Log("AttemptedToRemove");
                 TrySetState(CrawlerState.Roaming);
@@ -200,15 +201,15 @@ public class EnemyTypeCrawler : EnemyBase
             //}
             if (!_hasAddedSelfToViewList)
             {
-                DataManager._monstersWatchingPlayer?.Add(this);
+                GameManager.Data.MonstersWatchingPlayer?.Add(this);
                 _hasAddedSelfToViewList = true;
             }
             
-            if (!_themePlaying && !DataManager._chaseThemePlaying)
+            if (!_themePlaying && !GameManager.Data.ChaseThemePlaying)
             {
                 _chaseMusic.ActivateEvent();
                 _themePlaying = true;
-                DataManager._chaseThemePlaying = true;
+                GameManager.Data.ChaseThemePlaying = true;
             }
             
 

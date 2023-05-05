@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class DataReactor : MonoBehaviour
 {
-    public float numDistanceWalked = DataManager.NumberDistanceWalked;
-    public float totalTimePassed = DataManager.totalTime;
+    public float numDistanceWalked;
+    public float totalTimePassed;
     public float averageMonstersKilledPerHour = 15;
     [SerializeField, ReadOnly] int _monsterWatchingCount;
     [SerializeField] static public float monsterSpawnRate = 90f;
@@ -82,75 +82,75 @@ public class DataReactor : MonoBehaviour
     void Update()
     {
         //DEBUG - Delete before final build
-        numDistanceWalked = DataManager.NumberDistanceWalked;
-        totalTimePassed = DataManager.totalTime;
-        _monsterWatchingCount = DataManager._monstersWatchingPlayer.Count;
+        numDistanceWalked = GameManager.Data.NumberDistanceWalked;
+        totalTimePassed = GameManager.Data.TotalTime;
+        _monsterWatchingCount = GameManager.Data.MonstersWatchingPlayer.Count;
         //
         
 
         #region Behavior Nominator
         
-        //DataManager.bCollectsLotsofBooks;
-        //DataManager.bExploresLotsOfRooms;
+        //GameManager.Data.bCollectsLotsofBooks;
+        //GameManager.Data.bExploresLotsOfRooms;
 
         //WALKS LARGE DISTANCES//
-        if (DataManager.TimesWalkedLargeDistances >= 5)
+        if (GameManager.Data.TimesWalkedLargeDistances >= 5)
         {
-            DataManager.bWalksLargeDistances = true;
+            GameManager.Data.BWalksLargeDistances = true;
         }
 
         //KILLS LOTS OF MONSTERS//
-        if (!DataManager.bKillsLotsOfMonsters)
+        if (!GameManager.Data.BKillsLotsOfMonsters)
             monsterKillCountTimer -= Time.deltaTime;
-        else if (DataManager.bKillsLotsOfMonsters)
+        else if (GameManager.Data.BKillsLotsOfMonsters)
             _resetTime -= Time.deltaTime;
         if (monsterKillCountTimer <= 0f) //if greater than a minute
         {
-            DataManager.NumberMonstersKilledLastHour = 0; //resets to 0;
+            GameManager.Data.NumberMonstersKilledLastHour = 0; //resets to 0;
             monsterKillCountTimer = 3600f;
         }
-        if (DataManager.NumberMonstersKilledLastHour >= averageMonstersKilledPerHour)
-            DataManager.bKillsLotsOfMonsters = true;
-        if (DataManager.NumberMonstersKilledLastHour > 15f)
+        if (GameManager.Data.NumberMonstersKilledLastHour >= averageMonstersKilledPerHour)
+            GameManager.Data.BKillsLotsOfMonsters = true;
+        if (GameManager.Data.NumberMonstersKilledLastHour > 15f)
         {
             _spawnSmallCrawler.ActivateEvent();
             _spawnSmallCrawler.ActivateEvent();
         }
-        if (DataManager.NumberMonstersKilledLastHour > 30f)
+        if (GameManager.Data.NumberMonstersKilledLastHour > 30f)
         {
             _spawnSmallRanger.ActivateEvent();
         }
         if (_resetTime <= 0f)
         {
-            DataManager.NumberMonstersKilledLastHour = 0;
-            DataManager.bKillsLotsOfMonsters = false;
+            GameManager.Data.NumberMonstersKilledLastHour = 0;
+            GameManager.Data.BKillsLotsOfMonsters = false;
             _resetTime = 10f;
         }
 
         //STANDS STILL A LOT//
-        if (DataManager.AmountTimeStoodStill >= MAX_TIME_STOOD_STILL)
+        if (GameManager.Data.AmountTimeStoodStill >= MAX_TIME_STOOD_STILL)
         {
-            DataManager.bStandsStillALot = true;
+            GameManager.Data.BStandsStillALot = true;
         }
 
         //USES SPELLS OFTEN//
-        if (!DataManager.bUsesSpellsOften)
+        if (!GameManager.Data.BUsesSpellsOften)
             spellCountTimer -= Time.deltaTime;
         //Debug.Log(Time.deltaTime - spellCountTimer);
         if (spellCountTimer <= 0f) //if greater than a minute
         {
-            DataManager.NumberSpellsDoneLastMinute = 0; //resets to 0;
+            GameManager.Data.NumberSpellsDoneLastMinute = 0; //resets to 0;
             spellCountTimer = 60f;
         }
-        if (DataManager.NumberSpellsDoneLastMinute >= 10)
+        if (GameManager.Data.NumberSpellsDoneLastMinute >= 10)
         {
-            DataManager.bUsesSpellsOften = true;
+            GameManager.Data.BUsesSpellsOften = true;
         }
         
         //EXPLORES A LOT OF ROOMS//
-        if (DataManager.NumberRoomsFound > MAX_ROOMS_FOUND)
+        if (GameManager.Data.NumberRoomsFound > MAX_ROOMS_FOUND)
         {
-            DataManager.bExploresLotsOfRooms = true;
+            GameManager.Data.BExploresLotsOfRooms = true;
         }
 
         #endregion
@@ -158,36 +158,36 @@ public class DataReactor : MonoBehaviour
         #region Behavior Reactor
 
         #region Distance Walked Reaction
-        if (DataManager.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f) && !walkCounted)
+        if (GameManager.Data.NumberDistanceWalked >= Random.Range(MAX_DISTANCE - 50f, MAX_DISTANCE + 50f) && !walkCounted)
         {
           //  Debug.Log("Walked " + MAX_DISTANCE + " meters");
             _eventFog.ActivateEvent(ResetWalkDistance);
-            DataManager.TimesWalkedLargeDistances++;
+            GameManager.Data.TimesWalkedLargeDistances++;
             walkCounted = true;
         }
       
         #endregion
 
-        if (DataManager.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
+        if (GameManager.Data.NumberMeleeAttacksDone >= MAX_MELEEATTACKS)
         {
-            DataManager.bUsesMeleeALot = true;
+            GameManager.Data.BUsesMeleeALot = true;
             _eventDarken.ActivateEvent(ResetMeleeAttackNumber);
             _aiManager.makeAgentsCircleTarget();
 
         }
 
-        if (DataManager.bWalksLargeDistances && DataManager.bKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
+        if (GameManager.Data.BWalksLargeDistances && GameManager.Data.BKillsLotsOfMonsters && !calledSpawnEvent) //if the player walks a lot and manages to kill a lot of monsters, they must find the game easy or not as scary.
         {
             //3 solutions: Event that Spawns a CHIMERA. Increase frequency of Librarian Chases. OR spawn more monsters and darken environment. For now, we do the latter.
             _eventDarken.ActivateEvent();
             _spawnSmallCrawler.ActivateEvent();
             monsterSpawnRate = 10f;
             calledSpawnEvent = true;
-            DataManager.bIsHostile = true; //TODO: Turn off hostility after certain amount of time
+            GameManager.Data.BIsHostile = true; //TODO: Turn off hostility after certain amount of time
         } //else
           //{
           //    monsterSpawnRate = 140f;
-          //    DataManager.bIsHostile = false;
+          //    GameManager.Data.bIsHostile = false;
           //}
 
         if (totalTimePassed >= MAX_TIME_TIL_LIBRARIAN && !calledLibrarianSpawnEvent)
@@ -199,7 +199,7 @@ public class DataReactor : MonoBehaviour
         }
 
         //SCARE 1//
-        if ((DataManager.bStandsStillALot || DataManager.bKillsLotsOfMonsters) && !calledScare1)
+        if ((GameManager.Data.BStandsStillALot || GameManager.Data.BKillsLotsOfMonsters) && !calledScare1)
         {
             _eventHarshDarken.ActivateEvent();
             StartCoroutine(CloseScare());
@@ -209,11 +209,11 @@ public class DataReactor : MonoBehaviour
             float max_time_addon = MAX_TIME_STOOD_STILL * amountTimesScare1;
             amountTimesScare1++;
             MAX_TIME_STOOD_STILL += max_time_addon;
-            DataManager.bStandsStillALot = false;
+            GameManager.Data.BStandsStillALot = false;
         }
 
         //SCARE 2//
-        if ((DataManager.bExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/3) && !calledScare2)
+        if ((GameManager.Data.BExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/3) && !calledScare2)
         {
             _eventFog.ActivateEvent(ResetScare2);
             _noiseLowBoom.Play();
@@ -222,15 +222,15 @@ public class DataReactor : MonoBehaviour
         //|| totalTimePassed >= MAX_TIME_TIL_LIBRARIAN - 3
 
         //SCARE 3//
-        if (((DataManager.currentRoom.HalfRoomSize.x * 2 >= 30f && DataManager.currentRoom.HalfRoomSize.y * 2 >= 20f) && !calledWhispers1) && DataManager.totalTime > 1000)
+        if (((GameManager.Data.CurrentRoom.HalfRoomSize.x * 2 >= 30f && GameManager.Data.CurrentRoom.HalfRoomSize.y * 2 >= 20f) && !calledWhispers1) && GameManager.Data.TotalTime > 1000)
         {
             _noiseWhispers1.Play();
             calledWhispers1 = true;
         }
 
-        if (DataManager.focusTime >= MAX_FOCUS_LIBRARIAN_AGGRO)
+        if (GameManager.Data.FocusTime >= MAX_FOCUS_LIBRARIAN_AGGRO)
         {
-            DataManager.focusTime = 0;
+            GameManager.Data.FocusTime = 0;
             ForceTeleportLibrarian(false);
         }
 
@@ -299,31 +299,31 @@ public class DataReactor : MonoBehaviour
         _librarianRef.Teleport();
         _eventHurtVignette.ActivateEvent(ResetHeartbeat);
         
-        if (wasForced) DataManager.NumberTimesHitLibrarian += 1;
-        if (DataManager.NumberTimesHitLibrarian >= 3)
+        if (wasForced) GameManager.Data.NumberTimesHitLibrarian += 1;
+        if (GameManager.Data.NumberTimesHitLibrarian >= 3)
         {
-            DataManager.bIsHostile = true;
+            GameManager.Data.BIsHostile = true;
             _spawnSmallCrawler.ActivateEvent();
-            DataManager.NumberTimesHitLibrarian = 0;
+            GameManager.Data.NumberTimesHitLibrarian = 0;
         }
        
     }
 
     private void ResetWalkDistance()
     {
-        DataManager.NumberDistanceWalked = 0;
+        GameManager.Data.NumberDistanceWalked = 0;
         walkCounted = false;
     }
 
     private void ResetMeleeAttackNumber()
     {
-        DataManager.NumberMeleeAttacksDone = 0;
+        GameManager.Data.NumberMeleeAttacksDone = 0;
     }
 
     private void ResetScare2()
     {
         calledScare2 = false;
-        DataManager.bExploresLotsOfRooms = false;
+        GameManager.Data.BExploresLotsOfRooms = false;
     }
 
     private void ResetHeartbeat()
@@ -345,7 +345,7 @@ public class DataReactor : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        DataManager.AmountTimeStoodStill = 0;
+        GameManager.Data.AmountTimeStoodStill = 0;
     }
 
 

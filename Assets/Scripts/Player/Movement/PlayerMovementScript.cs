@@ -123,7 +123,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         if ((_moveDir != new Vector2(0,0)) || !_isSprinting || !_isCrouching)
         {
-            DataManager.AmountTimeStoodStill += Time.deltaTime;
+            GameManager.Data.AmountTimeStoodStill += Time.deltaTime;
             
         }
         
@@ -164,7 +164,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         //update DataManager
         currentPos = transform.position;
-        DataManager.NumberDistanceWalked += Vector3.Distance(currentPos, lastPos);
+        GameManager.Data.NumberDistanceWalked += Vector3.Distance(currentPos, lastPos);
         lastPos = currentPos;
 
 

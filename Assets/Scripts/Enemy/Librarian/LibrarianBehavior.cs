@@ -53,19 +53,19 @@ public class LibrarianBehavior : EnemyBase
 
     private void OnStandingState()
     {
-        //_teleport = DataManager.currentRoom.
+        //_teleport = GameManager.Data.currentRoom.
         if (CheckTarget())
         {
             if (_target.Type == TargetableType.Player)
             {
                 var playerMovement = _target.GetComponent<PlayerMovementScript>();
                 playerMovement._moveSpeed = playerMovement._slowedSpeed;
-                //if (DataManager.bIsHostile)
+                //if (GameManager.Data.bIsHostile)
                 //    TrySetState(LibrarianState.Chasing);
             }
         }
 
-        if (_currentRoom != DataManager.currentRoom)
+        if (_currentRoom != GameManager.Data.CurrentRoom)
         {
             Teleport();
         }
@@ -81,7 +81,7 @@ public class LibrarianBehavior : EnemyBase
             }
         }
 
-        if (DataManager.bIsHostile && !_hasDisappeared)
+        if (GameManager.Data.BIsHostile && !_hasDisappeared)
         {
             Timer.DelayAction(this, ChasePlayer, cooldown);
             _hasDisappeared = true;
@@ -108,10 +108,10 @@ public class LibrarianBehavior : EnemyBase
             if (Vector3.Distance(transform.position, _target.transform.position) < 15f)
             {
                 Appear();
-                if (_currentRoom != DataManager.currentRoom)
+                if (_currentRoom != GameManager.Data.CurrentRoom)
                 {
                     _agent.Warp(_target.transform.position - new Vector3(5, 0, 5));
-                    _currentRoom = DataManager.currentRoom;
+                    _currentRoom = GameManager.Data.CurrentRoom;
                 }
             }
 
@@ -138,8 +138,8 @@ public class LibrarianBehavior : EnemyBase
 
     public void Teleport()
     {
-        _currentRoom = DataManager.currentRoom;
-        var room = DataManager.currentRoom;
+        _currentRoom = GameManager.Data.CurrentRoom;
+        var room = GameManager.Data.CurrentRoom;
         if ((room.HalfRoomSize.x * 2)> 15 && (room.HalfRoomSize.y * 2) > 15)
         {
             float x = (room.HalfRoomSize.x - 4) * (Random.value > 0.5f ? 1 : -1);

@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     public static Action<bool> OnPause = delegate { };
 
+    public static GameData Data => Instance._data;
+    
+    [SerializeField] private GameData _data;
     [SerializeField, ReadOnly] private bool _paused = false;
     [SerializeField] private PostProcessingManager _postProcessingManager;
 
@@ -17,6 +20,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        _data.ResetAll();
+    }
+
+    private void OnDestroy()
+    {
+        _data.ResetAll();
     }
 
     private void Start()

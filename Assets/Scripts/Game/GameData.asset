@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02301c0b050122245a3c9bd410e7894b, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: 
+  NumberKnowledgePointsGathered: 0
+  NumberDistanceWalked: 0
+  NumberDistanceRun: 0
+  AmountTimeStoodStill: 0
+  NumberMeleeAttacksDone: 0
+  NumberSpellsDone: 0
+  NumberItemsCollected: 0
+  NumberBooksCollected: 0
+  NumberRoomsFound: 0
+  NumberMonstersKilled: 0
+  NumberTimesHitLibrarian: 0
+  focusTime: 0
+  pupilDilation: 0
+  mouthQuiver: 0
+  eyesClosed: 0
+  totalTime: 0
+  TimesWalkedLargeDistances: 0
+  bWalksLargeDistances: 0
+  NumberMonstersKilledLastHour: 0
+  bKillsLotsOfMonsters: 0
+  NumberSpellsDoneLastMinute: 0
+  bUsesSpellsOften: 0
+  bCollectsLotsofBooks: 0
+  bExploresLotsOfRooms: 0
+  bIsHostile: 0
+  bStandsStillALot: 0
+  bUsesMeleeALot: 0
+  currentRoom: {fileID: 0}
+  _chaseThemePlaying: 0

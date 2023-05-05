@@ -108,7 +108,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (_hasTarget && _target == null)
         {
             _hasTarget = false;
-            DataManager._chaseThemePlaying = false;
+            GameManager.Data.ChaseThemePlaying = false;
             OnLoseTarget();
         }
         if (!_hasTarget && _target != null)
@@ -122,8 +122,8 @@ public abstract class EnemyBase : MonoBehaviour
                 Log("Died");
                 if (_target.Type == TargetableType.Player)
                 {
-                    DataManager.NumberMonstersKilled++;
-                    DataManager.NumberMonstersKilledLastHour++;
+                    GameManager.Data.NumberMonstersKilled++;
+                    GameManager.Data.NumberMonstersKilledLastHour++;
                 }
 
                 for (int i = 0; i < _data.Loot.Capacity; i++)
@@ -170,7 +170,7 @@ public abstract class EnemyBase : MonoBehaviour
         //this.gameObject.SetActive(false);
         if (_aiManager)
             _aiManager.Units.Remove(this);
-        DataManager._monstersWatchingPlayer.Remove(this);
+        GameManager.Data.MonstersWatchingPlayer.Remove(this);
         Destroy(gameObject);
     }
 
