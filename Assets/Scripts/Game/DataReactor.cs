@@ -8,6 +8,7 @@ public class DataReactor : MonoBehaviour
     public float numDistanceWalked = DataManager.NumberDistanceWalked;
     public float totalTimePassed = DataManager.totalTime;
     public float averageMonstersKilledPerHour = 15;
+    [SerializeField, ReadOnly] int _monsterWatchingCount;
     [SerializeField] static public float monsterSpawnRate = 90f;
 
     [SerializeField] LibrarianBehavior _librarianRef;
@@ -39,6 +40,7 @@ public class DataReactor : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] SoundEvent _noiseHeartbeat;
+    [SerializeField] SfxReference _noiseExhaustion;
     [SerializeField] SfxReference _noiseClose1;
     [SerializeField] SfxReference _noiseLowBoom;
     [SerializeField] SfxReference _noiseWhispers1;
@@ -82,6 +84,7 @@ public class DataReactor : MonoBehaviour
         //DEBUG - Delete before final build
         numDistanceWalked = DataManager.NumberDistanceWalked;
         totalTimePassed = DataManager.totalTime;
+        _monsterWatchingCount = DataManager._monstersWatchingPlayer.Count;
         //
         
 
@@ -210,12 +213,13 @@ public class DataReactor : MonoBehaviour
         }
 
         //SCARE 2//
-        if ((DataManager.bExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/4 || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN - 3) && !calledScare2)
+        if ((DataManager.bExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/3) && !calledScare2)
         {
             _eventFog.ActivateEvent(ResetScare2);
             _noiseLowBoom.Play();
             calledScare2 = true;
         }
+        //|| totalTimePassed >= MAX_TIME_TIL_LIBRARIAN - 3
 
         //SCARE 3//
         if (((DataManager.currentRoom.HalfRoomSize.x * 2 >= 30f && DataManager.currentRoom.HalfRoomSize.y * 2 >= 20f) && !calledWhispers1) && DataManager.totalTime > 1000)
@@ -238,7 +242,6 @@ public class DataReactor : MonoBehaviour
 
         if (_playerStats.IsStatLow(SurvivalStatEnum.Health))
         {
-            Debug.Log("Health Low!");
             _eventHurtVignette.ActivateEvent(ResetHeartbeat);
             if (!_heartbeatIsPlaying)
             {
@@ -246,7 +249,27 @@ public class DataReactor : MonoBehaviour
                 _heartbeatIsPlaying = true;
             }
         }
-
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Hunger))
+        {
+            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+            PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, 0.001f);
+            if (!_heartbeatIsPlaying)
+            {
+                _noiseExhaustion.Play();
+                _heartbeatIsPlaying = true;
+            }
+        }
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Hydration))
+        {
+            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+            _eventDarken.ActivateEvent();
+            PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, 0.01f);
+            if (!_heartbeatIsPlaying)
+            {
+                _noiseExhaustion.Play();
+                _heartbeatIsPlaying = true;
+            }
+        }
 
 
 

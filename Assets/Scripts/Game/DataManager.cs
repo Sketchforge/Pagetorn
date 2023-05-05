@@ -41,6 +41,8 @@ public static class DataManager
     static public bool bStandsStillALot;
     static public bool bUsesMeleeALot;
 
+    //Misc uses
     static public Room currentRoom;
-    static public bool _chaseSongPlaying;
+    static public bool _chaseThemePlaying;
+    static public List<EnemyBase> _monstersWatchingPlayer = new List<EnemyBase>();
 }

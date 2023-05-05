@@ -58,6 +58,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected int distanceToRun = 40;
     private bool _hasTarget;
+    protected bool _hasAddedSelfToViewList = false;
 
     public virtual EnemyData Data => _data;
 
@@ -69,6 +70,7 @@ public abstract class EnemyBase : MonoBehaviour
         _health.SetHealth(_data.MaxHealth);
         theCam = Camera.main;
         _aiManager = FindObjectOfType<AIManager>();
+        if (_aiManager)
         _aiManager.Units.Add(this);
 
         OnAwake();
@@ -106,6 +108,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (_hasTarget && _target == null)
         {
             _hasTarget = false;
+            DataManager._chaseThemePlaying = false;
             OnLoseTarget();
         }
         if (!_hasTarget && _target != null)
@@ -165,7 +168,9 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Die()
     {
         //this.gameObject.SetActive(false);
-        _aiManager.Units.Remove(this);
+        if (_aiManager)
+            _aiManager.Units.Remove(this);
+        DataManager._monstersWatchingPlayer.Remove(this);
         Destroy(gameObject);
     }
 
