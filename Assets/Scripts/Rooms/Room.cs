@@ -80,14 +80,15 @@ public class Room : MonoBehaviour
 	    if (_negZConnectedRoom) _negZConnectedRoom.SetDoorActive(0, false);
 	    if (_posXConnectedRoom) _posXConnectedRoom.SetDoorActive(3, false);
 	    if (_negXConnectedRoom) _negXConnectedRoom.SetDoorActive(2, false);
-	    SetDoorActive(0, !_posZConnectedRoom);
-	    SetDoorActive(1, !_negZConnectedRoom);
-	    SetDoorActive(2, !_posXConnectedRoom);
-	    SetDoorActive(3, !_negXConnectedRoom);
+	    SetDoorActive(0, _posZConnectedRoom == null);
+	    SetDoorActive(1, _negZConnectedRoom == null);
+	    SetDoorActive(2, _posXConnectedRoom == null);
+	    SetDoorActive(3, _negXConnectedRoom == null);
     }
 	
 	private void SetDoorActive(int door, bool active)
 	{
+        Debug.Log(gameObject + ": " + door + " (" +  active + ")");
 		switch (door)
 		{
 		case 0:

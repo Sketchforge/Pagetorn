@@ -49,6 +49,11 @@ public class PlayerManager : MonoBehaviour
         _survival.SetAllMax();
     }
 
+    private void OnDestroy()
+    {
+        _survival.SetAllMax();
+    }
+
     private void OnValidate()
     {
         if (_movementScript == null)
