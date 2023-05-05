@@ -16,7 +16,15 @@ namespace CoffeyUtils.Sound
 
         public AudioMixerGroup MixerGroup => _group;
         public MusicPlayer GetPlayer() => RemoveFromPool(_pool.Count > 0 ? _pool[0] : CreateNewPlayer());
-        public void ReturnPlayer(MusicPlayer controller) => AddToPool(controller);
+
+        public void ReturnPlayer(MusicPlayer controller)
+        {
+            AddToPool(controller);
+            if (_queuedTrack != null && _activePlayers.Count == 0)
+            {
+                PlayQueuedSong();
+            }
+        }
 
         #region Pool
 
