@@ -2088,6 +2088,7 @@ MonoBehaviour:
   _validNeighbors:
   - {fileID: 8216287301586078399, guid: fd8a2ca9a40c63d468a4d04fcdb1943d, type: 3}
   - {fileID: 5831923427211611060, guid: 196d27f2c0d731f4181d9bab19b478ae, type: 3}
+  - {fileID: 6718997752586181987, guid: 98d2a6a6cae965942ad5837afd05a1e6, type: 3}
 --- !u!1 &7637072189258808838
 GameObject:
   m_ObjectHideFlags: 0

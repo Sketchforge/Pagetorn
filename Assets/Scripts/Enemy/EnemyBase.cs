@@ -164,6 +164,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Die()
     {
         //this.gameObject.SetActive(false);
+        _aiManager.Units.Remove(this);
         Destroy(gameObject);
     }
 

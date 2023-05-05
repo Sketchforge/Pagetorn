@@ -4468,6 +4468,7 @@ MonoBehaviour:
   _validNeighbors:
   - {fileID: 2231350322590284716, guid: 6565df89bf6b27145b42eaf89a6a9d04, type: 3}
   - {fileID: 2149551388235371251, guid: 079c22f4da2555d4bbc6cf998ef83615, type: 3}
+  - {fileID: 2231350322590284716, guid: cc4f175f7dfe6124d80af3dd659cbe01, type: 3}
 --- !u!1 &7355190534294771816
 GameObject:
   m_ObjectHideFlags: 0
@@ -4789,7 +4790,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: cf51c0fcbf17d4e4590c74234a3f59e7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 8310eb1a35a562446a649b8904c8f865, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &7355190534371216789
 GameObject:

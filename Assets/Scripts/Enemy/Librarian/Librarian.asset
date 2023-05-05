@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Librarian
   m_EditorClassIdentifier: 
   _maxHealth: 1000
-  _attackDamage: 10
-  _moveSpeed: 5
+  _attackDamage: 100
+  _moveSpeed: 15
   _rateOfAttack: 4
   _rangeOfVision: 50
   _attackRange: 12

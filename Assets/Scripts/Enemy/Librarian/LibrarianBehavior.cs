@@ -25,7 +25,7 @@ public class LibrarianBehavior : EnemyBase
     protected override void OnStart()
     {
         cooldownSubtract = cooldown;
-        _spawnSound.Play();
+        //_spawnSound.Play();
         Teleport();
         CheckTarget();
         
@@ -91,17 +91,33 @@ public class LibrarianBehavior : EnemyBase
 
     private void OnChasingState()
     {
+        
         if (!_target)
-        {   
-            TrySetState(LibrarianState.Standing);
+        {
+            OnLoseTarget();
             return;
         }
 
+        
         if (_target.Type == TargetableType.Player)
         {
             //_musicPlayer.clip = _myTheme;
             MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
-            
+
+            if (Vector3.Distance(transform.position, _target.transform.position) < 15f)
+            {
+                Appear();
+                if (_currentRoom != DataManager.currentRoom)
+                {
+                    _agent.Warp(_target.transform.position - new Vector3(5, 0, 5));
+                    _currentRoom = DataManager.currentRoom;
+                }
+            }
+
+            if (Vector3.Distance(transform.position, _target.transform.position) < 3f)
+            {
+                PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 1.3f, Data.AttackDamage));
+            }
             //if (librarianChaser) Instantiate(librarianChaser, this.transform, false);
             //Destroy(this.gameObject);
         }
@@ -157,6 +173,7 @@ public class LibrarianBehavior : EnemyBase
     {
         if (_librarianState != LibrarianState.Standing)
         {
+            Debug.Log("Reset Librarian");
             _BetaFace.SetActive(false);
             _AlphaFace.SetActive(true);
             //_agent.enabled = false;
@@ -227,12 +244,14 @@ public class LibrarianBehavior : EnemyBase
         {
             _BetaFace.SetActive(true);
             _AlphaFace.SetActive(false);
-            _agent.enabled = true;
+           // _agent.enabled = true;
             cooldown = Time.deltaTime;
+            Timer.DelayAction(this, ResetLibrarian, 100f);
             TrySetState(LibrarianState.Chasing);
         }
-        
-  
+
+        yield return new WaitForSeconds(0.1f);
+
     }
 }
 
