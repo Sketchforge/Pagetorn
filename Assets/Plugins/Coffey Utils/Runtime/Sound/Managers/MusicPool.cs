@@ -19,7 +19,7 @@ namespace CoffeyUtils.Sound
         public void ReturnPlayer(MusicPlayer controller) => AddToPool(controller);
 
         #region Pool
-        
+
         private const int InitialPoolSize = 2;
 
         public void BuildInitialPool()
@@ -95,5 +95,6 @@ namespace CoffeyUtils.Sound
             }
             sourceController.SetCustomVolume(1);
         }
+
     }
 }

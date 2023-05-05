@@ -29,6 +29,7 @@ public class EnemyTypeCrawler : EnemyBase
     [SerializeField] private bool hasRoamPos = true;
     private bool _themePlaying = false;
     private bool _playedWalkingSound = false;
+
   //  private float _moveSoundLength;
 
    
@@ -89,6 +90,8 @@ public class EnemyTypeCrawler : EnemyBase
 
     protected override void OnLoseTarget()
     {
+        DataManager._monstersWatchingPlayer.Remove(this);
+        _hasAddedSelfToViewList = false;
         _crawlerState = CrawlerState.Roaming;
     }
 
@@ -161,7 +164,8 @@ public class EnemyTypeCrawler : EnemyBase
             _randomFollowRange = new Vector2(0.1f, 1f);
         }
 
-        MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
+        if (_agent)
+            MoveTo(_target.transform.position + new Vector3(_randomFollowRange.x/2,0, _randomFollowRange.y/2));
 
         if (!_playedWalkingSound)
         {
@@ -178,6 +182,9 @@ public class EnemyTypeCrawler : EnemyBase
         {
             if (!CheckTarget())
             {
+                DataManager._monstersWatchingPlayer.Remove(this);
+                _hasAddedSelfToViewList = false;
+                Debug.Log("AttemptedToRemove");
                 TrySetState(CrawlerState.Roaming);
                 return;
             }
@@ -191,11 +198,17 @@ public class EnemyTypeCrawler : EnemyBase
             //    _musicPlayer.clip = _myTheme;
             //    _musicPlayer.Play();
             //}
-            if (!_themePlaying && !DataManager._chaseSongPlaying)
+            if (!_hasAddedSelfToViewList)
+            {
+                DataManager._monstersWatchingPlayer?.Add(this);
+                _hasAddedSelfToViewList = true;
+            }
+            
+            if (!_themePlaying && !DataManager._chaseThemePlaying)
             {
                 _chaseMusic.ActivateEvent();
                 _themePlaying = true;
-                DataManager._chaseSongPlaying = true;
+                DataManager._chaseThemePlaying = true;
             }
             
 
@@ -205,6 +218,7 @@ public class EnemyTypeCrawler : EnemyBase
 
         if (CheckAttackTarget())
         {
+           
             TrySetState(CrawlerState.Attacking);
         }
     }

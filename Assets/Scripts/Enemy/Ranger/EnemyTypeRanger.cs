@@ -40,12 +40,12 @@ public class EnemyTypeRanger : EnemyBase
 
     protected override void OnAwake()
     {
-        throw new System.NotImplementedException();
+        _startingPosition = transform.position;
     }
 
     protected override void OnStart()
     {
-        _startingPosition = transform.position;
+        
         _roamPosition = GetRoamingPosition();
         UpdateAlphaStatus();
     }

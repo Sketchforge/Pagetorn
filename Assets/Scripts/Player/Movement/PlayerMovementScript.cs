@@ -131,6 +131,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (_isSprinting && !_isCrouching)
         {
             _moveSpeed = _sprintSpeed;
+            PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Hydration, 0.1f);
 
         }
 
