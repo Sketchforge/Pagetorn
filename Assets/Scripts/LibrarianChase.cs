@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -31,25 +30,20 @@ public class LibrarianChase : EnemyBase
 
     protected override void OnAwake()
     {
-        throw new System.NotImplementedException();
     }
 
     protected override void OnStart()
     {
         Debug.Log("Spawned Evil Guy");
         CheckTarget();
-        throw new NotImplementedException();
     }
 
     protected override void OnUpdate()
     {
-        if (CheckTarget()) ;
+        if (CheckTarget())
         {
             if (_target.Type == TargetableType.Player)
                 MoveTo(_target.transform.position + new Vector3(5 / 2, 0, 5 / 2));
         }
-        
     }
-
-
 }

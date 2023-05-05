@@ -21,7 +21,7 @@ public class EnemyTypeRanger : EnemyBase
     [SerializeField] protected float _chargeShotTime = 4f;
     [SerializeField] protected Transform _bulletOrigin;
     [SerializeField] private GameObject bulletObj;
-    [SerializeField] private float bulletForce = 30;
+    //[SerializeField] private float bulletForce = 30;
     [SerializeField] private GameObject myBullet;
 
     [Header("Debug")]

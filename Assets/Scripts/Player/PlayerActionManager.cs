@@ -19,16 +19,6 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Animator _myAnimator;
     [SerializeField] private GameObject _heldItemSocket;
     [SerializeField] private SfxReference _hammerSwingSfx;
-
-    [Header("Headbob and FootSteps")]
-    [SerializeField] private float walkBobSpeed = 14f;
-    [SerializeField] private float walkBobAmount = 0.5f;
-    [SerializeField] private float sprintBobSpeed = 18f;
-    [SerializeField] private float sprintBobAmount = 1f;
-    [SerializeField] private float crouchBobSpeed = 8f;
-    [SerializeField] private float crouchBobAmount = 0.2f;
-    private float defaultYpos = 0;
-    private float headbobTimer;
     private bool canAttack = false;
 
 

@@ -10,7 +10,6 @@ public class EnemyTypeFlyer : EnemyBase
     [SerializeField, ReadOnly] private FlyerState _flyerState;
     [SerializeField] private Vector3 _circleOffset = new Vector3(0, 5, 10);
     [SerializeField] protected float _circleTimeout = 10;
-    [SerializeField] private bool isCircling = false;
     [SerializeField] public int _flyingHeight = 10;
 
     [SerializeField] private Targetable _targetable;
@@ -23,7 +22,6 @@ public class EnemyTypeFlyer : EnemyBase
     [SerializeField] private Vector2 _randomFollowRange = new Vector2(2f, 5f);
     [SerializeField] protected float _radiusSurroundTarget = 3f;
 
-
     [Header("Debug")]
     [SerializeField, ReadOnly] private Vector3 _startingPosition;
     [SerializeField, ReadOnly] private Vector3 _roamPosition;
@@ -32,8 +30,8 @@ public class EnemyTypeFlyer : EnemyBase
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField, ReadOnly] private float _circlingTime;
     [SerializeField] private bool hasRoamPos = true;
-    [SerializeField] private bool hasCircPos = true;
     [SerializeField, ReadOnly] private float originalYPos;
+    
     // //Circle Settings:
     // [SerializeField, ReadOnly] float xCenter;
     // [SerializeField, ReadOnly] float yCenter;
@@ -190,7 +188,6 @@ public class EnemyTypeFlyer : EnemyBase
                 //TODO: Swoop down, attack, swoop back up.
                 //StopCoroutine(RotateAroundTarget());
                 _attackTime = Time.time;
-                isCircling = false;
                 artToControl.transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z); //TELEPORTS THE FLYERS, SHOULD BE ANIMATION, CURRENTLY BROKEN
                 if (CheckAttackTarget()) TrySetState(FlyerState.Attacking);
             }
