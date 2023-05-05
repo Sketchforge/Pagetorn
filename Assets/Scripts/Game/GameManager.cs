@@ -1,7 +1,6 @@
 using System;
 using CoffeyUtils;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {

@@ -1,5 +1,3 @@
-using System;
-using Cinemachine;
 using CoffeyUtils;
 using UnityEngine;
 
