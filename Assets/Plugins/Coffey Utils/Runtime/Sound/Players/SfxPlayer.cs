@@ -39,8 +39,8 @@ namespace CoffeyUtils.Sound
             {
                 if (!_parent)
                 {
-                    Debug.LogError("Parent Object Destroyed for 3D Spatial Audio Clip: " + _source.clip.name);
-                    _hasParent = false;
+                    //Debug.LogWarning("Parent Object Destroyed for 3D Spatial Audio Clip: " + _source.clip.name);
+                    Stop();
                     return;
                 }
                 transform.position = _parent.position;
