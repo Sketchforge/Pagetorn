@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabf5fdfa6ed73b4e9db2b00cca37c32, type: 3}
   m_Name: Carrots
   m_EditorClassIdentifier: 
-  _itemName: PureWater
+  _itemName: Carrots
   _type: 22
-  _description: 
-  _sprite: {fileID: 0}
+  _description: A simple carrot.
+  _sprite: {fileID: 21300000, guid: a3d2d24436cc9e445ab0c946b42f701c, type: 3}
   _canStack: 1
   _stackAmount: 99
+  _hasHealth: 0
+  _maxHealth: 5
+  _prefabObject: {fileID: 3724817129069655109, guid: 1c0f14b479c719b45895e245ad0dbab7, type: 3}
