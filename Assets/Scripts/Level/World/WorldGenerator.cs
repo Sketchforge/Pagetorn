@@ -482,6 +482,7 @@ public class WorldGenerator : MonoBehaviour
     }
 
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.color = Color.green;
@@ -494,4 +495,5 @@ public class WorldGenerator : MonoBehaviour
         Handles.color = Color.green;
         //Handles.DrawWireCube(new Vector3(transform.position.x + checkOffset.x, transform.position.y, transform.position.z + checkRadius.y / 2 + checkOffset.y), new Vector3(checkRadius.x, 0, checkRadius.y));
     }
+#endif
 }

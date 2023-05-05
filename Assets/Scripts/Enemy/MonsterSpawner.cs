@@ -41,13 +41,12 @@ public class MonsterSpawner : MonoBehaviour
         _myTimer -= Time.deltaTime;
         
     }
-
-
-
+    
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         UnityEditor.Handles.color = Color.yellow;
         UnityEditor.Handles.DrawWireDisc(this.gameObject.transform.position, transform.up, _playerCheckRange);
     }
-
+#endif
 }
