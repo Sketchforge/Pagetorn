@@ -152,6 +152,8 @@ public class PlayerActionManager : MonoBehaviour
             case ItemType.Consumables:
                 // Consume
                 LogInput("Interact (Consumable)");
+                var consumable = (Consumable)CanvasController.ToolbarManager.SelectedItem;
+                if (consumable != null) consumable.UseItem(CanvasController.ToolbarManager.SelectedItemSlot);
                 break;
             default:
                 // Check for interaction with world

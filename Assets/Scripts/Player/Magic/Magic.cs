@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CoffeyUtils;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Magic")]
+[CreateAssetMenu(menuName = "Pagetorn/Item/Magic")]
 public class Magic : Item
 {
     [Header("Basic Magic Info")]

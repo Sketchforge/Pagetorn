@@ -9,15 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eabf5fdfa6ed73b4e9db2b00cca37c32, type: 3}
-  m_Name: Bottled Water
+  m_Script: {fileID: 11500000, guid: f10561a3e18d4194f88310d093c3aced, type: 3}
+  m_Name: Inky Water Bottle
   m_EditorClassIdentifier: 
-  _itemName: Bottled Water
+  _itemName: Inky Water Bottle
   _type: 22
-  _description: 
-  _sprite: {fileID: 0}
+  _description: A bottle of inky water. Doesn't taste very good.
+  _sprite: {fileID: 21300000, guid: bb8c1dc7cbfce184ea336410fc687de5, type: 3}
   _canStack: 1
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
   _prefabObject: {fileID: 3724817129069655109, guid: 664132a7aa813be4c9ec71edd3d72d3a, type: 3}
+  affectsHealth: 1
+  affectsHunger: 0
+  affectsHydration: 1
+  healthChange: -2
+  hungerChange: 0
+  hydrationChange: 50

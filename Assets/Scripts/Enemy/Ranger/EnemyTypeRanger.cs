@@ -128,6 +128,7 @@ public class EnemyTypeRanger : EnemyBase
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
             //Debug.Log("RoamStateIsBeingGlitchy");
+            _playedWalkingSound = false;
             _roamPosition = GetRoamingPosition();
         }
 
@@ -218,6 +219,7 @@ public class EnemyTypeRanger : EnemyBase
                 {
                     //PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
                     Debug.Log("Shot Glob");
+                    _attackSound.PlayAtPosition(transform.position);
                     myBullet = Instantiate(bulletObj, _bulletOrigin.position, Quaternion.identity, null);
                     myBullet.GetComponent<RangerBullet>().parentData = Data;
                     myBullet.GetComponent<RangerBullet>().targetTransform = _target.transform;

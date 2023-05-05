@@ -583,7 +583,7 @@ MonoBehaviour:
   _moveSound:
     UseClip: 0
     Clip: {fileID: 0}
-    Base: {fileID: 0}
+    Base: {fileID: 11400000, guid: 544c96affa9c0b041bc4aee052840447, type: 2}
   _idleSound:
     UseClip: 0
     Clip: {fileID: 0}
@@ -599,8 +599,8 @@ MonoBehaviour:
   _attackSound:
     UseClip: 0
     Clip: {fileID: 0}
-    Base: {fileID: 0}
-  _chaseMusic: {fileID: 0}
+    Base: {fileID: 11400000, guid: dbdc31b759d3cee4a90612f233c08811, type: 2}
+  _chaseMusic: {fileID: 11400000, guid: 5cd58e048d56ec5448263c82ba1960c7, type: 2}
   _alphaData: {fileID: 11400000, guid: 3ad702b57774f124fb4bc6b09d2ba047, type: 2}
   _isAlpha: 0
   _rangerState: 0

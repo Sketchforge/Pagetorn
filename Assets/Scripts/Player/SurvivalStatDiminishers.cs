@@ -8,7 +8,7 @@ public class SurvivalStatDiminishers : MonoBehaviour
     void FixedUpdate()
     {
         //PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, 0.01f);
-        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Hunger, 0.001f);
-        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Hydration, 0.005f);
+        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Hunger, 0.5f * Time.fixedDeltaTime);
+        PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Hydration, 0.7f * Time.fixedDeltaTime);
     }
 }
