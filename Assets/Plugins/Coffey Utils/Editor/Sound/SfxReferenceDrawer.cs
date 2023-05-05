@@ -1,8 +1,9 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
+using CoffeyUtils.Sound;
 
-namespace Game.SoundSystem.Editor
+namespace CoffeyUtils.Editor.Sound
 {
     [CustomPropertyDrawer(typeof(SfxReference))]
     public class SfxReferenceDrawer : PropertyDrawer

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using CoffeyUtils;
+using CoffeyUtils.Sound;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/Events/SfxEvent")]

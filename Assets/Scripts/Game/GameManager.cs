@@ -1,4 +1,5 @@
 using System;
+using CoffeyUtils;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     // This allows animation, particles, and minor camera movement to still occur even though the game is paused
     // Time.timeScale is another option, but does not allow for any of these
 
-    [Button(Mode = ButtonMode.InPlayMode)]
+    [Button(Mode = RuntimeMode.OnlyPlaying)]
     public void TogglePaused()
     {
         SetPaused(!_paused);

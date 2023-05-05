@@ -1,13 +1,15 @@
-#if UNITY_EDITOR
-using UnityEngine;
+﻿#if UNITY_EDITOR
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(HighlightIfNullAttribute))]
-public class HighlightIfNullAttributeDrawer : HighlightableAttributeDrawer
+namespace CoffeyUtils.Editor.Attributes
 {
-    protected override bool ShouldHighlight(SerializedProperty property)
-    {
-        return property.propertyType == SerializedPropertyType.ObjectReference && property.objectReferenceValue == null;
-    }
+	[CustomPropertyDrawer(typeof(HighlightIfNullAttribute))]
+	public class HighlightIfNullAttributeDrawer : HighlightableAttributeDrawer
+	{
+	    protected override bool ShouldHighlight(SerializedProperty property)
+	    {
+	        return property.propertyType == SerializedPropertyType.ObjectReference && property.objectReferenceValue == null;
+	    }
+	}
 }
 #endif

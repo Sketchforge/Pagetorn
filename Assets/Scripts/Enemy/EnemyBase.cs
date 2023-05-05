@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Collections;
+using CoffeyUtils;
 
 public abstract class EnemyBase : MonoBehaviour
 {

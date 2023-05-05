@@ -1,3 +1,5 @@
+using System;
+using CoffeyUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -82,7 +84,7 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
-    [Button(Mode = ButtonMode.InPlayMode)]
+    [Button(Mode = RuntimeMode.OnlyPlaying)]
     public void KillPlayer()
     {
         _isDead = true;
@@ -90,7 +92,7 @@ public class PlayerManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    [Button(Mode = ButtonMode.InPlayMode)]
+    [Button(Mode = RuntimeMode.OnlyPlaying)]
     public void RespawnPlayer()
     {
         _isDead = false;
@@ -105,4 +107,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (_survival.AnyStatDead()) KillPlayer();
     }
+}
+
+public class DrawSOAttribute : Attribute
+{
 }

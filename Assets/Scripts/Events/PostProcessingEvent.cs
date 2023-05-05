@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CoffeyUtils;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 

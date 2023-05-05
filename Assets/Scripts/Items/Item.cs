@@ -1,3 +1,4 @@
+using CoffeyUtils;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/Item")]
@@ -31,7 +32,7 @@ public class Item : ScriptableObject
         _canStack = !(IsArmor || IsToolOrWeapon);
     }
 
-    [Button(Mode = ButtonMode.InPlayMode, Spacing = 10)]
+    [Button(Mode = RuntimeMode.OnlyPlaying, Spacing = 10)]
     public void AddItemToInventory()
     {
         CanvasController.InventoryManager.AddItemToInventory(this, 1);

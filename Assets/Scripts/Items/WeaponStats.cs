@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.SoundSystem;
+using CoffeyUtils.Sound;
 
 public class WeaponStats : MonoBehaviour
 {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CoffeyUtils;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/PlayerManager/Magic")]
