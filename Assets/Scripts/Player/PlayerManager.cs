@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
 
     private void CheckPlayerSurvival()
     {
-        if (_survival.AnyStatDead()) KillPlayer();
+        if (_survival.IsStatDead(SurvivalStatEnum.Health)) KillPlayer();
     }
 }
 

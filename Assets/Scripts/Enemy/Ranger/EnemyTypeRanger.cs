@@ -34,6 +34,8 @@ public class EnemyTypeRanger : EnemyBase
     [SerializeField, ReadOnly] private float _roamTime;
     [SerializeField] private bool hasRoamPos = true;
 
+    private bool _playedWalkingSound = false;
+
     public override EnemyData Data => _isAlpha ? _alphaData : base.Data;
 
     public bool HasAlpha => _alpha != null;
@@ -88,6 +90,7 @@ public class EnemyTypeRanger : EnemyBase
                 OnFleeingState();
                 break;
         }
+
     }
 
     protected override void OnLoseTarget()
@@ -116,6 +119,12 @@ public class EnemyTypeRanger : EnemyBase
         }
         FacePosition(_roamPosition);
         MoveTo(_roamPosition);
+        if (!_playedWalkingSound)
+        {
+            _moveSound.PlayAtParentAndFollow(this.transform);
+            _playedWalkingSound = true;
+
+        }
         if (Vector3.Distance(transform.position, _roamPosition) < 0.5f || (HasAlpha && Vector3.Distance(transform.position, _alpha.transform.position) > 10f))
         {
             //Debug.Log("RoamStateIsBeingGlitchy");

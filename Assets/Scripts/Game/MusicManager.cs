@@ -19,9 +19,12 @@ namespace Game.SoundSystem
             if ((DataManager._chaseThemePlaying == true && DataManager._monstersWatchingPlayer?.Count <= 0))
             {
                 if (!changingSong)
+                {
                     SoundManager.StopAllMusic();
                     DataManager._chaseThemePlaying = false;
                     StartCoroutine(ChangeSongs());
+                }
+                   
             }
 
             else
