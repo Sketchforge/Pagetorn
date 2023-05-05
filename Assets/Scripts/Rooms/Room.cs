@@ -132,7 +132,7 @@ public class Room : MonoBehaviour
 		SetDoorActive(3, true);
         if (_posZDoor && !_posZConnectedRoom)
         {
-            (bool value, Room room) = CheckCreateNeighbor(true, false);
+            Room room = CheckCreateNeighbor(true, false);
             if (room)
             {
                 _posZConnectedRoom = room;
@@ -141,7 +141,7 @@ public class Room : MonoBehaviour
         }
         if (_negZDoor && !_negZConnectedRoom)
         {
-            (bool value, Room room) = CheckCreateNeighbor(true, true);
+            Room room = CheckCreateNeighbor(true, true);
             if (room)
             {
                 _negZConnectedRoom = room;
@@ -150,7 +150,7 @@ public class Room : MonoBehaviour
         }
         if (_posXDoor && !_posXConnectedRoom)
         {
-            (bool value, Room room) = CheckCreateNeighbor(false, false);
+            Room room = CheckCreateNeighbor(false, false);
             if (room)
             {
                 _posXConnectedRoom = room;
@@ -159,7 +159,7 @@ public class Room : MonoBehaviour
         }
         if (_negXDoor && !_negXConnectedRoom)
         {
-            (bool value, Room room) = CheckCreateNeighbor(false, true);
+            Room room = CheckCreateNeighbor(false, true);
             if (room)
             {
                 _negXConnectedRoom = room;
@@ -168,7 +168,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    private (bool, Room) CheckCreateNeighbor(bool z, bool neg)
+    private Room CheckCreateNeighbor(bool z, bool neg)
     {
         var m = neg ? -1 : 1;
         var prefab = GetValidRoom(z, neg);
@@ -176,13 +176,13 @@ public class Room : MonoBehaviour
         {
             var room = Instantiate(prefab, transform.parent);
             room.transform.position = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + room._halfRoomSize.x) * m, 0, z ? (_halfRoomSize.y + room._halfRoomSize.y) * m : 0);
-            return (false, room);
+            return room;
         }
         var pos = transform.position + new Vector3(z ? 0 : (_halfRoomSize.x + 1f) * m, -1, z ? (_halfRoomSize.y + 1f) * m : 0);
         
         if (!Physics.CheckBox(pos, Vector3.one * 0.5f, Quaternion.identity, _roomBoundsLayerMask, QueryTriggerInteraction.Collide))
         {
-            return (true, null);
+            return null;
         }
         /*
         foreach (var hit in hitObjs)
@@ -192,7 +192,7 @@ public class Room : MonoBehaviour
             var colRoom = col.transform.parent.GetComponent<Room>();
             if (colRoom && colRoom != this) return colRoom;
         }*/
-        return (false, null);
+        return null;
     }
 
     private Room GetValidRoom(bool z, bool neg)

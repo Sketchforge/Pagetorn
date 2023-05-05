@@ -15,6 +15,8 @@ public class MainMenuController : MonoBehaviour
 	{
 		SetMenuActive(0);
 		SetSelected(_mainMenuFirstSelected);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 	
 	public void QuitGame()
