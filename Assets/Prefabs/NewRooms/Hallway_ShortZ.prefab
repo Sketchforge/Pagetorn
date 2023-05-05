@@ -516,6 +516,7 @@ MonoBehaviour:
   _roomHeight: 30
   _halfRoomSize: {x: 5, y: 20}
   _randomRotation: 1
+  _hallway: 1
   _doorHeight: 2.5
   _doorWidth: 1.5
   _posZDoor: 1

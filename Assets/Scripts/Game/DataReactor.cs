@@ -190,7 +190,7 @@ public class DataReactor : MonoBehaviour
           //    GameManager.Data.bIsHostile = false;
           //}
 
-        if (totalTimePassed >= MAX_TIME_TIL_LIBRARIAN && !calledLibrarianSpawnEvent)
+        if (totalTimePassed >= MAX_TIME_TIL_LIBRARIAN && !calledLibrarianSpawnEvent && !GameManager.Data.CurrentRoom.Hallway)
         {
             Debug.Log("Spawned Librarian");
 

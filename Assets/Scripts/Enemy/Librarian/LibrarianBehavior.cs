@@ -138,17 +138,14 @@ public class LibrarianBehavior : EnemyBase
 
     public void Teleport()
     {
+        if (GameManager.Data.CurrentRoom.Hallway) return;
         _currentRoom = GameManager.Data.CurrentRoom;
         var room = GameManager.Data.CurrentRoom;
-        if ((room.HalfRoomSize.x * 2)> 15 && (room.HalfRoomSize.y * 2) > 15)
-        {
-            float x = (room.HalfRoomSize.x - 4) * (Random.value > 0.5f ? 1 : -1);
-            float z = (room.HalfRoomSize.y - 4) * (Random.value > 0.5f ? 1 : -1);
-            transform.position = room.transform.position + new Vector3(x, 0, z);
-            _agent.Warp(room.transform.position + new Vector3(x, 0, z));
-            Debug.Log(transform.position);
-        }
-    
+        float x = (room.HalfRoomSize.x - 4) * (Random.value > 0.5f ? 1 : -1);
+        float z = (room.HalfRoomSize.y - 4) * (Random.value > 0.5f ? 1 : -1);
+        transform.position = room.transform.position + new Vector3(x, 0, z);
+        _agent.Warp(room.transform.position + new Vector3(x, 0, z));
+        Debug.Log(transform.position);
     }
 
     public void Disappear()

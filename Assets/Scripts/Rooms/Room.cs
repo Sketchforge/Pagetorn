@@ -16,6 +16,7 @@ public class Room : MonoBehaviour
     [SerializeField] private float _roomHeight = 10;
     [SerializeField] private Vector2 _halfRoomSize = new Vector2(10, 10);
     [SerializeField] private RandomRoomRotation _randomRotation = RandomRoomRotation.Any;
+    [SerializeField] private bool _hallway;
 
     [Header("Door Settings")]
     [SerializeField] private float _doorHeight = 4;
@@ -48,7 +49,7 @@ public class Room : MonoBehaviour
 
     public float RoomHeight => _roomHeight;
     public Vector2 HalfRoomSize => _halfRoomSize;
-
+    public bool Hallway => _hallway;
 
     private void Awake()
     {
