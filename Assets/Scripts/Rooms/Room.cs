@@ -87,7 +87,6 @@ public class Room : MonoBehaviour
 	
 	private void SetDoorActive(int door, bool active)
 	{
-        Debug.Log(gameObject + ": " + door + " (" +  active + ")");
 		switch (door)
 		{
 		case 0:
