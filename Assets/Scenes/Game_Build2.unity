@@ -5539,12 +5539,12 @@ MonoBehaviour:
   _librarianRef: {fileID: 0}
   _aiManager: {fileID: 1796935011}
   _playerStats: {fileID: 11400000, guid: 4d163cf731fa3904d8d2c5bc03c0b2b8, type: 2}
-  MAX_DISTANCE: 200
+  MAX_DISTANCE: 1000
   MAX_TIME: 0
   MAX_TIME_STOOD_STILL: 100
   MAX_MELEEATTACKS: 20
   MAX_ROOMS_FOUND: 10
-  MAX_TIME_TIL_LIBRARIAN: 5
+  MAX_TIME_TIL_LIBRARIAN: 40
   MAX_FOCUS_LIBRARIAN_AGGRO: 10
   _eventFog: {fileID: 11400000, guid: 83a7290029ed24849b7a0590cd7b80d8, type: 2}
   _eventDarken: {fileID: 11400000, guid: 1667b39483b6ae04fb6785243d93c513, type: 2}
