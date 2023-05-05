@@ -12,32 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02301c0b050122245a3c9bd410e7894b, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  NumberKnowledgePointsGathered: 0
-  NumberDistanceWalked: 0
-  NumberDistanceRun: 0
-  AmountTimeStoodStill: 0
-  NumberMeleeAttacksDone: 0
-  NumberSpellsDone: 0
-  NumberItemsCollected: 0
-  NumberBooksCollected: 0
-  NumberRoomsFound: 0
-  NumberMonstersKilled: 0
-  NumberTimesHitLibrarian: 0
-  focusTime: 0
-  pupilDilation: 0
-  mouthQuiver: 0
-  eyesClosed: 0
-  totalTime: 0
-  TimesWalkedLargeDistances: 0
-  bWalksLargeDistances: 0
-  NumberMonstersKilledLastHour: 0
-  bKillsLotsOfMonsters: 0
-  NumberSpellsDoneLastMinute: 0
-  bUsesSpellsOften: 0
-  bCollectsLotsofBooks: 0
-  bExploresLotsOfRooms: 0
-  bIsHostile: 0
-  bStandsStillALot: 0
-  bUsesMeleeALot: 0
-  currentRoom: {fileID: 0}
-  _chaseThemePlaying: 0
+  <NumberKnowledgePointsGathered>k__BackingField: 0
+  <NumberDistanceWalked>k__BackingField: 0
+  <NumberDistanceRun>k__BackingField: 0
+  <AmountTimeStoodStill>k__BackingField: 0
+  <NumberMeleeAttacksDone>k__BackingField: 0
+  <NumberSpellsDone>k__BackingField: 0
+  <NumberItemsCollected>k__BackingField: 0
+  <NumberBooksCollected>k__BackingField: 0
+  <NumberRoomsFound>k__BackingField: 0
+  <NumberMonstersKilled>k__BackingField: 0
+  <NumberTimesHitLibrarian>k__BackingField: 0
+  <FocusTime>k__BackingField: 0
+  <PupilDilation>k__BackingField: 0
+  <MouthQuiver>k__BackingField: 0
+  <EyesClosed>k__BackingField: 0
+  <TotalTime>k__BackingField: 0
+  <TimesWalkedLargeDistances>k__BackingField: 0
+  <BWalksLargeDistances>k__BackingField: 0
+  <NumberMonstersKilledLastHour>k__BackingField: 0
+  <BKillsLotsOfMonsters>k__BackingField: 0
+  <NumberSpellsDoneLastMinute>k__BackingField: 0
+  <BUsesSpellsOften>k__BackingField: 0
+  <BCollectsLotsOfBooks>k__BackingField: 0
+  <BExploresLotsOfRooms>k__BackingField: 0
+  <BIsHostile>k__BackingField: 0
+  <BStandsStillALot>k__BackingField: 0
+  <BUsesMeleeALot>k__BackingField: 0
+  <CurrentRoom>k__BackingField: {fileID: 0}
+  <ChaseThemePlaying>k__BackingField: 0
+  <MonstersWatchingPlayer>k__BackingField: []
