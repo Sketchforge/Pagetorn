@@ -36,7 +36,7 @@ public class SpellManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Spell Manager is active");
+        //Debug.Log("Spell Manager is active");
 
         if (_data.IsTimed == true)
             Timer(_data.Duration);
@@ -98,7 +98,7 @@ public class SpellManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) // TODO: should objects deal damage here, hone in from range, or use the same range/attack spheres as the AI?
     {
-        Debug.Log("Spell hit something");
+        //Debug.Log("Spell hit something");
         EnemyBase enemy = other.GetComponent<EnemyBase>();
 
         if (enemy != null)
@@ -106,19 +106,20 @@ public class SpellManager : MonoBehaviour
             Targetable _targetable = enemy.GetComponent<Targetable>();
             if (_targetable.Type != TargetableType.Witch)
             {
-                if (other.GetComponent<EnemyBase>())
-                {
-                    other.GetComponent<EnemyBase>().GetComponent<Health>().Damage(_data.Damage);
-                    Destroy(gameObject);
-                }
-                else if (_targetable.Type == TargetableType.Witch)
-                {
-                    if (!_theDataReactor) _theDataReactor = FindObjectOfType<DataReactor>();
+                Health enemyHealth = enemy.GetComponent<Health>();
+                //Debug.Log("Spell hit enemy. Before hit: " + enemyHealth.health);
+                enemyHealth.Damage(_data.Damage);
+                //Debug.Log("After hit: " + enemyHealth.health);
+                Destroy(gameObject);
+            }
+            else if (_targetable.Type == TargetableType.Witch)
+            {
+                //Debug.Log("Spell hit librarian");
+                if (!_theDataReactor) _theDataReactor = FindObjectOfType<DataReactor>();
 
-                    else if (_theDataReactor) _theDataReactor.ForceTeleportLibrarian(true);
+                if (_theDataReactor) _theDataReactor.ForceTeleportLibrarian(true);
 
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
         }
 

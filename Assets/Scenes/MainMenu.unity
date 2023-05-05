@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e2cb0e6a3ded041b5f1c00d91d8bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuMusic: {fileID: 11400000, guid: 71b9680ff4fb1074f9d9f40b9eeb712e, type: 2}
+  _mainMenuMusic: {fileID: 11400000, guid: 3b0d7eefb4ef93e43be304a2991ab938, type: 2}
   _mainMenuCanvas: {fileID: 1029582068}
   _optionsCanvas: {fileID: 1415091613}
   _mainMenuFirstSelected: {fileID: 1455943627}

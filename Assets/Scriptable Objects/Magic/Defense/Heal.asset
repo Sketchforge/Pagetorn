@@ -19,7 +19,7 @@ MonoBehaviour:
     Heals the player for 15% HP.
 
     Level
-    1 spell.'
+    2 spell.'
   _sprite: {fileID: 21300000, guid: f3b6bc0ef8cf80341b31b646662e5b6c, type: 3}
   _canStack: 1
   _stackAmount: 99

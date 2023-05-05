@@ -114,25 +114,22 @@ public abstract class EnemyBase : MonoBehaviour
         if (!_hasTarget && _target != null)
         {
             _hasTarget = true;
-        } 
-        if (_target)
+        }
+        if (_health.health <= 0)
         {
-            if (_health.health <= 0)
+            Log("Died");
+            if (_target && _target.Type == TargetableType.Player)
             {
-                Log("Died");
-                if (_target.Type == TargetableType.Player)
-                {
-                    GameManager.Data.NumberMonstersKilled++;
-                    GameManager.Data.NumberMonstersKilledLastHour++;
-                }
-
-                for (int i = 0; i < _data.Loot.Capacity; i++)
-                {
-                    var obj = Instantiate(_data.Loot[i], gameObject.transform.position, Quaternion.identity);
-                    obj.name += " - " + name + " " + i;
-                }
-                Die();
+                GameManager.Data.NumberMonstersKilled++;
+                GameManager.Data.NumberMonstersKilledLastHour++;
             }
+
+            for (int i = 0; i < _data.Loot.Capacity; i++)
+            {
+                var obj = Instantiate(_data.Loot[i], gameObject.transform.position, Quaternion.identity);
+                obj.name += " - " + name + " " + i;
+            }
+            Die();
         }
         
         OnUpdate();
