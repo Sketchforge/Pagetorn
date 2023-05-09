@@ -462,6 +462,28 @@
                 },
                 {
                     "name": "",
+                    "id": "54c1dfc8-b835-4443-bea6-fca46f2bfe72",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "016bbd00-9aef-4bee-803b-6617082c91aa",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7b007b85-2432-4abe-9f8e-d40df1a1212d",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -473,11 +495,33 @@
                 },
                 {
                     "name": "",
+                    "id": "d80a12ad-85fc-4422-a796-6c7c73b56add",
+                    "path": "<XInputController>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "235cd44a-7abc-4e66-9ed3-ef52fbc25196",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e9e8c36-5fd3-4b91-953a-b0e6adb3bd0d",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false

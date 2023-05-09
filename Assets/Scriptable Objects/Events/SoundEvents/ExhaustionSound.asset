@@ -16,10 +16,9 @@ MonoBehaviour:
     UseClip: 1
     Clip: {fileID: 8300000, guid: 0cc4236bdfbd7204f9153a56cf2f0783, type: 3}
     Base: {fileID: 0}
-  _clipStartOffset: 0
   _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 0.303
-  _pitch: 0.89
+  _volume: 0.717
+  _pitch: 0.82
   _stereoPan: 0
   _reverbZoneMix: 1
   _priority: 128

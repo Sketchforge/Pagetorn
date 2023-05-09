@@ -1,5 +1,6 @@
 using System.Collections;
 using CoffeyUtils;
+using CoffeyUtils.Sound;
 using UnityEngine;
 
 public class DataReactor : MonoBehaviour
@@ -12,7 +13,7 @@ public class DataReactor : MonoBehaviour
 
     [SerializeField] LibrarianBehavior _librarianRef;
     [SerializeField] AIManager _aiManager;
-
+    [SerializeField] AudioMixerController _audioMixer;
     [SerializeField] Survival _playerStats;
 
     [Header("Max Fields")]
@@ -56,6 +57,9 @@ public class DataReactor : MonoBehaviour
     bool calledScare1 = false;
     bool calledScare2 = false;
     bool calledWhispers1 = false;
+    bool calledHurtReaction = false;
+    bool calledHungerReaction = false;
+    bool calledHydrationReaction = false;
     int amountTimesScare1 = 0;
 
     private void Awake()
@@ -63,6 +67,8 @@ public class DataReactor : MonoBehaviour
         _musicCalm.ActivateEvent();
 
         if (!_playerStats) _playerStats = FindObjectOfType<Survival>();
+
+        if (!_audioMixer) _audioMixer = FindObjectOfType<AudioMixerController>();
 
         //SessionLicense sessionLicense = new SessionLicense("a34e698a-e959-4f23-9c6d-f9e92f23aa16", "gcpkIKqvJJJPpfZal3vdPPIucbx5OVlpgYzzM1ZG4XSPEEZ2U26mSHRKJkKv29xs", LicensingModel.Rev_Share, Application.isEditor);
         //
@@ -212,11 +218,13 @@ public class DataReactor : MonoBehaviour
         }
 
         //SCARE 2//
-        if ((GameManager.Data.BExploresLotsOfRooms || totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/3) && !calledScare2)
+        if (GameManager.Data.BExploresLotsOfRooms || ((totalTimePassed >= MAX_TIME_TIL_LIBRARIAN/3) && !_librarianRef))
         {
-            _eventFog.ActivateEvent(ResetScare2);
-            _noiseLowBoom.Play();
-            calledScare2 = true;
+            if (!calledScare2)
+            {
+                StartCoroutine(LowBoomScare());
+                calledScare2 = true;
+            } 
         }
         //|| totalTimePassed >= MAX_TIME_TIL_LIBRARIAN - 3
 
@@ -239,35 +247,45 @@ public class DataReactor : MonoBehaviour
 
         #region Stat Responses
 
-        if (_playerStats.IsStatLow(SurvivalStatEnum.Health))
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Health) && !calledHurtReaction)
         {
-            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+            _eventHurtVignette.ActivateEvent(ResetStatReaction);
             if (!_heartbeatIsPlaying)
             {
                 _noiseHeartbeat.ActivateEvent(ResetHeartbeat);
                 _heartbeatIsPlaying = true;
             }
+            calledHurtReaction = true;
         }
-        if (_playerStats.IsStatLow(SurvivalStatEnum.Hunger))
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Hunger) && !calledHungerReaction)
         {
-            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
+            _eventHurtVignette.ActivateEvent(ResetStatReaction);
             PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, 0.001f);
             if (!_heartbeatIsPlaying)
             {
                 _noiseExhaustion.Play();
                 _heartbeatIsPlaying = true;
             }
+            calledHungerReaction = true;
         }
-        if (_playerStats.IsStatLow(SurvivalStatEnum.Hydration))
+        if (_playerStats.IsStatLow(SurvivalStatEnum.Hydration) )
         {
-            _eventHurtVignette.ActivateEvent(ResetHeartbeat);
-            _eventDarken.ActivateEvent();
             PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, 0.01f);
+            if (!calledHydrationReaction)
+            {
+                _audioMixer.SetMusicVolume(0.1f, false, true);
+                _eventHurtVignette.ActivateEvent(ResetStatReaction);
+                _eventDarken.ActivateEvent();
+                calledHydrationReaction = true;
+            }
+
             if (!_heartbeatIsPlaying)
             {
                 _noiseExhaustion.Play();
                 _heartbeatIsPlaying = true;
             }
+
+           
         }
 
 
@@ -330,13 +348,23 @@ public class DataReactor : MonoBehaviour
         _heartbeatIsPlaying = false;
     }
 
+    private void ResetStatReaction()
+    {
+
+        _audioMixer.ResetMusicVolume(true);
+        calledHungerReaction    = false;
+        calledHungerReaction    = false;
+        calledHydrationReaction = false;
+
+    }
+
     private IEnumerator CloseScare()
     {
         //Debug.Log("monster sounds nearby");
-
+        _audioMixer.SetMusicVolume(0.3f, false, true);
         //_eventDarken.ActivateEvent();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         PlayerMovementScript _player = FindObjectOfType<PlayerMovementScript>();
         if (_player)
@@ -344,8 +372,31 @@ public class DataReactor : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+
+        //SoundManager.Music.PlayQueuedSong();
         GameManager.Data.AmountTimeStoodStill = 0;
+
+        yield return new WaitForSeconds(20f);
+        _audioMixer.ResetMusicVolume(true);
+        calledScare1 = false;
     }
 
+    private IEnumerator LowBoomScare()
+    {
+        //Debug.Log("monster sounds nearby");
+        _audioMixer.SetMusicVolume(0.3f, false, true);
+        //_eventDarken.ActivateEvent();
+
+        yield return new WaitForSeconds(3f);
+
+        _eventFog.ActivateEvent(ResetScare2);
+        _noiseLowBoom.Play();
+        _noiseLowBoom.Play();
+
+        yield return new WaitForSeconds(10f);
+
+        _audioMixer.ResetMusicVolume(true);
+        //alledScare2 = false;
+    }
 
 }

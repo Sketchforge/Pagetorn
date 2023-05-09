@@ -15,6 +15,11 @@ namespace Game.SoundSystem
         [SerializeField, ReadOnly] private int currentSongIndex = 0; // The index of the currently playing song
         [SerializeField, ReadOnly] private bool changingSong = false;
 
+
+        private void Awake()
+        {
+            SoundManager.StopAllMusic();
+        }
         private void Update()
         {
             if (GameManager.Data.ChaseThemePlaying && GameManager.Data.MonstersWatchingPlayer?.Count <= 0)
@@ -41,8 +46,17 @@ namespace Game.SoundSystem
             // Set the next song to play if no monster watching - these are peaceful songs
             
             SoundManager.PlayMusicNow(_peacefulTracks[currentSongIndex]);
-            _peacefulTracks[currentSongIndex].Play();
-            SoundManager.QueueMusic(_peacefulTracks[currentSongIndex + 1]);
+            //_peacefulTracks[currentSongIndex].Play();
+
+            //if the next song in the index does not reach the end of array, queue it. Otherwise, q the beginning track
+            if (currentSongIndex + 1 < _peacefulTracks.Count)
+            {
+                SoundManager.QueueMusic(_peacefulTracks[currentSongIndex + 1]);
+            }
+            else
+            {
+                SoundManager.QueueMusic(_peacefulTracks[0]);
+            }
 
             // Increase the song index, or loop back to the start if we've reached the end of the array
             currentSongIndex++;
