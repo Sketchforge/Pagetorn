@@ -27,7 +27,7 @@ MonoBehaviour:
   _bypassReverbZones: 0
   _spatial: 1
   _spatialBlend: 1
-  _dopplerLevel: 0
+  _dopplerLevel: 1.32
   _spread: 0
   _rolloffMode: 0
   _minDistance: 1

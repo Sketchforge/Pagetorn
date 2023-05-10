@@ -11072,6 +11072,10 @@ PrefabInstance:
       value: BookDropper (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: throwForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _numberToSpawn
       value: 4
       objectReference: {fileID: 0}
@@ -11094,7 +11098,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
-      objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
+      objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[1]
       value: 
@@ -11321,6 +11325,10 @@ PrefabInstance:
       value: BookDropper
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: throwForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _numberToSpawn
       value: 4
       objectReference: {fileID: 0}
@@ -11343,7 +11351,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[0]
       value: 
-      objectReference: {fileID: 1372186917855193150, guid: e6fb4cc3e9ecd90489327fd00fb0b258, type: 3}
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[1]
       value: 
@@ -11508,8 +11516,12 @@ PrefabInstance:
       value: BookDropper (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: throwForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _numberToSpawn
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _dropRandomItem
@@ -11517,7 +11529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11534,7 +11546,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[1]
       value: 
-      objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[2]
       value: 
@@ -11565,6 +11577,14 @@ PrefabInstance:
       objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[10]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[11]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
@@ -11885,6 +11905,10 @@ PrefabInstance:
       value: BookDropper (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: throwForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _numberToSpawn
       value: 4
       objectReference: {fileID: 0}
@@ -11894,7 +11918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _indexObjectToSpawn
@@ -11911,7 +11935,7 @@ PrefabInstance:
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[1]
       value: 
-      objectReference: {fileID: 5335949647275027712, guid: 17f0ce419335c314ebaefa607c49eb31, type: 3}
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[2]
       value: 
@@ -11942,6 +11966,10 @@ PrefabInstance:
       objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
       propertyPath: _myLoot.Array.data[9]
+      value: 
+      objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
+    - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}
+      propertyPath: _myLoot.Array.data[10]
       value: 
       objectReference: {fileID: 5335949647275027712, guid: a36639b831bcb574e971e30fbf38b593, type: 3}
     - target: {fileID: 7244231907117290378, guid: 667e0fb64da162d43b6b0f6bd94f95a8, type: 3}

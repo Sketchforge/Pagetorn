@@ -16,9 +16,8 @@ MonoBehaviour:
     UseClip: 1
     Clip: {fileID: 8300000, guid: 59b5ebe5d0b85104cb55d182ff150629, type: 3}
     Base: {fileID: 0}
-  _clipStartOffset: 0
   _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 1
+  _volume: 0.48
   _pitch: 0.93
   _stereoPan: 0
   _reverbZoneMix: 1
@@ -28,7 +27,7 @@ MonoBehaviour:
   _bypassReverbZones: 0
   _spatial: 1
   _spatialBlend: 0.473
-  _dopplerLevel: 1
+  _dopplerLevel: 0.22
   _spread: 0
   _rolloffMode: 0
   _minDistance: 1
