@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8866522125329979840}
   - component: {fileID: 2616093993321902221}
   - component: {fileID: 6526150141729328689}
+  - component: {fileID: 7794588837747575639}
   m_Layer: 0
   m_Name: FlameBook_Pickup
   m_TagString: Untagged
@@ -133,3 +134,16 @@ MonoBehaviour:
   _itemSpeed: 4
   _playerTarget: {fileID: 0}
   _distance: 0
+--- !u!114 &7794588837747575639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372186917855193150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838a5a73889488b49a62c77574c8b8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTilDestruction: 30

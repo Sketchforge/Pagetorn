@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f076b068ca141741b9d1666a0324ff5, type: 3}
-  m_Name: SFX_TankWheels 1
+  m_Name: SFX_Glug1
   m_EditorClassIdentifier: 
   _clip:
     UseClip: 1
-    Clip: {fileID: 8300000, guid: ab9e9c0f7e2c21340a94be2f5d8c623e, type: 3}
+    Clip: {fileID: 8300000, guid: da27eebaa4335c44e95775aeaeadf6da, type: 3}
     Base: {fileID: 0}
   _mixerGroup: {fileID: -1789355699155855283, guid: aa71c0a37631a4640ba212e772371453, type: 2}
-  _volume: 0.113
-  _pitch: 0.95
+  _volume: 0.493
+  _pitch: 1
   _stereoPan: 0
   _reverbZoneMix: 1
-  _priority: 232
+  _priority: 150
   _bypassEffects: 0
   _bypassListenerEffects: 0
   _bypassReverbZones: 0
   _spatial: 1
-  _spatialBlend: 1
-  _dopplerLevel: 0
+  _spatialBlend: 0.21
+  _dopplerLevel: 1.33
   _spread: 0
   _rolloffMode: 0
   _minDistance: 1
-  _maxDistance: 16.3
+  _maxDistance: 10
   _customRolloff: 0
   _rolloffCurve:
     serializedVersion: 2

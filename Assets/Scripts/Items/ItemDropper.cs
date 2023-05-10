@@ -28,7 +28,7 @@ public class ItemDropper : PlayerInteractable
         //DropItems();
         if (_collectedItem) return;
 
-        if (_collectionSound != null) _collectionSound.Play();
+        if (_collectionSound != null) _collectionSound.PlayAtPosition(transform.position);
 
         if (_numberToSpawn <= 1)
         {
@@ -63,7 +63,7 @@ public class ItemDropper : PlayerInteractable
         throwDirection = transform.forward + Vector3.up * upwardsModifier;
         for (int i = 0; i <= _numberToSpawn; i++)
         {
-            var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
+            var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1f, 1f), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
             Debug.Log("Instantiated " + lootDropped);
             Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
             _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
@@ -74,7 +74,7 @@ public class ItemDropper : PlayerInteractable
     {
         throwDirection = transform.forward + Vector3.up * upwardsModifier;
         int i = Random.Range(0, _myLoot.Count);
-        var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-2, 2), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
+        var lootDropped = Instantiate(_myLoot[i], new Vector3(_lootContainer.position.x + Random.Range(-1f, 1f), _lootContainer.position.y, _lootContainer.position.z), Quaternion.identity, null);
         Debug.Log("Instantiated " + lootDropped);
         Rigidbody _lootRigidbody = lootDropped.GetComponent<Rigidbody>();
         _lootRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);

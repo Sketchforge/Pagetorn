@@ -1,3 +1,4 @@
+using CoffeyUtils;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pagetorn/Item/Consumable")]
@@ -12,8 +13,11 @@ public class Consumable : Item
     [SerializeField] float hungerChange = 0;
     [SerializeField] float hydrationChange = 0;
 
+    [SerializeField] private SfxReference _useSound;
+
     public void UseItem(InventoryItemSlot slot)
     {
+        if (_useSound != null) _useSound.Play();
         if (affectsHunger)
         {
             PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Hunger, hungerChange);

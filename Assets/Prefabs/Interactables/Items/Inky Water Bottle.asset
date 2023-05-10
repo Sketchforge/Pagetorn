@@ -27,3 +27,7 @@ MonoBehaviour:
   healthChange: -2
   hungerChange: 0
   hydrationChange: 50
+  _useSound:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 11400000, guid: c9f51f915a9ac8b4298c34831b531b07, type: 2}
