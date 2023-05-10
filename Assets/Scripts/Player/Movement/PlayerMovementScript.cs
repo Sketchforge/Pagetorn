@@ -15,7 +15,9 @@ public class PlayerMovementScript : MonoBehaviour
     public float _sprintSpeed = 23f;
     public float _gravity = -9.81f;
     public float _jumpHeight = 3f;
-    [SerializeField] AudioSource slowSteps;
+    [SerializeField] AudioSource footstepsSource;
+    [SerializeField] AudioClip fastStepsClip;
+    [SerializeField] AudioClip slowStepsClip;
 
 
     [Header("Ground Check Settings")]
@@ -181,12 +183,30 @@ public class PlayerMovementScript : MonoBehaviour
                 cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, _defaultYpos + Mathf.Sin(_headbobTimer) *
                     (_isCrouching ? _crouchBobAmount : _isSprinting ? _sprintBobAmount : _walkBobAmount), cam.transform.localPosition.z);
 
-                if (slowSteps != null)
+                if (!_isSprinting)
                 {
-                    slowSteps.volume = Random.Range(0.8f, 1);
-                    slowSteps.pitch = Random.Range(0.8f, 1);
-                    slowSteps.Play();
+                    
+                    if (footstepsSource != null && !footstepsSource.isPlaying)
+                    {
+                        footstepsSource.clip = slowStepsClip;
+                        footstepsSource.volume = Random.Range(0.2f, 0.4f);
+                        footstepsSource.pitch = Random.Range(0.8f, 1);
+                        footstepsSource.Play();
+                    }
                 }
+
+                if (_isSprinting)
+                {
+                    
+                    if (footstepsSource != null && !footstepsSource.isPlaying)
+                    {
+                        footstepsSource.clip = fastStepsClip;
+                        footstepsSource.volume = Random.Range(0.2f, 0.4f);
+                        footstepsSource.pitch = Random.Range(0.8f, 1);
+                        footstepsSource.Play();
+                    }
+                }
+
             }
             else
             {
@@ -198,6 +218,10 @@ public class PlayerMovementScript : MonoBehaviour
         {
             cam.transform.localPosition = new Vector3(cam.localPosition.x, Mathf.Lerp(cam.localPosition.y, _defaultYpos, 8 * Time.deltaTime), cam.localPosition.z);
             _headbobTimer = 0;
+            if (footstepsSource != null && footstepsSource.isPlaying)
+            {
+                footstepsSource.Stop();
+            }
         }
     }
 

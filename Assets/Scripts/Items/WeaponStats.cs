@@ -20,6 +20,7 @@ public class WeaponStats : MonoBehaviour
             if (_targetable.Type != TargetableType.Witch)
             {
                 enemy.GetComponent<Health>().Damage(damage);
+                enemy._impactParticles.Play();
                 Vector3 knockDir = transform.position - other.transform.position;
                 knockDir.y = 0;
                 enemy.KnockBack(knockback, knockDir.normalized);

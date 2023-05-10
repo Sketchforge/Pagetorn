@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6578a0d803e341a43b2dd01964f8704e, type: 3}
+  m_Name: DamagedEvent
+  m_EditorClassIdentifier: 
+  _chainEvent: {fileID: 0}
+  _affectFog: 0
+  _fogDensity: 1
+  _fogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _switchPostProcessingVolume: 1
+  _profile: {fileID: 11400000, guid: 7acbc65df82cc084b99a4eda6d8feb34, type: 2}
+  _fadeIn:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.9858475
+      outSlope: 1.9858475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.99292374
+      inSlope: 1.9858475
+      outSlope: 1.9858475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 2
+  _fadeOut:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.97484267
+      outSlope: -0.97484267
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.15
+    - serializedVersion: 3
+      time: 0.4916687
+      value: 0.0047302246
+      inSlope: -0.90970343
+      outSlope: -0.90970343
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.116666675
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

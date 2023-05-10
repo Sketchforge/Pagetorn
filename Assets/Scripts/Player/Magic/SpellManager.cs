@@ -19,6 +19,8 @@ public class SpellManager : MonoBehaviour
         spellCollider.radius = data.ActiveRadius;
         spellRB = GetComponent<Rigidbody>();
         spellRB.isKinematic = true;
+
+        if (_data._soundEffect != null) _data._soundEffect.PlayAtParentAndFollow(spellRB.transform);
         //PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.MagicPoints, _data._knowledgePoints/ _data._pageAmount);
 
         if (data.CanHeal)
@@ -45,6 +47,7 @@ public class SpellManager : MonoBehaviour
     public void HealPlayer(float amount)
     {
         PlayerManager.Instance.Survival.Increase(SurvivalStatEnum.Health, amount);
+        if (_data._soundEffect != null) _data._soundEffect.Play();
         Destroy(gameObject);
     }
     public void DamageEnemy(float baseDamage)

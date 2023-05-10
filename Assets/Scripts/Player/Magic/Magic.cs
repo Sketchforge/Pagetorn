@@ -11,6 +11,7 @@ public class Magic : Item
     [SerializeField, ReadOnly] private bool _canAttack;
     [SerializeField, ReadOnly] private bool _canDefend;
     [SerializeField, ReadOnly] private bool _canInstruct;
+    [SerializeField] public SfxReference _soundEffect;
 
     [Header("Magic Type Specifics")]
     // Attack specific

@@ -32,6 +32,10 @@ MonoBehaviour:
   _canAttack: 1
   _canDefend: 0
   _canInstruct: 0
+  _soundEffect:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 11400000, guid: 0f9b6651fb2ebf24a9524aeb50f834a9, type: 2}
   _canDamage: 1
   _damage: 60
   _isProjectile: 1

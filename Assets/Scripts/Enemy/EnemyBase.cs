@@ -32,15 +32,17 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("My Feedback")]
     [SerializeField] protected ParticleSystem _spawnParticles;
-    [SerializeField] protected ParticleSystem _impactParticles;
+    [SerializeField] public ParticleSystem _impactParticles;
     [SerializeField] protected ParticleSystem _attackParticles;
     [SerializeField] protected SfxReference _moveSound;
     [SerializeField] protected SfxReference _idleSound;
     [SerializeField] protected SfxReference _spawnSound;
     [SerializeField] protected SfxReference _impactSound;
+    [SerializeField] protected SfxReference _deathSound;
     [SerializeField] protected SfxReference _attackSound;
 
     [SerializeField] protected SoundEvent _chaseMusic;
+    [SerializeField] protected PostProcessingEvent _damageVignette;
 
     // [SerializeField] public AudioSource _musicPlayer;
     // [SerializeField] public AudioClip _myTheme;
@@ -57,6 +59,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected int distanceToRun = 40;
     private bool _hasTarget;
     protected bool _hasAddedSelfToViewList = false;
+    protected bool calledDead = false;
 
     public virtual EnemyData Data => _data;
 
@@ -127,7 +130,17 @@ public abstract class EnemyBase : MonoBehaviour
                 var obj = Instantiate(_data.Loot[i], gameObject.transform.position, Quaternion.identity);
                 obj.name += " - " + name + " " + i;
             }
-            Die();
+
+            if (!calledDead)
+            {
+                _myAnimator.SetTrigger("Die");
+                //Timer.DelayAction(this, Die, deathLength);//doesnt work, constantly causes forever_spawn bug
+                Die();
+                
+                calledDead = true;
+            }
+
+
         }
         
         OnUpdate();
@@ -165,8 +178,9 @@ public abstract class EnemyBase : MonoBehaviour
         //this.gameObject.SetActive(false);
         if (_aiManager)
             _aiManager.Units.Remove(this);
+        _deathSound.PlayAtPosition(transform.position);
         GameManager.Data.MonstersWatchingPlayer.Remove(this);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     protected void FaceTarget()

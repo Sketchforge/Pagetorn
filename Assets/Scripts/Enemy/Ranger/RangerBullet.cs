@@ -7,6 +7,8 @@ public class RangerBullet : MonoBehaviour
     public float speed = 1f;
     public bool hitPlayer = false;
     public EnemyData parentData;
+    [SerializeField] PostProcessingEvent _damageVignette;
+
     [SerializeField] LayerMask hittable;
 
     [SerializeField]
@@ -58,7 +60,7 @@ public class RangerBullet : MonoBehaviour
             {
                 //is player
                 PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(parentData.AttackDamage / 2, parentData.AttackDamage));
-                
+                _damageVignette.ActivateEvent();
             }
 
             Destroy(gameObject);

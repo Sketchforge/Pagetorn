@@ -261,6 +261,7 @@ public class EnemyTypeCrawler : EnemyBase
                             {
                                 _attackSound.PlayAtPosition(transform.position);
                                 PlayerManager.Instance.Survival.Decrease(SurvivalStatEnum.Health, Random.Range(Data.AttackDamage / 2, Data.AttackDamage)); //switch w/ hitbox and animation later 
+                                _damageVignette.ActivateEvent();
                                 Debug.Log("Hit Player");
                                 _attackTime = Time.time;
                                 TrySetState(CrawlerState.Roaming);
@@ -460,7 +461,7 @@ public class EnemyTypeCrawler : EnemyBase
                 case "CrawlerDamagedAnim":
                     damageLength = clip.length;
                     break;
-                case "CrawlerDieAnim":
+                case "CrawlerDeathAnim":
                     deathLength = clip.length;
                     break;
                 case "CrawlerIdleAnim":
