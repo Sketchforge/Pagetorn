@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10561a3e18d4194f88310d093c3aced, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  _itemName: Mushroom
+  _type: 22
+  _description: A strange mushroom. Looks alive, but edible.
+  _sprite: {fileID: 21300000, guid: 8ba6c8714990c7e4984932bebf9eef1a, type: 3}
+  _canStack: 1
+  _stackAmount: 99
+  _hasHealth: 0
+  _maxHealth: 5
+  _prefabObject: {fileID: 3724817129069655109, guid: de3dc849cf3ec544a9aa184eefba0183, type: 3}
+  affectsHealth: 0
+  affectsHunger: 1
+  affectsHydration: 1
+  healthChange: 0
+  hungerChange: 40
+  hydrationChange: -10
