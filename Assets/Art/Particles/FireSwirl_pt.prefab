@@ -4832,7 +4832,6 @@ GameObject:
   - component: {fileID: 1646756092421521971}
   - component: {fileID: 6736934391227265333}
   - component: {fileID: 6140118441415097087}
-  - component: {fileID: 2220877579462404017}
   m_Layer: 0
   m_Name: Fire_ALPHA_pt
   m_TagString: Untagged
@@ -9634,21 +9633,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2220877579462404017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528433026213499361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189b05a5a50321c468a0ea901b04eaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decalPrefab: {fileID: 7691863162347609517, guid: e0e82e69702012c44aadef839adcee06,
-    type: 3}
-  yOffset: 0
 --- !u!1 &5260494332980299698
 GameObject:
   m_ObjectHideFlags: 0
