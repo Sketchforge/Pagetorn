@@ -21,14 +21,20 @@ MonoBehaviour:
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
+  _prefabObject: {fileID: 0}
   _magicType: 1
   _knowledgePoints: 100
   _pageAmount: 1
   _canAttack: 0
   _canDefend: 1
   _canInstruct: 0
+  _soundEffect:
+    UseClip: 0
+    Clip: {fileID: 0}
+    Base: {fileID: 0}
   _canDamage: 0
   _damage: 1
+  _isProjectile: 0
   _projectileSpeed: 0
   _hasKnockback: 0
   _canHeal: 0
@@ -47,4 +53,4 @@ MonoBehaviour:
   _aoePotency: 1
   _isTimed: 1
   _duration: 50
-  _spellItem: {fileID: 1901118868709632695, guid: 3644268f4e601a840b016ce01bf9208b, type: 3}
+  _spellItem: {fileID: 5678972554523853428, guid: 6e95f1fa5051c1a408d710f5fbac66d1, type: 3}
