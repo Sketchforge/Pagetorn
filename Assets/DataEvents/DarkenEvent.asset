@@ -17,7 +17,7 @@ MonoBehaviour:
   _fogDensity: 1
   _fogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   _switchPostProcessingVolume: 1
-  _profile: {fileID: 11400000, guid: eed1c8b76653bf64aaadf1d12f44b7a9, type: 2}
+  _profile: {fileID: 11400000, guid: b243f06ee8270844886380b03eeac946, type: 2}
   _fadeIn:
     serializedVersion: 2
     m_Curve:
@@ -67,4 +67,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _currDuration: 0

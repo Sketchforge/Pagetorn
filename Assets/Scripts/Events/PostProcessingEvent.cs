@@ -1,5 +1,6 @@
 using CoffeyUtils;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 
 [CreateAssetMenu(menuName = "Pagetorn/Events/PostProcessingEvent")]
@@ -12,7 +13,7 @@ public class PostProcessingEvent : Event
 
     [Header("Post Processing")]
     [SerializeField] private bool _switchPostProcessingVolume;
-    [SerializeField, ShowIf("_switchPostProcessingVolume")] private PostProcessProfile _profile;
+    [SerializeField, ShowIf("_switchPostProcessingVolume")] private VolumeProfile _profile;
 
     [Header("Animations")]
     [SerializeField] private AnimationCurve _fadeIn = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));

@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 
 public class PostProcessingManager : MonoBehaviour
 {
-    [SerializeField] private PostProcessVolume _masterVolume;
-    [SerializeField] private PostProcessVolume _secondaryVolume;
+    [SerializeField] private Volume _masterVolume;
+    [SerializeField] private Volume _secondaryVolume;
 
     private bool _fogEnabled;
     private float _fogDensity;
@@ -57,13 +57,13 @@ public class PostProcessingManager : MonoBehaviour
         }
     }
 
-    public void SetSecondaryVolume(PostProcessProfile profile, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
+    public void SetSecondaryVolume(VolumeProfile profile, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
     {
         if (_volumeRoutine != null) StopCoroutine(_volumeRoutine);
         _volumeRoutine = StartCoroutine(SetSecondaryVolumeRoutine(profile, fadeIn, duration, fadeOut));
     }
 
-    private IEnumerator SetSecondaryVolumeRoutine(PostProcessProfile profile, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
+    private IEnumerator SetSecondaryVolumeRoutine(VolumeProfile profile, AnimationCurve fadeIn, float duration, AnimationCurve fadeOut)
     {
         _secondaryVolume.profile = profile;
         SetWeight(0);
