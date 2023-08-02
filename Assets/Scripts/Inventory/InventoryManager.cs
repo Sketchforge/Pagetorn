@@ -57,6 +57,7 @@ public class InventoryManager : MonoBehaviour
         {
             MovingItem = true;
             if (_heldItemParent) _heldItemParent.gameObject.SetActive(true);
+            //else Debug.LogError($"No held item parent);
             if (_heldItemImage) _heldItemImage.sprite = _heldItem.Sprite;
             if (_heldItemAmountText)
             {

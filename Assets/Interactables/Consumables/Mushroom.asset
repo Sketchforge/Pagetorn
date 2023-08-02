@@ -20,7 +20,7 @@ MonoBehaviour:
   _stackAmount: 99
   _hasHealth: 0
   _maxHealth: 5
-  _prefabObject: {fileID: 3724817129069655109, guid: de3dc849cf3ec544a9aa184eefba0183, type: 3}
+  _prefabObject: {fileID: 5420302607815798383, guid: de3dc849cf3ec544a9aa184eefba0183, type: 3}
   affectsHealth: 0
   affectsHunger: 1
   affectsHydration: 1
